@@ -1,0 +1,17 @@
+/* *{
+    background-color: #333;
+    color: white;
+} */
+main{
+    display: flex;
+}
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+tbody tr:nth-child(even) {
+    background-color: #4C8BF5;
+    color: #fff;
+}
