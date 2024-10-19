@@ -1,0 +1,5 @@
+node_modules
+.vscode
+drizzle
+.history
+.svelte-kit
