@@ -13,9 +13,9 @@ export async function fetchAllRelations() {
     const rel = await db.select().from(relations);
     return rel;
 }
-//TODO: albo wyciągać id - dać to widokowi i niech widok o potrzebne dane bije się do db, by przekazać użytkownikowi takie informacje jakie potrzebuje - dlaczego view miałby mieć dostęp do bazy?
-//TODO: adapter - na wejściu ID, na wyjściu - json z informacjami które potrzebuje w takim formacie w jakim je potrzebuje - osobne metodki, które zwrócą co trzeba
-//TODO: LUB pełen pakiet informacji, niech widok sobie wyciągnie/ albo dać wszystko i zostawić widokowi do pokazania co potrzebuje
+//TODO: get id - give it to view and view ask db for necessary data - which user need  - why view should have connection with db?
+//TODO: adapter - input ID, output - json z informacjami które potrzebuje w takim formacie w jakim je potrzebuje - osobne metodki, które zwrócą co trzeba
+//TODO: LUB pełen pakiet informacji, niech widok sobie wyciągnie/albo dać wszystko i zostawić widokowi do pokazania co potrzebuje
 //paginacja danych - page, podzielenie na paczki - np. 50 osób na stronę
 export async function fetchCharacterRelatedWithSecondCharacter(){
     const characters2 = alias(characters, "characters2")
