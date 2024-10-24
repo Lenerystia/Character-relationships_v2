@@ -1,14 +1,22 @@
 <script lang="ts">
-    import { navigateBetweenPages } from "$lib/scripts/navigate";
+    import Navigate from "../../components/Navigate.svelte";
     import '$lib/scripts/app.css'
+    import type { Character } from "$lib/types/character";
 
-    export let data: { result: any[] };
+    //TODO: Change to right type
+    export let data: { result: Character[] };
     let AllCharacters = data.result;
 
 </script>
 
 <h1>Character List</h1>
 
+//TODO: Throw getting column head from db, add static name for columns
+//TODO: row - change name (to character)
+//TODO: cell - change name to something sensible
+//TODO: field 'status' and field 'data result' - class containing character and status: error code. Then instead 'characters no found' - if, when code is 0 - good = no character, else - db connection failed
+//TODO: Separate page to db conn failed - for no characters - not necessary 
+//TODO This page for debug
 {#if AllCharacters && AllCharacters.length > 0}
     <div>
         <table>
@@ -20,9 +28,9 @@
                 </tr>
             </thead>
             <tbody>
-                {#each AllCharacters as row}
+                {#each AllCharacters as character}
                     <tr>
-                        {#each Object.values(row) as cell}
+                        {#each Object.values(character) as cell}
                             <td>{cell}</td>
                         {/each}
                     </tr>
@@ -34,6 +42,4 @@
     <p>No characters found.</p>
 {/if}
 
-<button name="characters" on:click={navigateBetweenPages}>Characters</button>
-<button name="relations" on:click={navigateBetweenPages}>Relationships</button>
-<button name="character_rel" on:click={navigateBetweenPages}>Characters relationships</button>
+<Navigate />
