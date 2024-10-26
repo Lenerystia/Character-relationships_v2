@@ -1,7 +1,7 @@
 <script lang="ts">
-    import Navigate from "../../components/Navigate.svelte";
+    import Navigate from "$lib/components/Navigate.svelte";
     import '$lib/scripts/app.css'
-    import type { Character } from "$lib/types/character";
+    import type { Character } from "$lib/types/types";
 
     //TODO: Change to right type
     export let data: { result: Character[] };
@@ -16,7 +16,7 @@
 //TODO: cell - change name to something sensible
 //TODO: field 'status' and field 'data result' - class containing character and status: error code. Then instead 'characters no found' - if, when code is 0 - good = no character, else - db connection failed
 //TODO: Separate page to db conn failed - for no characters - not necessary 
-//TODO This page for debug
+//TODO: This page for debug
 {#if AllCharacters && AllCharacters.length > 0}
     <div>
         <table>
