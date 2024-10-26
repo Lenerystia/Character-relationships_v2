@@ -1,8 +1,23 @@
-import { fetchCharacterRelatedWithSecondCharacter } from "$lib/server/db/queries";
+import { fetchAllCharacters, fetchAllRelations } from "$lib/server/db/queries";
 
-export const load = async () => {
-    const result = await fetchCharacterRelatedWithSecondCharacter();
+interface Character {
+    id: number;
+    firstName: string | null;
+    lastName: string | null;
+}
+
+interface Relation {
+    idChar1: number;
+    idChar2: number;
+    about: string | null;
+}
+
+export async function load() {
+    const characters: Character[] = await fetchAllCharacters();
+    const relations: Relation[] = await fetchAllRelations();
+
     return {
-        result
+        characters,
+        relations
     };
-};
+}
