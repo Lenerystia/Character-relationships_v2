@@ -1,8 +1,9 @@
 <script lang="ts">
     import Navigate from "../../lib/components/Navigate.svelte";
     import '$lib/scripts/app.css'
+    import type { Relation } from "$lib/types/types";
 
-    export let data: { result: any[] };
+    export let data: { result: Relation[] };
     let AllRelations = data.result;
 
 </script>
