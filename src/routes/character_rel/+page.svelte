@@ -49,7 +49,7 @@
         </tbody>
     </table>
 {:else}
-    <p>Loading data...</p>
+    <p>Sorry, something wents wrong</p>
 {/if}
 
 <br>
