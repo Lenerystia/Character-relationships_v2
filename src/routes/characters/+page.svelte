@@ -3,7 +3,6 @@
     import '$lib/scripts/app.css'
     import type { Character } from "$lib/types/types";
 
-    //TODO: Change to right type
     export let data: { result: Character[] };
     let AllCharacters = data.result;
 
