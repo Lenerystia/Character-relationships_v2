@@ -1,16 +1,5 @@
 import { fetchAllCharacters, fetchAllRelations } from "$lib/server/db/queries";
-
-interface Character {
-    id: number;
-    firstName: string | null;
-    lastName: string | null;
-}
-
-interface Relation {
-    idChar1: number;
-    idChar2: number;
-    about: string | null;
-}
+import type { Character, Relation } from "$lib/types/types";
 
 export async function load() {
     const characters: Character[] = await fetchAllCharacters();
