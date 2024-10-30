@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Navigate from "../../lib/components/Navigate.svelte";
+    import Navigate from "../../components/Navigate.svelte";
     import '$lib/scripts/app.css'
 
     export let data: { result: any[] };
@@ -33,5 +33,5 @@
 {:else}
     <p>No characters found.</p>
 {/if}
-<br>
+
 <Navigate />

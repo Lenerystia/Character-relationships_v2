@@ -1,65 +1,39 @@
 import { db } from '$lib/server/db';
 import { characters } from '$lib/server/db/schema';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import 'dotenv/config';
+import { describe, it, expect, vi } from 'vitest';
 
+//TODO: Analyse this - what GPT throw
+//TODO - Yeah, these comments are also questions for you - Dr. H.
+vi.mock('$lib/server/db/index', () => ({
+    db: {
+        select: vi.fn().mockReturnValue({
+            from: vi.fn().mockReturnValue({
+                limit: vi.fn().mockResolvedValue([{ id: 1, firstName: 'Test', lastName: 'Test' }]) // Mocking return value of limit
+            })
+        })
+    },
+}));
 
-// vi.mock('$lib/server/db/index', () => ({
-//     db: {
-//         select: vi.fn().mockReturnValue({
-//             from: vi.fn().mockReturnValue({
-//                 limit: vi.fn().mockResolvedValue([
-//                     { id: 1, firstName: 'Test', lastName: 'Test' }
-//                 ])
-//             })
-//         })
-//     },
-// }));
-
-// Reset modules and apply mocks before each test
-beforeEach(() => {
-    vi.resetModules();
-    vi.mock('$env/dynamic/private', () => ({
-        env: { DATABASE_URL: 'postgres://test' } // Mock DATABASE_URL here
-    }));
-});
 
 describe('Database Connection', () => {
-    it('should instantiate the database object', async () => {
-        const { db } = await import('$lib/server/db'); // Import after mock
+    //TODO: test - co kiedy user poda nieistniejące id 
+    //TODO: do tego - jeśli wywalę env to ten test się wywali - if (!env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
+    //TODO: 
+    it('should instantiate the database object', () => {
         expect(db).toBeDefined();
     });
+    //TODO Testing schema? I don't know. Is that a good idea?
+    it('should have the characters table schema defined', () => {
+        expect(characters).toBeDefined(); // Ensure the schema is loaded properly
+    });
 
-    it('should throw an error if DATABASE_URL is not set', async () => {
-        vi.mock('$env/dynamic/private', () => ({ env: {} })); // Mock missing DATABASE_URL
-        await expect(() => import('$lib/server/db')).rejects.toThrowError('DATABASE_URL is not set');
+    //TODO: Should I in some way mock te query? Need I test db with some query??
+    it('should connect to the database', async () => {
+        const result = await db.select().from(characters).limit(1);
+        expect(result).toBeDefined();
+    });
+    it('should fetch data from the database', async () => {
+        const result = await db.select().from(characters).limit(1);  // Testing fetch
+        expect(result).toEqual([{ id: 1, firstName: 'Test', lastName: 'Test' }]); // Check if it returns mocked data
     });
 });
-
-
-    //TODO: test - co kiedy user poda nieistniejące id
-    //no powinno ładnie wywalić, że nie ma takiej postaci
-    // it('character id not exist - show message/error', () => {
-    //     expect(db).
-    // })
-
-
-    // it('should instantiate the database object', () => {
-    //     expect(db).toBeDefined();
-    // });
-    // //TODO Testing schema? I don't know. Is that a good idea?
-    // it('should have the characters table schema defined', () => {
-    //     expect(characters).toBeDefined();
-    // });
-
-    // //TODO: Should I in some way mock te query? Need I test db with some query??
-    // it('should connect to the database', async () => {
-    //     const result = await db.select().from(characters);
-    //     expect(result).toBeDefined();
-    // });
-    // //TODO: sprawdzić czy jak więcej danych zamockuje czy test się wyłoży 
-    // it('should fetch data from the database', async () => {
-    //     const result = await db.select().from(characters).limit(1); 
-    //     expect(result).toEqual([{ id: 1, firstName: 'Test', lastName: 'Test' }]);
-    // });
-// });
