@@ -2,15 +2,13 @@
 	import { page } from '$app/stores';
 	import Navigate from '$lib/components/Navigate.svelte';
 	import '$lib/scripts/app.css';
+	//TODO: Error - when you haven't got relations between your characters
+	//TODO: Error - when you haven't got characters - so you can't have any relations?
 </script>
 
 {#if $page.status === 404}
 	<h1>{$page.status}: {$page.error?.message}</h1>
-	<p>We're sorry, but we couldn't find the character you were looking for.</p>
-{/if}
-{#if $page.status === 400}
-	<h1>{$page.status}: {$page.error?.message}</h1>
-	<p>You, can't to do this.</p>
+	<p>We're sorry, but... it looks like you don't have any relations!</p>
 {/if}
 
 <p>Come back!</p>
