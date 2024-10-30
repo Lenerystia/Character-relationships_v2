@@ -1,38 +1,35 @@
 <script lang="ts">
-    import Navigate from "../../lib/components/Navigate.svelte";
-    import '$lib/scripts/app.css'
-    import type { Relation } from "$lib/types/types";
+	import Navigate from '../../lib/components/Navigate.svelte';
+	import '$lib/scripts/app.css';
+	import type { Relation } from '$lib/types/types';
 
-    export let data: { result: Relation[] };
-    let AllRelations = data.result;
-
+	export let data: { relations: Relation[] };
+	let relations = data.relations;
 </script>
 
-<h1>Character List</h1>
+<h1>Relationship List</h1>
 
-{#if AllRelations && AllRelations.length > 0}
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    {#each Object.keys(AllRelations[0]) as colHead}
-                        <th>{colHead}</th>
-                    {/each}
-                </tr>
-            </thead>
-            <tbody>
-                {#each AllRelations as row}
-                    <tr>
-                        {#each Object.values(row) as cell}
-                            <td>{cell}</td>
-                        {/each}
-                    </tr>
-                {/each}
-            </tbody>
-        </table>
-    </div>
-{:else}
-    <p>No characters found.</p>
-{/if}
-<br>
+<div>
+	<table>
+		<thead>
+			<tr>
+				<th>Relationship ID</th>
+				<th>ID First Character</th>
+				<th>ID Second Character</th>
+				<th>About Relation</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each relations as relation}
+				<tr>
+					{#each Object.values(relation) as cell}
+						<td>{cell}</td>
+					{/each}
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+</div>
+
+<br />
 <Navigate />
