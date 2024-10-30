@@ -7,5 +7,5 @@
     let character = data.result[0];
 </script>
 
-    <h1>Test postać: {characterId}</h1>
-    <h2>Postać {character.firstName} {character.lastName}</h2>
+    <h1>Test character: {characterId}</h1>
+    <h2>Character: {character.firstName} {character.lastName}</h2>

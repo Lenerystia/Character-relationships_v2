@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from "$app/stores";
 	import Navigate from "$lib/components/Navigate.svelte";
+    import '$lib/scripts/app.css'
 </script>
 
 {#if $page.status === 404}
