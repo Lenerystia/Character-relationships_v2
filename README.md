@@ -1,7 +1,7 @@
 # Character_relationships
-# How to run
+## How to run
 
-## Developing
+### Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
@@ -24,24 +24,32 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
-## Run database and connect
+### Run database and connect
 
 ```bash
 db:start - to start the docker container
+db:migrate
 ```
+OR
 
-# About app
+Go to package.json and right click on script and run script.
 
-Small project drawing relationships between characters
+#### Linux 
+When you use Linux and IDE like Code or WebStorm - like above - run script from IDE.
 
-Now is very simple version
+#### ENV
+.env - use .env.example - and change or leave default login credentials.
 
-Data about characters and relationships is pulling from database Postgres
+## About app
+
+Small project drawing relationships between characters.
+
+Now is very simple version.
 
 Now looks like:
 ![obraz](https://github.com/Lenerystia/Character_relationships/assets/77778018/3323fdc4-c610-4402-a7c8-72aa5ab2a50d)
 
-## Roadmap
+### Roadmap
 
 - forms to add characters and relationships
 - editing characters and relationships
