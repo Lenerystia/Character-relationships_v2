@@ -12,39 +12,53 @@
 
 	let characters = data.characters;
 	let relations = data.relations;
-	let diag: string = '';
+
 	// Helper functions
 	function getRelationsForCharacter(characterId: number): Relation[] {
 		return relations.filter((rel: Relation) => rel.idChar1 === characterId);
 	}
+
 	function getRelatedCharacter(relatedCharacterId: number): Character[] {
 		return characters.filter((char: Character) => char.id === relatedCharacterId);
 	}
 
-	for (let i = 0; i < relations.length; i++) {
-		const firstCharName = relations[i]['idChar1'];
-		const secondCharName = relations[i]['idChar2'];
-		const relShip = relations[i]['about'];
-		diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
+	function getCharacterName(characterId: number): string {
+		const character = characters.find((char) => char.id === characterId);
+		return character
+			? `${character.firstName ?? 'Unknown'} ${character.lastName ?? 'Unknown'}`
+			: 'Unknown';
+	}
+
+	function drawGraph() {
+		let diag = '';
+		for (let i = 0; i < relations.length; i++) {
+			const firstCharName = getCharacterName(relations[i].idChar1);
+			const secondCharName = getCharacterName(relations[i].idChar2);
+			const relShip = relations[i].about;
+			diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
+		}
+		graphviz('#graph').renderDot('digraph {' + diag + '}');
 	}
 
 	onMount(() => {
-		graphviz('#graph').renderDot('digraph {' + diag + '}');
+		drawGraph();
 	});
 </script>
 
 <main>
-	<h1>Relations between character</h1>
-	<div>
-		<table>
-			<thead>
+	<div id="left">
+		<h1>Relations between character</h1>
+		<Navigate />
+		<div>
+			<table>
+				<thead>
 				<tr>
 					<th>Character Name</th>
 					<th>Related Character</th>
 					<th>About Relationship</th>
 				</tr>
-			</thead>
-			<tbody>
+				</thead>
+				<tbody>
 				{#each characters as character}
 					{#each getRelationsForCharacter(character.id) as relation}
 						<tr>
@@ -62,13 +76,11 @@
 						</tr>
 					{/each}
 				{/each}
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div id="svg">
 		<svg id="graph" width="1050px" height="1000px" />
 	</div>
-
-	<br />
-	<Navigate />
 </main>
