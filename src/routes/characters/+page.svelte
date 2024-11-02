@@ -6,9 +6,6 @@
 	export let data: { characters: Character[] };
 	let characters = data.characters;
 	//TODO: cell - change name to something sensible
-	//TODO: field 'status' and field 'data result' - class containing character and status: error code. Then instead 'characters no found' - if, when code is 0 - good = no character, else - db connection failed
-	//TODO: Separate error page to db conn failed - for no characters - not necessary
-	//TODO: This page for debug
 </script>
 
 <h1>Character List</h1>
