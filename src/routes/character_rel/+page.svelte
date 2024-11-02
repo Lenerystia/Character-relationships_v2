@@ -3,7 +3,7 @@
 	import '$lib/scripts/app.css';
 	import type { Character, Relation } from '$lib/types/types';
 	import { onMount } from 'svelte';
-	import { graphviz } from 'd3-graphviz';
+	import { drawGraph } from '$lib/scripts/graphUtils';
 
 	export let data: {
 		characters: Character[];
@@ -22,26 +22,8 @@
 		return characters.filter((char: Character) => char.id === relatedCharacterId);
 	}
 
-	function getCharacterName(characterId: number): string {
-		const character = characters.find((char) => char.id === characterId);
-		return character
-			? `${character.firstName ?? 'Unknown'} ${character.lastName ?? 'Unknown'}`
-			: 'Unknown';
-	}
-
-	function drawGraph() {
-		let diag = '';
-		for (let i = 0; i < relations.length; i++) {
-			const firstCharName = getCharacterName(relations[i].idChar1);
-			const secondCharName = getCharacterName(relations[i].idChar2);
-			const relShip = relations[i].about;
-			diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
-		}
-		graphviz('#graph').renderDot('digraph {' + diag + '}');
-	}
-
 	onMount(() => {
-		drawGraph();
+		drawGraph(relations, characters);
 	});
 </script>
 
