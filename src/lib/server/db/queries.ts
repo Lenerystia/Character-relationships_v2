@@ -4,21 +4,18 @@ import { eq } from 'drizzle-orm';
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 export async function fetchAllCharacters() {
-	const chars = await db.select().from(characters).orderBy(characters.id);
-	return chars;
+	return db.select().from(characters).orderBy(characters.id);
 }
 
 export async function fetchAllRelations() {
-	const rel = await db.select().from(relations).orderBy(relations.id);
-	return rel;
+	return db.select().from(relations).orderBy(relations.id);
 }
 
 export async function fetchCharacterTest(
 	db: PostgresJsDatabase<Record<string, never>>,
 	compared: number
 ) {
-	const char = await db.select().from(characters).where(eq(characters.id, compared));
-	return char;
+	return db.select().from(characters).where(eq(characters.id, compared));
 }
 export async function fetchCharacter(compared: number) {
 	return fetchCharacterTest(db, compared);
