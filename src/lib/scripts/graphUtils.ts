@@ -1,5 +1,4 @@
 import { graphviz } from 'd3-graphviz';
-//TODO: wdg GPT mogę zrobić 'npm install --save-dev @types/d3-graphviz', bo krzyczy o any
 import type { Character, Relation } from '$lib/types/types';
 
 function getCharacterName(characterId: number, characters: Character[]): string {
