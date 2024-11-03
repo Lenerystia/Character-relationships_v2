@@ -20,3 +20,13 @@ export async function fetchCharacterTest(
 export async function fetchCharacter(compared: number) {
 	return fetchCharacterTest(db, compared);
 }
+
+export async function deleteCharacterById(id: number) {
+	try {
+		await db.delete(characters).where(eq(characters.id, id));
+		return true;
+	} catch (error) {
+		console.error("Error deleting character:", error);
+		return false;
+	}
+}
