@@ -46,9 +46,6 @@ Small project drawing relationships between characters.
 
 Now is very simple version.
 
-Now looks like:
-![obraz](https://github.com/Lenerystia/Character_relationships/assets/77778018/3323fdc4-c610-4402-a7c8-72aa5ab2a50d)
-
 ### Roadmap
 
 - forms to add characters and relationships
