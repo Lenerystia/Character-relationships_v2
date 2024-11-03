@@ -1,26 +1,21 @@
-import { db } from '$lib/server/db'; // Make sure your database connection is set up here
+import { db } from '$lib/server/db';
 import { characters } from '$lib/server/db/schema';
-import type { RequestHandler } from '@sveltejs/kit';
+import { error, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request }: { request: Request }) => {
-	try {
-		const data = await request.formData();
-		const firstName = data.get('firstName') as string;
-		const lastName = data.get('lastName') as string;
+		const formData = await request.formData();
+		const firstName = formData.get('firstName') as string;
+		const lastName = formData.get('lastName') as string;
 
 		if (!firstName || !lastName) {
-			return new Response('Missing character name', { status: 400 });
+			throw error(400, { message: 'Missing character name' });
 		}
-
-		// Insert into database
+		//TODO: One any properties is required - whatever which one
+		
 		await db.insert(characters).values({
 			firstName,
-			lastName,
+			lastName
 		});
 
 		return new Response('Character added successfully', { status: 200 });
-	} catch (error) {
-		console.error(error);
-		return new Response('Error adding character', { status: 500 });
-	}
 };
