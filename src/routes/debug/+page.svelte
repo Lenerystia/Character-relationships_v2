@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Navigate from '$lib/components/Navigate.svelte';
 	import '$lib/scripts/app.css';
-	import type { Character } from '$lib/types/types';
+	import type { TCharacter } from '$lib/types/types';
 
-	export let data: { result: Character[] };
+	export let data: { result: TCharacter[] };
 	let AllCharacters = data.result;
 </script>
 
@@ -32,5 +31,3 @@
 {:else}
 	<p>No characters found.</p>
 {/if}
-
-<Navigate />

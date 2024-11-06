@@ -1,8 +1,8 @@
 import { fetchAllCharacters } from '$lib/server/db/queries';
-import type { Character } from '$lib/types/types';
+import type { TCharacter } from '$lib/types/types';
 
 export const load = async () => {
-	const characters: Character[] = await fetchAllCharacters();
+	const characters: TCharacter[] = await fetchAllCharacters();
 	return {
 		characters
 	};

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Navigate from '../../lib/components/Navigate.svelte';
 	import '$lib/scripts/app.css';
-	import type { Relation } from '$lib/types/types';
+	import type { TRelation } from '$lib/types/types';
 
-	export let data: { relations: Relation[] };
+	export let data: { relations: TRelation[] };
 	let relations = data.relations;
 </script>
 
@@ -32,4 +31,4 @@
 </div>
 
 <br />
-<Navigate />
+

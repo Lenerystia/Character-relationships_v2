@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Navigate from '$lib/components/Navigate.svelte';
 	import '$lib/scripts/app.css';
 	//TODO: Error - when you haven't got relations between your characters
 	//TODO: Error - when you haven't got characters - so you can't have any relations?
@@ -12,4 +11,3 @@
 {/if}
 
 <p>Come back!</p>
-<Navigate />
