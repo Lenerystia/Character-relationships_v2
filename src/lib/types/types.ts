@@ -1,10 +1,10 @@
-export type Character = {
+export type TCharacter = {
     id: number;
-    firstName: string | null;
-    lastName: string | null;
+    firstName: string;
+    lastName: string;
 }
-export type Relation = {
+export type TRelation = {
     idChar1: number;
     idChar2: number;
-    about: string | null;
+    about: string;
 }
