@@ -1,36 +1,34 @@
 <script lang="ts">
-	import Navigate from '../../lib/components/Navigate.svelte';
 	import '$lib/scripts/app.css';
-	import type { Character, Relation } from '$lib/types/types';
+	import type { TCharacter, TRelation } from '$lib/types/types';
 	import { onMount } from 'svelte';
-	import { drawGraph } from '$lib/scripts/graphUtils';
 
 	export let data: {
-		characters: Character[];
-		relations: Relation[];
+		characters: TCharacter[];
+		relations: TRelation[];
 	};
+	//TODO Kiedy mam obiekt, mam zestaw metod - spróbować przekonwertować do obiektów i używać gdzie trzeba, ucieczka na froncie z DB
 
 	let characters = data.characters;
 	let relations = data.relations;
 
 	// Helper functions
-	function getRelationsForCharacter(characterId: number): Relation[] {
-		return relations.filter((rel: Relation) => rel.idChar1 === characterId);
+	function getRelationsForCharacter(characterId: number): TRelation[] {
+		return relations.filter((rel: TRelation) => rel.idChar1 === characterId);
 	}
 
-	function getRelatedCharacter(relatedCharacterId: number): Character[] {
-		return characters.filter((char: Character) => char.id === relatedCharacterId);
+	function getRelatedCharacter(relatedCharacterId: number): TCharacter[] {
+		return characters.filter((char: TCharacter) => char.id === relatedCharacterId);
 	}
 
-	onMount(() => {
-		drawGraph(relations, characters);
-	});
+	// onMount(() => {
+	// 	drawGraph(relations, characters);
+	// });
 </script>
 
 <main>
 	<div id="left">
 		<h1>Relations between character</h1>
-		<Navigate />
 		<div>
 			<table>
 				<thead>
