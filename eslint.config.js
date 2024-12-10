@@ -63,51 +63,22 @@ export default antfu({
 		'style/object-curly-spacing': ['error', 'always'],
 		'style/padded-blocks': ['error', 'never', { allowSingleLineBlocks: true }],
 		'style/quote-props': ['error', 'consistent-as-needed'],
-		'style/quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: false }],
+		'style/quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }], // TODO sprawdzić
 		'style/semi': ['error', 'always'],
 		'unicorn/better-regex': 'error',
 	},
 	typescript: {
+		overrides:{
 		// TODO przelecieć po wszystkich rulach codeiumem
-		overrides: {
-
-			'@typescript-eslint/prefer-template': ['error', { disallowTemplateShorthand: true }],
-			'@typescript-eslint/promise-function-async': ['error', { checkArrowFunctions: true }],
-			'@typescript-eslint/quotes': ['error', 'single', { avoidEscape: true }],
-			'@typescript-eslint/require-array-sort-compare': ['error', { ignoreStringArrays: true }],
-			'@typescript-eslint/require-await': ['error', { checkAsyncFunctions: true }],
-			'@typescript-eslint/restrict-plus-operands': ['error', { allowAny: false }],
-			'@typescript-eslint/return-await': ['error', 'always'],
-			'@typescript-eslint/semi': ['error', 'always'],
-			'@typescript-eslint/sort-type-union-intersection-types': ['error', { checkInterfaces: true }],
-			'@typescript-eslint/space-before-function-paren': ['error', { anonymous: 'always', named: 'never' }],
-			'@typescript-eslint/space-infix-ops': ['error', { int32Hint: false }],
-			'@typescript-eslint/strict-boolean-expressions': ['error', { allowNullableBoolean: true }],
-			'@typescript-eslint/switch-exhaustiveness-check': ['error', { checkAllCases: true }],
-			'@typescript-eslint/triple-slash-reference': ['error', { path: 'always' }],
-			'@typescript-eslint/type-annotation-spacing': ['error', { before: false, after: true }],
-			'@typescript-eslint/typedef': ['error', { arrowParameter: false }],
-			'@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
-			'@typescript-eslint/unified-signatures': ['error', { ignoreInterfaces: true }],
-			'@typescript-eslint/variable-name': ['error', { ignoreRegExp: true }],
-			'@typescript-eslint/ban-tslint-comment': ['error', { allowInFiles: ['*.ts'] }],
-			'@typescript-eslint/deprecation': ['error', { ignoreDeprecations: true }],
-			'@typescript-eslint/class-methods-use-this': ['error', { enforceForClassMethods: true }],
-			'@typescript-eslint/consistent-generic-constructors': ['error', { allowExplicitAny: false }],
-			'@typescript-eslint/consistent-return': ['error', { treatUndefinedAsUnspecified: true }],
-			'@typescript-eslint/consistent-type-exports': ['error', { preferNamedExports: true }],
-			'@typescript-eslint/init-declarations': ['error', 'always'],
-			'@typescript-eslint/max-params': ['error', { max: 3 }],
 
 			/* Not configurable */
-
+			'@typescript-eslint/ban-tslint-comment': 'error',
 			'@typescript-eslint/prefer-as-const': 'error',
 			'default-param-last': 'off',
 			'@typescript-eslint/default-param-last': 'error',
 			'@typescript-eslint/await-thenable': 'error',
 			'@typescript-eslint/adjacent-overload-signatures': 'error',
 			'@typescript-eslint/no-extra-non-null-assertion': 'error',
-
 			'@typescript-eslint/no-floating-promises': 'error',
 			'@typescript-eslint/no-for-in-array': 'error',
 			'@typescript-eslint/no-implicit-any-catch': 'error',
@@ -131,7 +102,6 @@ export default antfu({
 			'@typescript-eslint/no-unsafe-call': 'error',
 			'@typescript-eslint/no-unsafe-member-access': 'error',
 			'@typescript-eslint/no-unsafe-return': 'error',
-
 			'no-useless-constructor': 'off',
 			'@typescript-eslint/no-useless-constructor': 'error',
 			'@typescript-eslint/no-confusing-non-null-assertion': 'error',
@@ -161,6 +131,10 @@ export default antfu({
 			'@typescript-eslint/no-implied-eval': 'error',
 
 			/* Cofigurable */
+			'@typescript-eslint/consistent-generic-constructors': ['error', 'constructor '],
+			'@typescript-eslint/typedef': 'error',
+			'@typescript-eslint/switch-exhaustiveness-check': 'error', // TODO do ogarnięcia
+			'@typescript-eslint/promise-function-async': ['error', { allowAny: false }],
 			'@typescript-eslint/prefer-string-starts-ends-with': ['error', { allowSingleElementEquality: 'always' }],
 			'@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
 			'@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'as', objectLiteralTypeAssertions: 'allow-as-parameter' }],
@@ -274,6 +248,12 @@ export default antfu({
 			'@typescript-eslint/prefer-optional-chain': ['error', { allowInChains: true }], // TODO
 			'@typescript-eslint/prefer-readonly': 'error', // TODO
 			'@typescript-eslint/prefer-readonly-parameter-types': 'error', // TODO
+			'@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }], // TODO
+			'class-methods-use-this': 'off',
+			'@typescript-eslint/class-methods-use-this': 'error', // TODO
+			'consistent-return': 'off',
+			'@typescript-eslint/consistent-return': 'error', // TODO - sprawdzić, bo jest jakieś zalecenie by używać coś innego
+			'@typescript-eslint/consistent-type-exports': ['error', { fixMixedExportsWithInlineTypeSpecifier: true }], // TODO - sprawdzić
 
 			/* Disabled */
 			'@typescript-eslint/related-getter-setter-pairs': 'off',
@@ -283,11 +263,13 @@ export default antfu({
 			'@typescript-eslint/prefer-destructuring': 'ignored',
 			'@typescript-eslint/prefer-return-this-type': 'ignored',
 			'@typescript-eslint/parameter-properties': 'ignored',
+			'@typescript-eslint/require-array-sort-compare': 'ignored',
 
 			/* Jeszcze nie wiem co lubię */
 			// '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 
 			/* don't understand */
+			// '@typescript-eslint/require-await': ['error', { checkAsyncFunctions: true }],
 			// '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true, allowConciseArrowFunctionExpressionsReturningAny: true }],
 			// '@typescript-eslint/prefer-readonly-parameter-types': 'error',
 			// 			'@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'explicit' }],
@@ -298,6 +280,18 @@ export default antfu({
 			// 	allowHigherOrderFunctions: true,
 			// 	allowTypedFunctionExpressions: true,}],
 			// '@typescript-eslint/forbid-extern-property': ['error', { allows: ['readonly', 'private', 'protected'] }],
+
+			/* Ogarnięte tip top */
+			'@typescript-eslint/unified-signatures': ['error', { ignoreDifferentlyNamedParameters: false }],
+			'@typescript-eslint/triple-slash-reference': ['error', { lib: 'never', path: 'never', types: 'never' }],
+			'@typescript-eslint/strict-boolean-expressions': ['error', { allowNullableBoolean: false, allowNullableObject: false }],
+			'no-return-await': 'off',
+			'@typescript-eslint/return-await': ['error', 'always'],
+			'@typescript-eslint/restrict-plus-operands': ['error', { allowAny: false, allowBoolean: false, allowNullish: false, allowNumberAndString: false, allowRegExp: false }],
+			'max-params': 'off',
+			'@typescript-eslint/max-params': ['error', { max: 4 }],
+			'init-declarations': 'off',
+			'@typescript-eslint/init-declarations': ['error', 'never', { ignoreForLoopInit: true }],
 		},
 	},
 
