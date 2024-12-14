@@ -11,7 +11,7 @@ import perfectionist from 'eslint-plugin-perfectionist'
 export default ts.config(
 	js.configs.all,
 	...ts.configs.recommendedTypeChecked,
-	// ...svelte.configs['flat/all'],
+	// ...svelte.configs.recommended,
 	prettier,
 	// ...svelte.configs['flat/prettier'],
 	{
@@ -26,11 +26,14 @@ export default ts.config(
 	// 	files: ['**/*.svelte'],
 	// 	languageOptions: {
 	// 		parserOptions: {
-	// 			parser: ts.parser,
+	// 			parser: 'svelte-eslint-parser',
 	// 			projectService: true,
-	// 			tsconfigRootDir: import.meta.dirname
+	// 			// tsconfigRootDir: import.meta.dirname
 	// 		}
-	// 	}
+	// 	},
+	// 	rules: {
+	// 		'svelte/no-inner-declarations': ['error', { blockScopedFunctions: false }],
+	// 	},
 	// },
 	{
 		files: ['**/*.{ts,tsx,js,jsx,cjs,mjs}'],
@@ -48,8 +51,11 @@ export default ts.config(
 			ts,
 			'@stylistic': stylistic,
 			perfectionist,
+			svelte,
 		},
 		rules: {
+			'svelte/no-extra-reactive-curlies': 'error',
+			// 'svelte/no-inner-declarations': ['error', 'functions'],
 			'perfectionist/sort-exports': ['error', { order: 'desc', type: 'natural' }],
 			'perfectionist/sort-imports': ['error', { order: 'asc', type: 'natural' }],
 			'perfectionist/sort-interfaces': ['error', { order: 'asc', type: 'natural' }],
