@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { characters } from '$lib/server/db/schema';
+import { characters } from '$lib/server/db/schema/schema';
 import { error, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request }: { request: Request }) => {

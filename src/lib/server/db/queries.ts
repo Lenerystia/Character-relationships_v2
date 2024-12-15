@@ -1,9 +1,9 @@
 import { db } from '$lib/server/db';
-import { characters, relations } from '$lib/server/db/schema';
+import { characters, relations } from '$lib/server/db/schema/schema';
 import { eq } from 'drizzle-orm';
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { Character } from '$lib/class/Character';
-import { Relation } from '$lib/class/Relation';
+import { Relation, Relations } from '$lib/class/Relation';
 import type { TCharacter } from '$lib/types/types';
 import { Characters } from '$lib/class/Characters';
 
@@ -19,12 +19,7 @@ export async function fetchCharacterTest(
 	db: PostgresJsDatabase<Record<string, never>>,
 	compared: number
 ): Promise<TCharacter[]> {
-	const results: TCharacter[] = await db
-		.select()
-		.from(characters)
-		.where(eq(characters.id, compared));
-
-	return results;
+	return db.select().from(characters).where(eq(characters.id, compared));
 }
 export async function fetchCharacter(compared: number) {
 	return fetchCharacterTest(db, compared);
@@ -66,11 +61,9 @@ export async function fetchCharacters(): Promise<Character[]> {
 
 export async function fetchCharactersClass(): Promise<Characters> {
 	const characterRecords = await db.select().from(characters).orderBy(characters.id);
-	console.log('Fetched records:', characterRecords);
 	const charactersArray = characterRecords.map(
 		(char): Character => new Character(char.id, char.firstName, char.lastName)
 	);
-	console.log('Character instances:', charactersArray);
 	return new Characters(charactersArray);
 }
 
@@ -86,13 +79,19 @@ export async function fetchRelations(): Promise<Relation[]> {
 	);
 }
 
+//like line 67
+export async function fetchRelationsClass(): Promise<Relations> {
+	const relationRecords = await db.select().from(relations).orderBy(relations.id);
+	return new Relations(
+		relationRecords.map(
+			(rel): Relation => new Relation(rel.id, rel.idChar1, rel.idChar2, rel.about)
+		)
+	);
+}
 
-//Nie ważne
+// Nie ważne
 // export async function fetchRelations(): Promise<Relation[]> {
 // 	const relationRecords = await db.select().from(relations);
 // 	return relationRecords.map((rel):Relation => new Relation(rel.id, rel.idChar1, rel.idChar2, rel.about)
 // 	);
 // }
-
-
-

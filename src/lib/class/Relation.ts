@@ -24,3 +24,7 @@ export class Relation {
 		};
 	}
 }
+
+export class Relations {
+	constructor(readonly relations: Relation[]) {}
+}
