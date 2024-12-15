@@ -1,4 +1,4 @@
-import { fetchCharactersClass } from '$lib/server/db/queries';
+import { fetchCharactersClass } from '../server/queries';
 import { Characters } from '$lib/class/Characters';
 
 export const load = async () => {

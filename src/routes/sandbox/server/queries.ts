@@ -7,14 +7,6 @@ import { Relation, Relations } from '$lib/class/Relation';
 import type { TCharacter } from '$lib/types/types';
 import { Characters } from '$lib/class/Characters';
 
-export async function fetchAllCharacters() {
-	return db.select().from(characters).orderBy(characters.id);
-}
-
-export async function fetchAllRelations() {
-	return db.select().from(relations).orderBy(relations.id);
-}
-
 export async function fetchCharacterTest(
 	db: PostgresJsDatabase<Record<string, never>>,
 	compared: number
@@ -37,18 +29,6 @@ export async function fetchCharacter(compared: number) {
 // 	}
 // }
 
-//TODO - ze zdjęcia wziąć biblioteczkę do tych responów
-// i albo stałe i się zobaczy
-export async function deleteCharacterById(id: number): Promise<Response> {
-	try {
-		await db.delete(characters).where(eq(characters.id, id));
-		return new Response('Character deleted successfully', { status: 200 });
-	} catch (error) {
-		console.error('Error deleting character:', error);
-		//return json({ message: 'Error deleting character!', status: 500 });
-		return new Response('Error deleting character!', { status: 500 });
-	}
-}
 
 //Testing "OOP" with help GPT
 //TODO zrobić jednak klasę Characters, a tam umieścić (pierw znaleźć) getCharacterById i zwrócić wszystkie informacje o postaci

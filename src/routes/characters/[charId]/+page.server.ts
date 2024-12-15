@@ -1,4 +1,4 @@
-import { fetchCharacter } from '$lib/server/db/queries.js';
+import { fetchCharacter } from '../../sandbox/server/queries.js';
 import { error } from '@sveltejs/kit';
 import type { TCharacter } from '$lib/types/types';
 

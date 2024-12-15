@@ -3,7 +3,7 @@ import type { TCharacter, TRelation } from '$lib/types/types';
 import { Character } from '$lib/class/Character';
 import { Relation } from '$lib/class/Relation';
 import { characters, relations } from '$lib/server/db/schema/schema';
-import { fetchCharacters, fetchRelations } from '$lib/server/db/queries';
+import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/queries';
 
 // function getCharacterName(characterId: number, characters: Character[]): string {
 // 	const character = characters.find((char) => char.id === characterId);
@@ -50,9 +50,9 @@ export function drawGraph(relations: Relation[]): void {
 }
 
 
-export async function renderGraph() {
-	const charactersArray = await fetchCharacters();
-	const charactersMap = new Map<number, Character>();
+export async function renderGraph(): Promise<void> {
+	const charactersArray = await fetchCharacters()
+	const	charactersMap = new Map<number, Character>();
 	charactersArray.forEach((char) => charactersMap.set(char.id, char));
 
 	const formattedRelations = await fetchRelations(charactersMap);

@@ -1,9 +1,9 @@
-import { fetchCharacters, fetchRelations } from '$lib/server/db/queries';
+import { fetchCharacters, fetchRelations } from '../server/queries';
 import { Character } from '$lib/class/Character';
 import { Formatter } from '$lib/class/Formatter';
 import type { Relation } from '$lib/class/Relation';
 
-export const load = async () => {
+export const load = async () => {// fetchCharactersClass
 	const characters: Character[] = await fetchCharacters();
 	const relations: Relation[] = await fetchRelations();
 	const formatter = new Formatter(characters, relations);

@@ -1,8 +1,8 @@
-import { fetchCharacters } from '$lib/server/db/queries';
+import { fetchCharacters } from './server/queries'; //Model
 import { error } from '@sveltejs/kit';
 import { Character } from '$lib/class/Character';
 
-export const load = async () => {
+export const load = async () => {//fetchCharactersClass
 	const characters: Character[] = await fetchCharacters();
 
 	if (characters.length === 0) {

@@ -1,6 +1,6 @@
 // character.test.ts
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import * as queries from '$lib/server/db/queries'; // Ensure the import path is correct
+import * as queries from '../routes/sandbox/server/queries'; // Ensure the import path is correct
 
 // PODDAJĘ SIĘ DZISIAJ - 27.10.2024
 vi.mock('$lib/server/db/queries', () => {
