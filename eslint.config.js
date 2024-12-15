@@ -55,7 +55,42 @@ export default ts.config(
 		},
 		rules: {
 			'svelte/no-extra-reactive-curlies': 'error',
+			'svelte/comment-directive': 'error',
+			'svelte/no-at-debug-tags': 'warn',
+			'svelte/no-at-html-tags': 'error',
+			'svelte/no-dupe-else-if-blocks': 'error',
+			'svelte/no-dupe-style-properties': 'error',
+			'svelte/no-dupe-use-directives': 'error',
+			'svelte/no-dynamic-slot-name': 'error',
+			'svelte/no-export-load-in-svelte-module-in-kit-pages': 'error',
+			'svelte/no-inner-declarations': 'error',
+			'svelte/no-not-function-handler': 'error',
+			'svelte/no-object-in-text-mustaches': 'error',
+			'svelte/no-reactive-functions': 'error',
+			'svelte/no-reactive-literals': 'error',
+			'svelte/no-shorthand-style-property-overrides': 'error',
+			'svelte/no-unknown-style-directive-property': 'error',
+			'svelte/no-unused-svelte-ignore': 'error',
+			'svelte/no-useless-mustaches': 'error',
+			'svelte/require-store-callbacks-use-set-param': 'error',
+			'svelte/system': 'error',
+			'svelte/valid-each-key': 'error',
+
+
+			'svelte/derived-has-same-inputs-outputs': 'error',
+			'svelte/html-closing-bracket-spacing': 'error',
+			'svelte/mustache-spacing': 'error',
+			'svelte/no-spaces-around-equal-signs-in-attribute': 'error',
+			'svelte/no-trailing-spaces': 'error',
+			'svelte/spaced-html-comment': 'error',
 			// 'svelte/no-inner-declarations': ['error', 'functions'],
+			// 'svelte/html-quotes': ['error', { prefer: quotes === 'backtick' ? 'double' : quotes }],
+			// 'svelte/indent': ['error', { alignAttributesVertically: true, indent }],
+
+
+
+
+
 			'perfectionist/sort-exports': ['error', { order: 'desc', type: 'natural' }],
 			'perfectionist/sort-imports': ['error', { order: 'asc', type: 'natural' }],
 			'perfectionist/sort-interfaces': ['error', { order: 'asc', type: 'natural' }],
