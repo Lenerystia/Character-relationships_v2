@@ -1,25 +1,24 @@
 <script lang="ts">
-	import '$lib/scripts/app.css';
-	import type { TCharacter, TRelation } from '$lib/types/types';
-	import { onMount } from 'svelte';
+  import '$lib/scripts/app.css';
+  import { onMount } from 'svelte';
+  import type { TCharacter, TRelation } from '$lib/types/types';
 
-	export let data: {
-		characters: TCharacter[];
-		relations: TRelation[];
-	};
-	//TODO Kiedy mam obiekt, mam zestaw metod - spróbować przekonwertować do obiektów i używać gdzie trzeba, ucieczka na froncie z DB
+  export let data: {
+    characters: TCharacter[];
+    relations: TRelation[];
+  };
 
-	let characters = data.characters;
-	let relations = data.relations;
+  let characters = data.characters;
+  let relations = data.relations;
 
-	// Helper functions
-	function getRelationsForCharacter(characterId: number): TRelation[] {
-		return relations.filter((rel: TRelation) => rel.idChar1 === characterId);
-	}
+  // Helper functions
+  function getRelationsForCharacter(characterId: number): TRelation[] {
+    return relations.filter((rel: TRelation) => rel.idChar1 === characterId);
+  }
 
-	function getRelatedCharacter(relatedCharacterId: number): TCharacter[] {
-		return characters.filter((char: TCharacter) => char.id === relatedCharacterId);
-	}
+  function getRelatedCharacter(relatedCharacterId: number): TCharacter[] {
+    return characters.filter((char: TCharacter) => char.id === relatedCharacterId);
+  }
 
 	// onMount(() => {
 	// 	drawGraph(relations, characters);
