@@ -1,4 +1,5 @@
-import { Relation, Relations} from '$lib/class/Relation';
+import { Relation } from '$lib/class/Relation';
+import { Relations } from '$lib/class/Relations';
 import db from '$lib/server/db';
 import { relations } from '$lib/server/db/schema/schema';
 import { eq } from 'drizzle-orm';
@@ -18,7 +19,7 @@ export class RelationModel {
    * This is useful when you need to access the methods of the Relations class.
    * @returns {Promise<Relations>} A promise that resolves to the Relations instance.
    */
-  static async getAllRelationsClass() : Promise<Relations> {
+  static async getRelations() : Promise<Relations> {
     const relationRecords = await db.select().from(relations).orderBy(relations.id);
     return new Relations(
       relationRecords.map(
@@ -32,9 +33,16 @@ export class RelationModel {
    * @param id The ID of the relation to retrieve.
    * @returns A promise that resolves to the Relation object.
    */
-  static async getRelationById(id: number) : Promise<Relation> {
-    return db.select().from(relations).where(eq(relations.id, id));
+  static async getRelationById(id: number): Promise<Relation> {
+    const relationRecord = await db.query.relations.findFirst({
+      where: eq(relations.id, id),
+    });
+    if (!relationRecord) {
+      throw new Error('Relation not found');
+    }
+    return relationRecord;
   }
+  
 
 }
 

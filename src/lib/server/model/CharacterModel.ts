@@ -19,7 +19,7 @@ class CharacterModel {
    * This is useful when you need to access the methods of the Characters class.
    * @returns {Promise<Characters>} A promise that resolves to the Characters instance.
    */
-  static async fetchCharactersClass(): Promise<Characters> {
+  static async getCharacters(): Promise<Characters> {
     const characterRecords = await db.select().from(characters).orderBy(characters.id);
     const charactersArray = characterRecords.map(
       (char): Character => new Character(char.id, char.firstName, char.lastName)
@@ -33,10 +33,13 @@ class CharacterModel {
    * @returns A single Character object
    */
   static async getCharacterById(id: number) : Promise<Character> {
-    return await db.select().from(characters).orderBy(characters.id);
-  // return characterRecords.map(
-  //   (char): Character => new Character(char.id, char.firstName, char.lastName)
-  // );
+    let characterRecord = await db.query.characters.findFirst({
+      where: eq(characters.id, id),
+    });
+    if (!characterRecord) {
+      throw new Error('Character not found');
+    }
+    return characterRecord;
   }
 
   /**
@@ -53,7 +56,6 @@ class CharacterModel {
       return new Response('Error deleting character!', { status: 500 });
     }
   }
-
 }
 
 export default CharacterModel;
