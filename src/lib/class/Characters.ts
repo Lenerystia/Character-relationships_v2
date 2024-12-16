@@ -8,13 +8,4 @@ export class Characters {
 	?? (() => { throw new Error(`Character with ID ${characterId} not found`); })();
 		return character;
 	}
-
-
-	// 	function getCharacterName(characterId: number, characters: Character[]): string {
-	// 	const character = characters.find((char) => char.id === characterId);
-	// 	//TODO Dlaczego on się tu wydziera o undefined?
-	// 	return character
-	// 		? `${character.firstName} ${character.lastName}`
-	// 		: 'Unknown';
-	// }
 }
