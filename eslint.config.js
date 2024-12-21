@@ -13,7 +13,7 @@ export default [
 	prettier,
 	{
 		// Specify files to lint
-		files: ['**/*.svelte', '**/*.{ts,tsx,js,jsx,cjs,mjs}'],
+		files: ['**/*.{ts,tsx,js,jsx,cjs,mjs,svelte}'],
 		ignores: [
 			'.svelte-kit/**',
 			'**/fixtures',
@@ -147,7 +147,7 @@ export default [
 			'@typescript-eslint/no-floating-promises': 'error',
 			'@typescript-eslint/no-for-in-array': 'error',
 			'@typescript-eslint/no-inferrable-types': 'error',
-			'@typescript-eslint/no-invalid-this': 'error', //TODO
+			'@typescript-eslint/no-invalid-this': 'error', // TODO
 			'@typescript-eslint/no-invalid-void-type': 'error',
 			'@typescript-eslint/no-misused-new': 'error',
 			'@typescript-eslint/no-mixed-enums': 'error',
@@ -343,8 +343,8 @@ export default [
 			'@typescript-eslint/consistent-type-exports': [
 				'error',
 				{ fixMixedExportsWithInlineTypeSpecifier: true }
-			], // TODO - sprawdzić
-			'@typescript-eslint/consistent-type-imports': 'error', // TODO - sprawdzić
+			], // TODO
+			'@typescript-eslint/consistent-type-imports': 'error', // TODO
 
 			/* Disabled */
 			'@typescript-eslint/related-getter-setter-pairs': 'off',
