@@ -4,25 +4,29 @@ import tsParser from '@typescript-eslint/parser';
 import svelte from 'eslint-plugin-svelte';
 import ts from '@typescript-eslint/eslint-plugin';
 import unicorn from 'eslint-plugin-unicorn';
-import stylistic from '@stylistic/eslint-plugin'
+import stylistic from '@stylistic/eslint-plugin';
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
+import vitest from '@vitest/eslint-plugin';
 
 export default [
 	prettier,
 	{
 		// Specify files to lint
-		files: ['**/*.svelte', '**/*.ts', '**/*.js', '**/*.{ts,tsx,js,jsx,cjs,mjs}'],
-		ignores: ['.svelte-kit/**',
+		files: ['**/*.svelte', '**/*.{ts,tsx,js,jsx,cjs,mjs}'],
+		ignores: [
+			'.svelte-kit/**',
 			'**/fixtures',
 			'node_modules',
 			'build',
 			'.svelte-kit',
 			'package-lock.json',
 			'build/',
+			'src/tests/',
 			'.svelte-kit/',
 			'svelte.config.js',
 			'vite.config.ts',
+			'eslint.config.js'
 		],
 		languageOptions: {
 			parser: svelteParser,
@@ -33,9 +37,9 @@ export default [
 				//Co podpowiedział GPT
 				// tsconfigRootDir: process.cwd(),
 				//Co było zerżnięte z internetu z jakiegoś przykładu
-				tsconfigRootDir: import.meta.dirname,
+				tsconfigRootDir: import.meta.dirname
 				// TODO: Jaka to różnica?
-			},
+			}
 		},
 		plugins: {
 			unicorn,
@@ -69,7 +73,10 @@ export default [
 			'perfectionist/sort-named-imports': ['error', { order: 'asc', type: 'natural' }],
 
 			//Unicorn rules
+			...unicorn.configs.all.rules,
+			// ...unicorn.configs.recommended.rules,
 			'unicorn/better-regex': 'error',
+			'unicorn/prefer-query-selector': 'error',
 
 			//Stylistic rules
 			'@stylistic/array-bracket-newline': ['error', 'consistent'],
@@ -122,13 +129,11 @@ export default [
 			'@stylistic/quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }], // TODO sprawdzić
 			'@stylistic/semi': ['error', 'always'],
 
-			//TypeScript rules
-
 			// TypeScript rules
 			// ...ts.configs.recommended.rules,
 			...ts.configs.strict.rules,
 			// ...ts.configs.recommendedTypeChecked.rules, //sorry, but in for this config - it doesn't work
-			'@typescript-eslint/explicit-module-boundary-types': 'error', // Example type-checking rule
+			'@typescript-eslint/explicit-module-boundary-types': 'error',
 
 			/* Not configurable */
 			'@typescript-eslint/prefer-optional-chain': 'error', // TODO
@@ -141,16 +146,14 @@ export default [
 			'@typescript-eslint/no-extra-non-null-assertion': 'error',
 			'@typescript-eslint/no-floating-promises': 'error',
 			'@typescript-eslint/no-for-in-array': 'error',
-			// '@typescript-eslint/no-implicit-any-catch': 'error',
 			'@typescript-eslint/no-inferrable-types': 'error',
-			// '@typescript-eslint/no-invalid-this': 'error', //TODO
+			'@typescript-eslint/no-invalid-this': 'error', //TODO
 			'@typescript-eslint/no-invalid-void-type': 'error',
 			'@typescript-eslint/no-misused-new': 'error',
 			'@typescript-eslint/no-mixed-enums': 'error',
 			'@typescript-eslint/no-namespace': 'error',
 			'@typescript-eslint/no-non-null-asserted-nullish-coalescing': 'error',
 			'@typescript-eslint/no-non-null-assertion': 'error',
-			// '@typescript-eslint/no-parameter-properties': 'error',
 			'@typescript-eslint/no-this-alias': 'error',
 			'@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
 			'@typescript-eslint/no-unnecessary-condition': 'error',
@@ -184,7 +187,7 @@ export default [
 			'@typescript-eslint/prefer-reduce-type-parameter': 'error',
 			'@typescript-eslint/prefer-find': 'error',
 			'@typescript-eslint/non-nullable-type-assertion-style': 'error',
-			// '@typescript-eslint/no-unsafe-type-assertion': 'error',
+			'@typescript-eslint/no-unsafe-type-assertion': 'error',
 			'@typescript-eslint/prefer-regexp-exec': 'error',
 			'no-implied-eval': 'off',
 			'@typescript-eslint/no-implied-eval': 'error',
@@ -228,7 +231,10 @@ export default [
 			'@typescript-eslint/method-signature-style': ['error', 'method'],
 			'@typescript-eslint/class-literal-property-style': ['error', 'fields'],
 			'@typescript-eslint/array-type': ['error', { default: 'array-simple', readonly: 'array' }],
-			'@typescript-eslint/ban-ts-comment': ['error', { 'ts-expect-error': 'allow-with-description' }],
+			'@typescript-eslint/ban-ts-comment': [
+				'error',
+				{ 'ts-expect-error': 'allow-with-description' }
+			],
 			'prefer-promise-reject-errors': 'off',
 			'@typescript-eslint/prefer-promise-reject-errors': 'error',
 			'no-throw-literal': 'off',
@@ -338,6 +344,7 @@ export default [
 				'error',
 				{ fixMixedExportsWithInlineTypeSpecifier: true }
 			], // TODO - sprawdzić
+			'@typescript-eslint/consistent-type-imports': 'error', // TODO - sprawdzić
 
 			/* Disabled */
 			'@typescript-eslint/related-getter-setter-pairs': 'off',
@@ -349,6 +356,12 @@ export default [
 
 			/* I don't know */
 			'@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+			'@typescript-eslint/prefer-includes': 'error',
+			'@typescript-eslint/prefer-function-type': 'error',
+			'@typescript-eslint/prefer-for-of': 'error',
+			'@typescript-eslint/prefer-enum-initializers': 'error',
+			'@typescript-eslint/no-import-type-side-effects': 'error',
+			'@typescript-eslint/no-dupe-class-members': 'error',
 
 			/* don't understand */
 			'@typescript-eslint/require-await': 'error',
@@ -387,27 +400,69 @@ export default [
 			'@typescript-eslint/max-params': ['error', { max: 4 }],
 			'init-declarations': 'off',
 			'@typescript-eslint/init-declarations': ['error', 'never', { ignoreForLoopInit: true }]
-		},
+		}
 	},
 	{
-		files: ['**/*.test.ts'],
-		rules: {
-			'dot-notation': 'off'
+		plugins: {
+			vitest: vitest
 		},
-		ignores: [
-			'**/fixtures',
-			'node_modules',
-			'drizzle.config.ts',
-			'build',
-			'.svelte-kit',
-			'package-lock.json',
-			'build/',
-			'.svelte-kit/',
-			'dist/',
-			'**/resemble.jimp.cjs',
-			'**/lib/resemble/*',
-			'*/*.d.ts',
-			'**/.next/*'
-		]
+		files: ['src/tests/**'],
+		rules: {
+			...vitest.configs.recommended.rules,
+			'dot-notation': 'off',
+			'vitest/no-done-callback': 'off', //deprecated
+			'vitest/consistent-test-filename': ['error', { pattern: '.*\\.(spec|test)\\.[jt]s$' }],
+			'vitest/consistent-test-it': 'error',
+			'vitest/expect-expect': ['error', { assertFunctionNames: ['expect'] }],
+			'vitest/max-expects': ['error', { max: 5 }],
+			'vitest/max-nested-describe': ['error', { max: 3 }],
+			'vitest/no-alias-methods': 'error',
+			'vitest/no-commented-out-tests': 'error',
+			'vitest/no-conditional-expect': 'error',
+			'vitest/no-conditional-tests': 'error',
+			'vitest/no-disabled-tests': 'error',
+			'vitest/no-duplicate-hooks': 'error',
+			'vitest/no-focused-tests': 'error',
+			'vitest/no-hooks': 'error',
+			'vitest/no-identical-title': 'error',
+			'vitest/no-import-node-test': 'error',
+			'vitest/no-interpolation-in-snapshots': 'error',
+			'vitest/no-large-snapshots': ['error', { maxSize: 50 }],
+			'vitest/no-mocks-import': 'error',
+			'vitest/no-restricted-matchers': 'error',
+			'vitest/no-restricted-vi-methods': 'error',
+			'vitest/no-standalone-expect': 'error',
+			'vitest/no-test-prefixes': 'error',
+			'vitest/no-test-return-statement': 'error',
+			'vitest/prefer-called-with': 'error',
+			'vitest/prefer-comparison-matcher': 'error',
+			'vitest/prefer-each': 'error',
+			'vitest/prefer-equality-matcher': 'error',
+			'vitest/prefer-expect-assertions': 'error',
+			'vitest/prefer-expect-resolves': 'error',
+			'vitest/prefer-hooks-in-order': 'error',
+			'vitest/prefer-hooks-on-top': 'error',
+			'vitest/prefer-lowercase-title': ['error', { ignore: ['describe'] }],
+			'vitest/prefer-mock-promise-shorthand': 'error',
+			'vitest/prefer-snapshot-hint': 'error',
+			'vitest/prefer-spy-on': 'error',
+			'vitest/prefer-strict-equal': 'error',
+			'vitest/prefer-to-be': 'error',
+			'vitest/prefer-to-be-falsy': 'error',
+			'vitest/prefer-to-be-object': 'error',
+			'vitest/prefer-to-be-truthy': 'error',
+			'vitest/prefer-to-contain': 'error',
+			'vitest/prefer-to-have-length': 'error',
+			'vitest/prefer-todo': 'error',
+			'vitest/prefer-vi-mocked': 'error',
+			'vitest/require-hook': 'error',
+			'vitest/require-local-test-context-for-concurrent-snapshots': 'error',
+			'vitest/require-to-throw-message': 'error',
+			'vitest/require-top-level-describe': 'error',
+			'vitest/valid-describe-callback': 'error',
+			'vitest/valid-expect': ['error', { maxArgs: 1 }],
+			'vitest/valid-title': 'error',
+			'vitest/valid-expect-in-promise': 'error'
+		},
 	}
 ];
