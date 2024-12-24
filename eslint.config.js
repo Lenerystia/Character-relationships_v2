@@ -8,11 +8,12 @@ import stylistic from '@stylistic/eslint-plugin';
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import vitest from '@vitest/eslint-plugin';
+import tsdoc from 'eslint-plugin-tsdoc'
+import esImport from 'eslint-plugin-import';
 
 export default [
 	prettier,
 	{
-		// Specify files to lint
 		files: ['**/*.{ts,tsx,js,jsx,cjs,mjs,svelte}'],
 		ignores: [
 			'.svelte-kit/**',
@@ -42,14 +43,110 @@ export default [
 			}
 		},
 		plugins: {
+			'tsdoc': tsdoc,
 			unicorn,
 			svelte: svelte,
 			'@typescript-eslint': ts,
 			perfectionist,
 			'@stylistic': stylistic,
 			js: js,
+			'import': esImport,
+		},
+		settings: {
+			'import/resolver': {
+				typescript: {
+					alwaysTryTypes: true,
+				},
+			},
 		},
 		rules: {
+			//import rules
+			'import/no-unresolved': 'error',
+
+			// Ensure named imports match exports in the source file
+			'import/named': 'error',
+
+			// Ensure a default export is imported properly
+			'import/default': 'error',
+
+			// Forbid the use of mutable exports
+			'import/no-mutable-exports': 'error',
+
+			// Prevent importing the default as if it were a named export
+			'import/no-named-as-default': 'warn',
+
+			// Forbid anonymous default exports (e.g., `export default () => {}`)
+			'import/no-anonymous-default-export': 'warn',
+
+			// Enforce consistent use of file extensions in imports
+			'import/extensions': [
+				'warn',
+				'ignorePackages',
+				{
+					ts: 'never',
+					tsx: 'never',
+					js: 'never',
+					jsx: 'never',
+				},
+			],
+
+			// Forbid imports from certain files or folders (e.g., discourage deep imports)
+			'import/no-restricted-paths': [
+				'error',
+				{
+					zones: [
+						{ target: './src', from: './node_modules' }, // Example restriction
+					],
+				},
+			],
+
+			// Enforce grouping of imports
+			'import/order': [
+				'warn',
+				{
+					groups: [
+						['builtin', 'external'], // Built-in and external modules
+						['internal'], // Internal imports (configured via import/resolver)
+						['parent', 'sibling', 'index'], // Relative imports
+					],
+					pathGroups: [
+						{
+							pattern: '@/**', // Adjust to your custom alias (e.g., `@/components`)
+							group: 'internal',
+							position: 'after',
+						},
+					],
+					alphabetize: { order: 'asc', caseInsensitive: true },
+					'newlines-between': 'always',
+				},
+			],
+
+			// Prevent duplicate imports
+			'import/no-duplicates': 'warn',
+
+			// Forbid use of absolute paths in imports
+			'import/no-absolute-path': 'error',
+
+			// Forbid unnecessary path segments in imports
+			'import/no-useless-path-segments': [
+				'warn',
+				{ noUselessIndex: true },
+			],
+
+			// Prevent importing submodules (e.g., `lodash/map` instead of `lodash`)
+			'import/no-extraneous-dependencies': [
+				'error',
+				{
+					devDependencies: [
+						'**/*.test.ts', // Allow dev dependencies in test files
+						'**/scripts/**',
+					],
+				},
+			],
+
+			//Tsdoc
+			"tsdoc/syntax": "warn",
+
 			// Prettier rules
 			...prettier.rules,
 
@@ -126,14 +223,13 @@ export default [
 			'@stylistic/object-curly-spacing': ['error', 'always'],
 			'@stylistic/padded-blocks': ['error', 'never', { allowSingleLineBlocks: true }],
 			'@stylistic/quote-props': ['error', 'consistent-as-needed'],
-			'@stylistic/quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }], // TODO sprawdzić
+			'@stylistic/quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }], // TODO
 			'@stylistic/semi': ['error', 'always'],
 
 			// TypeScript rules
 			// ...ts.configs.recommended.rules,
 			...ts.configs.strict.rules,
 			// ...ts.configs.recommendedTypeChecked.rules, //sorry, but in for this config - it doesn't work
-			'@typescript-eslint/explicit-module-boundary-types': 'error',
 
 			/* Not configurable */
 			'@typescript-eslint/prefer-optional-chain': 'error', // TODO
@@ -193,9 +289,10 @@ export default [
 			'@typescript-eslint/no-implied-eval': 'error',
 
 			/* Cofigurable */
+			'@typescript-eslint/explicit-module-boundary-types': 'error',
 			'@typescript-eslint/consistent-generic-constructors': ['error', 'constructor'],
 			'@typescript-eslint/typedef': 'error',
-			'@typescript-eslint/switch-exhaustiveness-check': 'error', // TODO do ogarnięcia
+			'@typescript-eslint/switch-exhaustiveness-check': 'error', // TODO
 			'@typescript-eslint/promise-function-async': ['error', { allowAny: false }],
 			'@typescript-eslint/prefer-string-starts-ends-with': [
 				'error',
@@ -316,7 +413,7 @@ export default [
 				}
 			],
 
-			/* TODO Configure or don't understand but maybe it will be good */
+			// TODO
 			'@typescript-eslint/no-shadow': 'error',
 			'@typescript-eslint/no-restricted-types': 'error',
 			'@typescript-eslint/no-restricted-imports': 'error',
