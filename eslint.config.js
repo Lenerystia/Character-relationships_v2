@@ -8,11 +8,47 @@ import stylistic from '@stylistic/eslint-plugin';
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import vitest from '@vitest/eslint-plugin';
-import tsdoc from 'eslint-plugin-tsdoc'
+import tsdoc from 'eslint-plugin-tsdoc';
 import esImport from 'eslint-plugin-import';
+import functional from 'eslint-plugin-functional';
+import security from 'eslint-plugin-security';
+import sonarjs from 'eslint-plugin-sonarjs';
+import alias from 'eslint-plugin-import-alias';
+import html from '@html-eslint/eslint-plugin';
+import htmlParser from '@html-eslint/parser';
+
+// optimize imports in WebStorm - ctrl + alt + oe
 
 export default [
 	prettier,
+	{
+		name: 'HTML',
+		files: ['**/*.html'],
+		ignores: [
+			'.svelte-kit/**',
+			'**/fixtures',
+			'node_modules',
+			'build',
+			'.svelte-kit',
+			'package-lock.json',
+			'build/',
+			'src/tests/',
+			'.svelte-kit/',
+			'svelte.config.js',
+			'vite.config.ts',
+			'eslint.config.js'
+		],
+		languageOptions: {
+			parser: htmlParser
+		},
+		plugins: {
+			'@html-eslint': html
+		},
+		rules: {
+			/* html rules */
+			...html.configs.recommended.rules
+		}
+	},
 	{
 		files: ['**/*.{ts,tsx,js,jsx,cjs,mjs,svelte}'],
 		ignores: [
@@ -43,42 +79,58 @@ export default [
 			}
 		},
 		plugins: {
-			'tsdoc': tsdoc,
-			unicorn,
-			svelte: svelte,
 			'@typescript-eslint': ts,
+			'@stylistic': stylistic ,
+			tsdoc,
+			unicorn,
+			svelte,
 			perfectionist,
-			'@stylistic': stylistic,
-			js: js,
-			'import': esImport,
+			js,
+			functional,
+			sonarjs,
+			// Don't know why some plugins need write as below, and for some plugins it is enough to write as above
+			import: esImport,
+			security: security,
+			alias: alias,
 		},
 		settings: {
 			'import/resolver': {
 				typescript: {
-					alwaysTryTypes: true,
-				},
-			},
+					alwaysTryTypes: true
+				}
+			}
 		},
 		rules: {
-			//import rules
+			/* alias rules */
+			'alias/import-alias': [
+				"error",
+				{
+					"relativeDepth": 0,
+					"aliases": [
+						{ "alias": "@src", "matcher": "^src" }, // src/modules/app/test -> @src/modules/app/test
+						{ "alias": "@test", "matcher": "^test/unit" }, // test/unit/modules/app -> @test/modules/app
+						{ "alias": "@testRoot", "matcher": "^(test)/e2e" } // test/e2e/modules/app -> @testRoot/e2e/modules/app
+					]
+				}
+			],
+
+			/* sonajs rules */
+			...sonarjs.configs.recommended.rules,
+			'sonarjs/deprecation': 'off',
+			'sonarjs/no-implicit-dependencies': 'error',
+
+			/* security rules */
+			// 'security/detect-object-injection': 'error',
+			...security.configs.recommended.rules,
+
+			/* import rules */
 			'import/no-unresolved': 'error',
 
-			// Ensure named imports match exports in the source file
 			'import/named': 'error',
-
-			// Ensure a default export is imported properly
 			'import/default': 'error',
-
-			// Forbid the use of mutable exports
 			'import/no-mutable-exports': 'error',
-
-			// Prevent importing the default as if it were a named export
 			'import/no-named-as-default': 'warn',
-
-			// Forbid anonymous default exports (e.g., `export default () => {}`)
 			'import/no-anonymous-default-export': 'warn',
-
-			// Enforce consistent use of file extensions in imports
 			'import/extensions': [
 				'warn',
 				'ignorePackages',
@@ -86,75 +138,60 @@ export default [
 					ts: 'never',
 					tsx: 'never',
 					js: 'never',
-					jsx: 'never',
-				},
+					jsx: 'never'
+				}
 			],
-
-			// Forbid imports from certain files or folders (e.g., discourage deep imports)
 			'import/no-restricted-paths': [
 				'error',
 				{
 					zones: [
-						{ target: './src', from: './node_modules' }, // Example restriction
-					],
-				},
+						{ target: './src', from: './node_modules' }
+					]
+				}
 			],
-
-			// Enforce grouping of imports
 			'import/order': [
 				'warn',
 				{
 					groups: [
-						['builtin', 'external'], // Built-in and external modules
-						['internal'], // Internal imports (configured via import/resolver)
-						['parent', 'sibling', 'index'], // Relative imports
+						['builtin', 'external'],
+						['internal'],
+						['parent', 'sibling', 'index']
 					],
 					pathGroups: [
 						{
-							pattern: '@/**', // Adjust to your custom alias (e.g., `@/components`)
+							pattern: '@/**',
 							group: 'internal',
-							position: 'after',
-						},
+							position: 'after'
+						}
 					],
 					alphabetize: { order: 'asc', caseInsensitive: true },
-					'newlines-between': 'always',
-				},
+					'newlines-between': 'always'
+				}
 			],
 
-			// Prevent duplicate imports
 			'import/no-duplicates': 'warn',
-
-			// Forbid use of absolute paths in imports
 			'import/no-absolute-path': 'error',
-
-			// Forbid unnecessary path segments in imports
-			'import/no-useless-path-segments': [
-				'warn',
-				{ noUselessIndex: true },
-			],
-
-			// Prevent importing submodules (e.g., `lodash/map` instead of `lodash`)
+			'import/no-useless-path-segments': ['warn', { noUselessIndex: true }],
 			'import/no-extraneous-dependencies': [
 				'error',
 				{
 					devDependencies: [
-						'**/*.test.ts', // Allow dev dependencies in test files
-						'**/scripts/**',
-					],
-				},
+						'**/*.test.ts',
+						'**/scripts/**'
+					]
+				}
 			],
+			/* Tsdoc */
+			'tsdoc/syntax': 'warn',
 
-			//Tsdoc
-			"tsdoc/syntax": "warn",
-
-			// Prettier rules
+			/* Prettier rules */
 			...prettier.rules,
 
-			//js rules
+			/* js rules */
 			...js.configs.all.rules,
 			// ...js.configs.recommended.rules,
 
-			// Svelte rules
+			/* Svelte rules */
 			...svelte.configs.recommended.rules,
 			...svelte.configs.prettier.rules,
 			'svelte/no-at-html-tags': 'error',
@@ -162,20 +199,22 @@ export default [
 			'svelte/no-unused-class-name': 'warn',
 			'svelte/no-target-blank': ['error', { enforceDynamicLinks: 'always' }],
 
-			// Perfectionist rules
-			'perfectionist/sort-exports': ['error', { order: 'desc', type: 'natural' }],
-			'perfectionist/sort-imports': ['error', { order: 'asc', type: 'natural' }],
-			'perfectionist/sort-interfaces': ['error', { order: 'asc', type: 'natural' }],
-			'perfectionist/sort-named-exports': ['error', { order: 'asc', type: 'natural' }],
-			'perfectionist/sort-named-imports': ['error', { order: 'asc', type: 'natural' }],
+			/* Perfectionist rules */
+			...perfectionist.configs['recommended-alphabetical'].rules,
+			// 'perfectionist/sort-exports': ['error', { order: 'desc', type: 'natural' }],
+			// 'perfectionist/sort-imports': ['error', { order: 'asc', type: 'natural' }],
+			// 'perfectionist/sort-interfaces': ['error', { order: 'asc', type: 'natural' }],
+			// 'perfectionist/sort-named-exports': ['error', { order: 'asc', type: 'natural' }],
+			// 'perfectionist/sort-named-imports': ['error', { order: 'asc', type: 'natural' }],
 
-			//Unicorn rules
+			/* Unicorn rules */
 			...unicorn.configs.all.rules,
 			// ...unicorn.configs.recommended.rules,
 			'unicorn/better-regex': 'error',
 			'unicorn/prefer-query-selector': 'error',
 
-			//Stylistic rules
+			/* Stylistic rules - must be written with '@' at the beginning */
+			...stylistic.configs['recommended-extends'].rules,
 			'@stylistic/array-bracket-newline': ['error', 'consistent'],
 			'@stylistic/array-bracket-spacing': [
 				'error',
@@ -187,7 +226,7 @@ export default [
 				// },
 			],
 			'@stylistic/array-element-newline': ['error', 'consistent'],
-			// '@stylistic/brace-stylistic': ['error', '1tbs', { allowSingleLine: true }],
+			// 'stylistic/brace-stylistic': ['error', '1tbs', { allowSingleLine: true }],
 			'@stylistic/comma-spacing': [
 				'error',
 				{
@@ -226,7 +265,7 @@ export default [
 			'@stylistic/quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }], // TODO
 			'@stylistic/semi': ['error', 'always'],
 
-			// TypeScript rules
+			/* TypeScript rules */
 			// ...ts.configs.recommended.rules,
 			...ts.configs.strict.rules,
 			// ...ts.configs.recommendedTypeChecked.rules, //sorry, but in for this config - it doesn't work
@@ -500,6 +539,7 @@ export default [
 		}
 	},
 	{
+		name: 'tests',
 		plugins: {
 			vitest: vitest
 		},
@@ -560,6 +600,6 @@ export default [
 			'vitest/valid-expect': ['error', { maxArgs: 1 }],
 			'vitest/valid-title': 'error',
 			'vitest/valid-expect-in-promise': 'error'
-		},
+		}
 	}
 ];
