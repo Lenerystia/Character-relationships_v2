@@ -69,8 +69,8 @@ export default [
 		plugins: {
 			'@typescript-eslint': ts,
 			'@stylistic': stylistic,
-			// '@pandacss': panda,
-			// tailwind: tailwind,
+			'@pandacss': panda,
+			tailwind: tailwind,
 			tsdoc: tsdoc,
 			unicorn: unicorn,
 			svelte: svelte,
@@ -569,7 +569,17 @@ export default [
 				'max-params': 'off',
 				'@typescript-eslint/max-params': ['error', { max: 4 }],
 				'init-declarations': 'off',
-				'@typescript-eslint/init-declarations': ['error', 'never', { ignoreForLoopInit: true }]
+				'@typescript-eslint/init-declarations': ['error', 'never', { ignoreForLoopInit: true }],
+
+				/* tailwind rules */
+				...(tailwindSwitch && {
+					'tailwind/classnames-order': 'error',
+				}),
+
+				/* pandacss rules */
+				...(pandacssSwitch && {
+					'@pandacss/file-not-included': 'error',
+				}),
 			}),
 		},
 	},
