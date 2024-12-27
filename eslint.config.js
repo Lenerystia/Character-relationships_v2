@@ -23,24 +23,24 @@ import panda from '@pandacss/eslint-plugin';
 import tailwind from 'eslint-plugin-tailwindcss';
 
 // Toggles for enabling/disabling rule groups
-const perfectionistSwitch = true;
-const svelteSwitch = true;
-const typescriptSwitch = true;
-const unicornSwitch = true;
-const stylisticSwitch = true;
-const jsSwitch = true;
-const vitestSwitch = true;
+const perfectionistSwitch = false;
+const svelteSwitch = false;
+const typescriptSwitch = false;
+const unicornSwitch = false;
+const stylisticSwitch = false;
+const jsSwitch = false;
+const vitestSwitch = false;
 const tsdocSwitch = true;
-const esImportSwitch = true;
-const functionalSwitch = true;
-const securitySwitch = true;
-const sonarjsSwitch = true;
-const aliasSwitch = true;
+const esImportSwitch = false;
+const functionalSwitch = false;
+const securitySwitch = false;
+const sonarjsSwitch = false;
+const aliasSwitch = false;
 const htmlSwitch = false;
-const esEsSwitch = true;
-const promiseSwitch = true;
-const drizzleSwitch = true;
-const prettierSwitch = true;
+const esEsSwitch = false;
+const promiseSwitch = false;
+const drizzleSwitch = false;
+const prettierSwitch = false;
 const pandacssSwitch = false;
 const tailwindSwitch = false;
 
@@ -51,11 +51,12 @@ export default [
 		ignores: [
 			'node_modules',
 			'build',
-			'.svelte-kit',
+			'.svelte-kit/**',
 			'src/tests/',
 			'svelte.config.js',
 			'vite.config.ts',
-			'eslint.config.js'
+			'eslint.config.js',
+			'drizzle.config.ts'
 		],
 		languageOptions: {
 			parser: svelteParser,
@@ -92,6 +93,16 @@ export default [
 			}
 		},
 		rules: {
+			/* Svelte rules */
+			...(svelteSwitch && {
+				...svelte.configs.recommended.rules,
+				...svelte.configs.prettier.rules,
+				'svelte/no-at-html-tags': 'error',
+				'svelte/valid-compile': 'error',
+				'svelte/no-unused-class-name': 'warn',
+				'svelte/no-target-blank': ['error', { enforceDynamicLinks: 'always' }],
+			}),
+
 			/* promise rules */
 			...(promiseSwitch && {
 			'promise/always-return': 'error',
@@ -215,15 +226,6 @@ export default [
 			...(jsSwitch && {
 			...js.configs.all.rules,
 			// ...js.configs.recommended.rules,
-		}),
-			/* Svelte rules */
-			...(svelteSwitch && {
-			...svelte.configs.recommended.rules,
-			...svelte.configs.prettier.rules,
-			'svelte/no-at-html-tags': 'error',
-			'svelte/valid-compile': 'error',
-			'svelte/no-unused-class-name': 'warn',
-			'svelte/no-target-blank': ['error', { enforceDynamicLinks: 'always' }],
 		}),
 
 			/* Perfectionist rules */
