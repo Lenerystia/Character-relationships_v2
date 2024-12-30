@@ -24,13 +24,13 @@ import tailwind from 'eslint-plugin-tailwindcss';
 
 // Toggles for enabling/disabling rule groups
 const perfectionistSwitch = false;
-const svelteSwitch = false;
-const typescriptSwitch = false;
+const svelteSwitch = true;
+const typescriptSwitch = true;
 const unicornSwitch = false;
 const stylisticSwitch = false;
 const jsSwitch = false;
 const vitestSwitch = false;
-const tsdocSwitch = true;
+const tsdocSwitch = false;
 const esImportSwitch = false;
 const functionalSwitch = false;
 const securitySwitch = false;
@@ -40,7 +40,7 @@ const htmlSwitch = false;
 const esEsSwitch = false;
 const promiseSwitch = false;
 const drizzleSwitch = false;
-const prettierSwitch = false;
+const prettierSwitch = true;
 const pandacssSwitch = false;
 const tailwindSwitch = false;
 
@@ -153,6 +153,10 @@ export default [
 			...(securitySwitch && {
 				// 'security/detect-object-injection': 'error',
 				...security.configs.recommended.rules,
+				'security/detect-unsafe-regex': 'error',
+				'security/detect-non-literal-regexp': 'error',
+				'security/detect-non-literal-require': 'error',
+				'security/detect-non-literal-fs-filename': 'error',
 			}),
 
 			/* import rules */
