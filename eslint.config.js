@@ -19,30 +19,32 @@ import htmlParser from '@html-eslint/parser';
 import drizzle from 'eslint-plugin-drizzle';
 import esEs from 'eslint-plugin-eslint-plugin';
 import promise from 'eslint-plugin-promise';
+import node from 'eslint-plugin-node';
 import panda from '@pandacss/eslint-plugin';
 import tailwind from 'eslint-plugin-tailwindcss';
 
 // Toggles for enabling/disabling rule groups
-const perfectionistSwitch = false;
-const svelteSwitch = true;
-const typescriptSwitch = true;
-const unicornSwitch = false;
-const stylisticSwitch = false;
-const jsSwitch = false;
-const vitestSwitch = false;
-const tsdocSwitch = false;
-const esImportSwitch = false;
-const functionalSwitch = false;
-const securitySwitch = false;
-const sonarjsSwitch = false;
-const aliasSwitch = false;
-const htmlSwitch = false;
-const esEsSwitch = false;
-const promiseSwitch = false;
-const drizzleSwitch = false;
-const prettierSwitch = true;
-const pandacssSwitch = false;
-const tailwindSwitch = false;
+const perfectionistFlag = false;
+const svelteFlag = false;
+const typescriptFlag = false;
+const unicornFlag = false;
+const stylisticFlag = false;
+const jsFlag = false;
+const vitestFlag = false;
+const tsdocFlag = true;
+const esImportFlag = false;
+const functionalFlag = false;
+const securityFlag = false;
+const sonarjsFlag = false;
+const aliasFlag = false;
+const htmlFlag = false;
+const esEsFlag = false;
+const promiseFlag = false;
+const drizzleFlag = false;
+const prettierFlag = false;
+const nodeFlag = false;
+const pandacssFlag = false;
+const tailwindFlag = false;
 
 export default [
 	prettier,
@@ -83,7 +85,8 @@ export default [
 			drizzle: drizzle,
 			import: esImport,
 			security: security,
-			alias: alias
+			alias: alias,
+			node: node,
 		},
 		settings: {
 			'import/resolver': {
@@ -93,8 +96,13 @@ export default [
 			}
 		},
 		rules: {
+
+			...(nodeFlag && {
+				// ...node.configs.recommended.rules,
+				...node.configs['recommended-script'].rules,
+			}),
 			/* Svelte rules */
-			...(svelteSwitch && {
+			...(svelteFlag && {
 				...svelte.configs.recommended.rules,
 				...svelte.configs.prettier.rules,
 				'svelte/no-at-html-tags': 'error',
@@ -104,7 +112,7 @@ export default [
 			}),
 
 			/* promise rules */
-			...(promiseSwitch && {
+			...(promiseFlag && {
 			'promise/always-return': 'error',
 			'promise/no-return-wrap': 'error',
 			'promise/param-names': 'error',
@@ -125,12 +133,12 @@ export default [
 		}),
 
 			/* drizzle rules */
-			...(drizzleSwitch && {
+			...(drizzleFlag && {
 				'drizzle/enforce-delete-with-where': 'error',
 				'drizzle/enforce-update-with-where': 'error',
 			}),
 			/* alias rules */
-			...(aliasSwitch && {
+			...(aliasFlag && {
 			'alias/import-alias': [
 				'error',
 				{
@@ -144,13 +152,13 @@ export default [
 			],
 			}),
 			/* sonajs rules */
-			...(sonarjsSwitch && {
+			...(sonarjsFlag && {
 			...sonarjs.configs.recommended.rules,
 			'sonarjs/deprecation': 'off',
 			'sonarjs/no-implicit-dependencies': 'error',
 			}),
 			/* security rules */
-			...(securitySwitch && {
+			...(securityFlag && {
 				// 'security/detect-object-injection': 'error',
 				...security.configs.recommended.rules,
 				'security/detect-unsafe-regex': 'error',
@@ -160,7 +168,7 @@ export default [
 			}),
 
 			/* import rules */
-			...(esImportSwitch && {
+			...(esImportFlag && {
 			'import/no-unresolved': 'error',
 
 			'import/named': 'error',
@@ -211,29 +219,29 @@ export default [
 			],
 			}),
 			/* functional rules */
-			...(functionalSwitch && {
+			...(functionalFlag && {
 				...functional.configs.all.rules,
 				'functional/prefer-immutable-types': 'off',
 			}),
 
 			/* Tsdoc */
-			...(tsdocSwitch && {
+			...(tsdocFlag && {
 			'tsdoc/syntax': 'warn',
 			}),
 
 			/* Prettier rules */
-			...(prettierSwitch && {
+			...(prettierFlag && {
 				...prettier.rules,
 			}),
 
 			/* js rules */
-			...(jsSwitch && {
+			...(jsFlag && {
 			...js.configs.all.rules,
 			// ...js.configs.recommended.rules,
 		}),
 
 			/* Perfectionist rules */
-			...(perfectionistSwitch && {
+			...(perfectionistFlag && {
 			...perfectionist.configs['recommended-alphabetical'].rules,
 			// 'perfectionist/sort-exports': ['error', { order: 'desc', type: 'natural' }],
 			// 'perfectionist/sort-imports': ['error', { order: 'asc', type: 'natural' }],
@@ -243,14 +251,14 @@ export default [
 		}),
 
 			/* Unicorn rules */
-			...(unicornSwitch && {
+			...(unicornFlag && {
 				...unicorn.configs.all.rules,
 				// ...unicorn.configs.recommended.rules,
 				'unicorn/better-regex': 'error',
 				'unicorn/prefer-query-selector': 'error',
 			}),
 
-			...(stylisticSwitch && {
+			...(stylisticFlag && {
 			...stylistic.configs['recommended-extends'].rules,
 			'@stylistic/array-bracket-newline': ['error', 'consistent'],
 			'@stylistic/array-bracket-spacing': [
@@ -304,7 +312,7 @@ export default [
 		}),
 
 			// TypeScript-specific rules
-			...(typescriptSwitch && {
+			...(typescriptFlag && {
 				/* TypeScript rules */
 				// ...ts.configs.recommended.rules,
 				...ts.configs.strict.rules,
@@ -578,12 +586,12 @@ export default [
 				'@typescript-eslint/init-declarations': ['error', 'never', { ignoreForLoopInit: true }],
 
 				/* tailwind rules */
-				...(tailwindSwitch && {
+				...(tailwindFlag && {
 					'tailwind/classnames-order': 'error',
 				}),
 
 				/* pandacss rules */
-				...(pandacssSwitch && {
+				...(pandacssFlag && {
 					'@pandacss/file-not-included': 'error',
 				}),
 			}),
@@ -596,7 +604,7 @@ export default [
 		},
 		files: ['src/tests/**'],
 		rules: {
-			...(vitestSwitch && {
+			...(vitestFlag && {
 			...vitest.configs.recommended.rules,
 			'dot-notation': 'off',
 			'vitest/no-done-callback': 'off', //deprecated
@@ -662,7 +670,7 @@ export default [
 			esEs
 		},
 		rules: {
-			...(esEsSwitch && {
+			...(esEsFlag && {
 				'esEs/consistent-output': 'error',
 				'esEs/fixer-return': 'error',
 				'esEs/meta-property-ordering': 'error',
@@ -713,7 +721,7 @@ export default [
 			'@html-eslint': html
 		},
 		rules: {
-			...(htmlSwitch && {
+			...(htmlFlag && {
 			...html.configs.recommended.rules
 			}),
 		},
