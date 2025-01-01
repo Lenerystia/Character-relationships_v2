@@ -1,4 +1,4 @@
-import CharacterModel from '$lib/server/model/CharacterModel';
+import CharacterRepository from '$lib/server/repositories/CharacterRepository';
 import { error, type RequestHandler } from '@sveltejs/kit';
 
 export const DELETE: RequestHandler = async ({ request }):Promise<Response> => {
@@ -8,7 +8,7 @@ export const DELETE: RequestHandler = async ({ request }):Promise<Response> => {
 		throw error(400, { message: 'Invalid or missing character ID' });
 	}
 
-	const response = await CharacterModel.deleteCharacterById(id);
+	const response = await CharacterRepository.deleteCharacterById(id);
 	if (!response.ok) {
 		return response
 		// throw error(500, { message: 'Error deleting character' });

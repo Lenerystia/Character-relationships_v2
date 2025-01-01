@@ -15,7 +15,8 @@
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"prepare": "husky"
 	},
 	"devDependencies": {
 		"@faker-js/faker": "^9.3.0",
@@ -38,6 +39,7 @@
 		"eslint-plugin-eslint-plugin": "^6.4.0",
 		"eslint-plugin-import": "^2.31.0",
 		"eslint-plugin-import-alias": "^1.2.0",
+		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-perfectionist": "^4.3.0",
 		"eslint-plugin-promise": "^7.2.1",
 		"eslint-plugin-sonarjs": "^3.0.1",
@@ -45,6 +47,8 @@
 		"eslint-plugin-tailwindcss": "^3.17.5",
 		"eslint-plugin-tsdoc": "^0.4.0",
 		"globals": "^15.0.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.3.0",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
 		"stylelint": "^16.12.0",
@@ -73,5 +77,15 @@
 		"prettier-plugin-organize-imports": "^4.1.0",
 		"svelte-eslint-parser": "^0.43.0",
 		"zod": "^3.24.1"
+	},
+	"lint-staged": {
+		"*.{ts,svelte}": [
+			"eslint --fix",
+			"prettier --write"
+		],
+		"*.css": [
+			"prettier --write",
+			"stylelint --fix"
+		]
 	}
 }

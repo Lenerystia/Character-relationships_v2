@@ -4,13 +4,13 @@ import db from '$lib/server/db';
 import { relations } from '$lib/server/db/schema/schema';
 import { eq } from 'drizzle-orm';
 
-export class RelationModel {
+export class RelationRepository {
   /**
    * Retrieves all relations in the database and returns them as an array of Relation objects.
    * The relations are ordered by their IDs in ascending order.
    * @returns A promise that resolves to an array of Relation objects.
    */
-  static async getListRelations() : Promise<Relation[]> {
+  static async getListRelations(): Promise<Relation[]> {
     return db.select().from(relations).orderBy(relations.id);
   }
   
@@ -30,12 +30,12 @@ export class RelationModel {
 
   /**
    * Retrieves a relation by its ID.
-   * @param id The ID of the relation to retrieve.
+   * @param relationId The ID of the relation to retrieve.
    * @returns A promise that resolves to the Relation object.
    */
-  static async getRelationById(id: number): Promise<Relation> {
+  static async getRelationById(relationId: number): Promise<Relation> {
     const relationRecord = await db.query.relations.findFirst({
-      where: eq(relations.id, id),
+      where: eq(relations.id, relationId),
     });
     if (!relationRecord) {
       throw new Error('Relation not found');
@@ -46,4 +46,4 @@ export class RelationModel {
 
 }
 
-// export default RelationModel;
+// export default RelationRepository;

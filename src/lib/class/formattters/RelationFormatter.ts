@@ -1,4 +1,4 @@
-import type { Relation } from "./Relation";
+import type { Relation } from "../Relation";
 
 export class RelationFormatter {
     // Metoda konwertująca instancję Character na POJO
