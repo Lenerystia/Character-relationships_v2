@@ -22,6 +22,8 @@ import promise from 'eslint-plugin-promise';
 import node from 'eslint-plugin-node';
 import panda from '@pandacss/eslint-plugin';
 import tailwind from 'eslint-plugin-tailwindcss';
+import cspell from '@cspell/eslint-plugin';
+
 
 // Toggles for enabling/disabling rule groups
 const perfectionistFlag = false;
@@ -29,7 +31,7 @@ const svelteFlag = false;
 const typescriptFlag = false;
 const unicornFlag = false;
 const stylisticFlag = false;
-const jsFlag = false;
+const jsFlag = true;
 const vitestFlag = false;
 const tsdocFlag = true;
 const esImportFlag = false;
@@ -45,6 +47,7 @@ const prettierFlag = false;
 const nodeFlag = false;
 const pandacssFlag = false;
 const tailwindFlag = false;
+const cspellFlag = true;
 
 export default [
 	prettier,
@@ -87,6 +90,7 @@ export default [
 			security: security,
 			alias: alias,
 			node: node,
+			cspell: cspell,
 		},
 		settings: {
 			'import/resolver': {
@@ -96,7 +100,9 @@ export default [
 			}
 		},
 		rules: {
-
+			...(cspellFlag && {
+				'cspell/spellchecker': 'warn',
+			}),
 			...(nodeFlag && {
 				// ...node.configs.recommended.rules,
 				...node.configs['recommended-script'].rules,
@@ -238,6 +244,215 @@ export default [
 			...(jsFlag && {
 			...js.configs.all.rules,
 			// ...js.configs.recommended.rules,
+			"array-callback-return": [
+				"error",
+				{
+					checkForEach: true,
+				},
+			],
+			"constructor-super": "error",
+			"for-direction": "error",
+			"getter-return": "error",
+			"no-async-promise-executor": "error",
+			"no-class-assign": "error",
+			"no-compare-neg-zero": "error",
+			"no-cond-assign": ["error", "always"],
+			"no-const-assign": "error",
+			"no-constant-binary-expression": "warn",
+			"no-constant-condition": "error",
+			"no-constructor-return": "error",
+			"no-control-regex": "error",
+			"no-debugger": "warn",
+			"no-dupe-args": "error",
+			"no-dupe-class-members": "error",
+			"no-dupe-else-if": "error",
+			"no-dupe-keys": "error",
+			"no-duplicate-case": "error",
+			"no-empty-character-class": "error",
+			"no-empty-pattern": "error",
+			"no-ex-assign": "error",
+			"no-fallthrough": "error",
+			"no-func-assign": "error",
+			"no-import-assign": "error",
+			"no-inner-declarations": ["error", "both"],
+			"no-invalid-regexp": "error",
+			"no-irregular-whitespace": [
+				"error",
+				{
+					skipStrings: false,
+					skipTemplates: false,
+					skipJSXText: false,
+				},
+			],
+			"no-loss-of-precision": "error",
+			"no-misleading-character-class": "error",
+			"no-new-native-nonconstructor": "error",
+			"no-obj-calls": "error",
+			"no-prototype-builtins": "error",
+			"no-self-assign": "warn",
+			"no-self-compare": "warn",
+			"no-setter-return": "error",
+			"no-sparse-arrays": "error",
+			"no-template-curly-in-string": "error",
+			"no-this-before-super": "error",
+			"no-undef": "error",
+			"no-unexpected-multiline": "error",
+			"no-unmodified-loop-condition": "error",
+			"no-unreachable": "warn",
+			"no-unsafe-finally": "error",
+			"no-unsafe-negation": [
+				"error",
+				{
+					enforceForOrderingRelations: true,
+				},
+			],
+			"no-unsafe-optional-chaining": [
+				"error",
+				{
+					disallowArithmeticOperators: true,
+				},
+			],
+			"no-unused-private-class-members": "warn",
+			"no-unused-vars": [
+				"warn",
+				{
+					varsIgnorePattern: "^_",
+					argsIgnorePattern: "^_",
+					reportUsedIgnorePattern: true,
+				},
+			],
+			"no-use-before-define": [
+				"warn",
+				{
+					functions: false,
+					classes: false,
+					variables: true,
+					allowNamedExports: false,
+				},
+			],
+			"no-useless-backreference": "error",
+			"use-isnan": "error",
+			"valid-typeof": "error",
+			// Suggestions - https://eslint.org/docs/latest/rules/#suggestions
+			"consistent-return": "error",
+			curly: "warn",
+			"default-param-last": "error",
+			eqeqeq: "error",
+			"func-names": ["warn", "never"],
+			"func-style": ["warn", "declaration"],
+			"no-array-constructor": "error",
+			"no-bitwise": "error",
+			"no-case-declarations": "error",
+			"no-delete-var": "error",
+			"no-else-return": "warn",
+			"no-empty": "warn",
+			"no-empty-function": "warn",
+			"no-empty-static-block": "warn",
+			"no-eval": "error",
+			"no-extend-native": "error",
+			"no-extra-bind": "error",
+			"no-extra-boolean-cast": [
+				"warn",
+				{
+					enforceForLogicalOperands: true,
+				},
+			],
+			"no-global-assign": "error",
+			"no-implicit-coercion": "error",
+			"no-implicit-globals": "error",
+			"no-implied-eval": "error",
+			"no-invalid-this": [
+				"error",
+				{
+					capIsConstructor: false,
+				},
+			],
+			"no-labels": "error",
+			"no-lone-blocks": "error",
+			"no-multi-assign": "warn",
+			"no-new": "error",
+			"no-new-func": "error",
+			"no-new-wrappers": "error",
+			"no-nonoctal-decimal-escape": "error",
+			"no-object-constructor": "error",
+			"no-octal": "error",
+			"no-octal-escape": "error",
+			"no-proto": "error",
+			"no-redeclare": "error",
+			"no-regex-spaces": "warn",
+			// "no-restricted-imports": ["warn", baseRestrictedImports],
+			"no-restricted-syntax": [
+				"warn",
+				{
+					selector: "CallExpression[callee.name='Number']",
+					message: "Don't use the Number function. Use parseInt or parseFloat instead.",
+				},
+				{
+					selector: "CallExpression[callee.name='Boolean']",
+					message: "Don't use the Boolean function. Use a strict comparison instead.",
+				},
+				{
+					selector: "TSEnumDeclaration",
+					message: "Use a type with a union of strings instead.",
+				},
+				{
+					selector: "TSTypeReference Identifier[name='React']",
+					message: "Import the type explicitly instead of using the React global.",
+				},
+				{
+					selector: "TSTypeReference Identifier[name='PropsWithChildren']",
+					message: "Explicitly declare children in your props type.",
+				},
+			],
+			"no-return-assign": ["warn", "always"],
+			"no-script-url": "error",
+			"no-sequences": [
+				"warn",
+				{
+					allowInParentheses: false,
+				},
+			],
+			"no-shadow": [
+				"error",
+				{
+					ignoreOnInitialization: true,
+				},
+			],
+			"no-shadow-restricted-names": "error",
+			"no-throw-literal": "error",
+			"no-unused-expressions": [
+				"warn",
+				{
+					enforceForJSX: true,
+				},
+			],
+			"no-useless-call": "error",
+			"no-useless-catch": "warn",
+			"no-useless-computed-key": [
+				"warn",
+				{
+					enforceForClassMembers: true,
+				},
+			],
+			"no-useless-concat": "error",
+			"no-useless-escape": "warn",
+			"no-useless-rename": "warn",
+			"no-useless-return": "warn",
+			"no-var": "error",
+			"no-with": "error",
+			"one-var": ["warn", "never"],
+			"operator-assignment": "warn",
+			"prefer-arrow-callback": "warn",
+			"prefer-const": "warn",
+			"prefer-numeric-literals": "warn",
+			"prefer-object-spread": "warn",
+			"prefer-promise-reject-errors": "error",
+			"prefer-rest-params": "warn",
+			"prefer-spread": "warn",
+			"prefer-template": "warn",
+			radix: "error",
+			"require-await": "error",
+			"require-yield": "error",
 		}),
 
 			/* Perfectionist rules */
