@@ -8,7 +8,7 @@ import stylistic from '@stylistic/eslint-plugin';
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import vitest from '@vitest/eslint-plugin';
-import tsdoc from 'eslint-plugin-tsdoc';
+import tsDoc from 'eslint-plugin-tsdoc';
 import esImport from 'eslint-plugin-import';
 import functional from 'eslint-plugin-functional';
 import security from 'eslint-plugin-security';
@@ -25,13 +25,13 @@ import tailwind from 'eslint-plugin-tailwindcss';
 
 // Toggles for enabling/disabling rule groups
 const perfectionistFlag = false;
-const svelteFlag = false;
-const typescriptFlag = false;
+const svelteFlag = true;
+const typescriptFlag = true;
 const unicornFlag = false;
 const stylisticFlag = false;
 const jsFlag = false;
 const vitestFlag = false;
-const tsdocFlag = true;
+const tsDocFlag = true;
 const esImportFlag = false;
 const functionalFlag = false;
 const securityFlag = false;
@@ -74,7 +74,7 @@ export default [
 			'@stylistic': stylistic,
 			'@pandacss': panda,
 			tailwind: tailwind,
-			tsdoc: tsdoc,
+			tsDoc: tsDoc,
 			unicorn: unicorn,
 			svelte: svelte,
 			perfectionist: perfectionist,
@@ -151,7 +151,7 @@ export default [
 				}
 			],
 			}),
-			/* sonajs rules */
+			/* sonarjs rules */
 			...(sonarjsFlag && {
 			...sonarjs.configs.recommended.rules,
 			'sonarjs/deprecation': 'off',
@@ -221,8 +221,8 @@ export default [
 			}),
 
 			/* Tsdoc */
-			...(tsdocFlag && {
-			'tsdoc/syntax': 'warn',
+			...(tsDocFlag && {
+			'tsDoc/syntax': 'warn',
 			}),
 
 			/* Prettier rules */
