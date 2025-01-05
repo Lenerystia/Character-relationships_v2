@@ -17,7 +17,8 @@
 		"db:studio": "drizzle-kit studio",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"prepare": "husky"
+		"prepare": "husky",
+		"commitlint": "commitlint --edit"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.6.1",
