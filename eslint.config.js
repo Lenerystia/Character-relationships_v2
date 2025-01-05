@@ -535,22 +535,23 @@ export default [
 				// ...ts.configs.recommendedTypeChecked.rules, //sorry, but in for this config - it doesn't work
 
 				/* Not configurable */
-				'@typescript-eslint/prefer-optional-chain': 'error', // TODO
+				'@typescript-eslint/prefer-optional-chain': 'error',
 				'@typescript-eslint/ban-tslint-comment': 'error',
-				'@typescript-eslint/prefer-as-const': 'error',
+				'@typescript-eslint/prefer-as-const': 'off',
 				'default-param-last': 'off',
 				'@typescript-eslint/default-param-last': 'error',
-				'@typescript-eslint/await-thenable': 'off',
+				'@typescript-eslint/await-thenable': 'error',
 				'@typescript-eslint/adjacent-overload-signatures': 'error',
 				'@typescript-eslint/no-extra-non-null-assertion': 'error',
 				'@typescript-eslint/no-floating-promises': 'error',
 				'@typescript-eslint/no-for-in-array': 'error',
-				'@typescript-eslint/no-inferrable-types': 'error',
-				'@typescript-eslint/no-invalid-this': 'error', // TODO
+				'@typescript-eslint/no-inferrable-types': 'off',
+				'@typescript-eslint/no-invalid-this': 'error',
 				'@typescript-eslint/no-invalid-void-type': 'error',
 				'@typescript-eslint/no-misused-new': 'error',
 				'@typescript-eslint/no-mixed-enums': 'error',
 				'@typescript-eslint/no-namespace': 'error',
+				/* Done in theory - to check in practice */
 				'@typescript-eslint/no-non-null-asserted-nullish-coalescing': 'error',
 				'@typescript-eslint/no-non-null-assertion': 'error',
 				'@typescript-eslint/no-this-alias': 'error',
