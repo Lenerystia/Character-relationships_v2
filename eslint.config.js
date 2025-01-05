@@ -61,7 +61,8 @@ export default [
 			'svelte.config.js',
 			'vite.config.ts',
 			'eslint.config.js',
-			'drizzle.config.ts'
+			'drizzle.config.ts',
+			'commitlint.config.js'
 		],
 		languageOptions: {
 			parser: svelteParser,
