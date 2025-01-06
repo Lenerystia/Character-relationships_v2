@@ -523,7 +523,7 @@ export default [
 			'@stylistic/object-curly-spacing': ['error', 'always'],
 			'@stylistic/padded-blocks': ['error', 'never', { allowSingleLineBlocks: true }],
 			'@stylistic/quote-props': ['error', 'consistent-as-needed'],
-			'@stylistic/quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }], // TODO
+			'@stylistic/quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }],
 			'@stylistic/semi': ['error', 'always'],
 		}),
 
@@ -717,7 +717,7 @@ export default [
 				'@typescript-eslint/init-declarations': ['error', 'never', { ignoreForLoopInit: true }],
 
 				'@typescript-eslint/member-ordering': 'off',
-				'@typescript-eslint/naming-convention': 'off', // TODO in styistic
+				'@typescript-eslint/naming-convention': 'off',
 				'@typescript-eslint/no-restricted-types': 'off',
 				"no-restricted-imports": "off",
 				"@typescript-eslint/no-restricted-imports": "off",
