@@ -537,7 +537,6 @@ export default [
 				/* Not configurable */
 				'@typescript-eslint/prefer-optional-chain': 'error',
 				'@typescript-eslint/ban-tslint-comment': 'error',
-				'@typescript-eslint/prefer-as-const': 'off',
 				'default-param-last': 'off',
 				'@typescript-eslint/default-param-last': 'error',
 				'@typescript-eslint/await-thenable': 'error',
@@ -545,7 +544,6 @@ export default [
 				'@typescript-eslint/no-extra-non-null-assertion': 'error',
 				'@typescript-eslint/no-floating-promises': 'error',
 				'@typescript-eslint/no-for-in-array': 'error',
-				'@typescript-eslint/no-inferrable-types': 'off',
 				'@typescript-eslint/no-invalid-this': 'error',
 				'@typescript-eslint/no-invalid-void-type': 'error',
 				'@typescript-eslint/no-misused-new': 'error',
@@ -573,8 +571,6 @@ export default [
 				'@typescript-eslint/no-redundant-type-constituents': 'error',
 				'@typescript-eslint/no-duplicate-enum-values': 'error',
 				'@typescript-eslint/no-array-delete': 'error',
-				'no-array-constructor': 'off',
-				'@typescript-eslint/no-array-constructor': 'off',
 				'@typescript-eslint/no-meaningless-void-operator': 'error',
 				'@typescript-eslint/no-unsafe-unary-minus': 'error',
 				'@typescript-eslint/no-useless-empty-export': 'error',
@@ -587,9 +583,20 @@ export default [
 				'@typescript-eslint/prefer-find': 'error',
 				'@typescript-eslint/non-nullable-type-assertion-style': 'error',
 				'@typescript-eslint/no-unsafe-type-assertion': 'error',
+				'@typescript-eslint/prefer-function-type': 'error',
 				'@typescript-eslint/prefer-regexp-exec': 'error',
+				'@typescript-eslint/prefer-includes': 'error',
+				'@typescript-eslint/prefer-for-of': 'error', // To test
+				'@typescript-eslint/prefer-enum-initializers': 'error',
+				'@typescript-eslint/no-import-type-side-effects': 'error',
 				'no-implied-eval': 'off',
 				'@typescript-eslint/no-implied-eval': 'error',
+				'no-array-constructor': 'off',
+				'@typescript-eslint/no-array-constructor': 'off',
+				'@typescript-eslint/no-inferrable-types': 'off',
+				'@typescript-eslint/prefer-as-const': 'off',
+				'@typescript-eslint/related-getter-setter-pairs': 'off',
+				'@typescript-eslint/prefer-return-this-type': 'off',
 
 				/* Cofigurable */
 				'@typescript-eslint/explicit-module-boundary-types': 'error',
@@ -609,10 +616,8 @@ export default [
 						objectLiteralTypeAssertions: 'allow-as-parameter'
 					}
 				],
-
 				'dot-notation': 'off',
 				'@typescript-eslint/dot-notation': ['error', { allowKeywords: true, allowPattern: '' }], // To test
-				'@typescript-eslint/member-ordering': 'off',
 				'@typescript-eslint/method-signature-style': ['error', 'method'],
 				'@typescript-eslint/class-literal-property-style': ['error', 'fields'],
 				'@typescript-eslint/array-type': ['error', { default: 'array-simple', readonly: 'array' }],
@@ -646,17 +651,10 @@ export default [
 						allowTaggedTemplates: true
 					}
 				],
-				'@typescript-eslint/naming-convention': 'off', // TODO in styistic
-
-				// TODO
-				'@typescript-eslint/no-redeclare': 'off',
 				'no-use-before-define': 'off',
 				'@typescript-eslint/no-use-before-define': 'error',
 				"no-shadow": "off",
 				"@typescript-eslint/no-shadow": "error",
-				'@typescript-eslint/no-restricted-types': 'off',
-				"no-restricted-imports": "off",
-				"@typescript-eslint/no-restricted-imports": "off",
 				'@typescript-eslint/no-misused-promises': 'error',
 
 				'@typescript-eslint/no-confusing-void-expression': 'error',
@@ -665,50 +663,27 @@ export default [
 				'@typescript-eslint/no-empty-function': 'error',
 				"no-magic-numbers": "off",
 				'@typescript-eslint/no-magic-numbers': 'error',
-				/* Done in theory - to check in practice */
-				'@typescript-eslint/prefer-literal-enum-member': ['error', { allowBitwiseExpressions: true }],
-				'@typescript-eslint/prefer-nullish-coalescing': ['error', { ignoreConditionalTests: true }], // TODO
-				'@typescript-eslint/prefer-readonly': 'error', // TODO
-				'@typescript-eslint/prefer-readonly-parameter-types': 'error', // TODO
-				'@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }], // TODO
+				'@typescript-eslint/prefer-literal-enum-member': 'error',
+				'@typescript-eslint/prefer-nullish-coalescing': 'error',
+
+				'@typescript-eslint/prefer-readonly-parameter-types': 'error',
+				'@typescript-eslint/unbound-method': 'error',
 				'class-methods-use-this': 'off',
-				'@typescript-eslint/class-methods-use-this': 'error', // TODO
-				'consistent-return': 'off',
-				'@typescript-eslint/consistent-return': [
-					'error',
-					{
-						treatUndefinedAsUnspecified: true
-					}
-				],
+				'@typescript-eslint/class-methods-use-this': 'error',
 				'@typescript-eslint/consistent-type-exports': [
 					'error',
 					{ fixMixedExportsWithInlineTypeSpecifier: true }
-				], // TODO
-				'@typescript-eslint/consistent-type-imports': 'error', // TODO
-
-				/* Disabled */
-				'@typescript-eslint/related-getter-setter-pairs': 'off',
-				'@typescript-eslint/restrict-template-expressions': 'off',
-				'@typescript-eslint/prefer-destructuring': 'off',
-				'@typescript-eslint/prefer-return-this-type': 'off',
-				'@typescript-eslint/parameter-properties': 'off',
-				'@typescript-eslint/require-array-sort-compare': 'off',
-
-				/* I don't know */
+				],
+				'@typescript-eslint/consistent-type-imports': ['error', {
+					disallowTypeAnnotations: true,
+					fixStyle: 'inline-type-imports',
+					prefer: 'type-imports'
+				}],
 				'@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
-				'@typescript-eslint/prefer-includes': 'error',
-				'@typescript-eslint/prefer-function-type': 'error',
-				'@typescript-eslint/prefer-for-of': 'error',
-				'@typescript-eslint/prefer-enum-initializers': 'error',
-				'@typescript-eslint/no-import-type-side-effects': 'error',
-				'@typescript-eslint/no-dupe-class-members': 'error',
-
-				/* don't understand */
+				'@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'explicit' }],
+				"require-await": "off",
 				'@typescript-eslint/require-await': 'error',
 				'@typescript-eslint/explicit-function-return-type': 'error',
-				'@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'explicit' }],
-
-				/* Ogarnięte */
 				'@typescript-eslint/unified-signatures': [
 					'error',
 					{ ignoreDifferentlyNamedParameters: false }
@@ -740,6 +715,24 @@ export default [
 				'@typescript-eslint/max-params': ['error', { max: 4 }],
 				'init-declarations': 'off',
 				'@typescript-eslint/init-declarations': ['error', 'never', { ignoreForLoopInit: true }],
+
+				'@typescript-eslint/member-ordering': 'off',
+				'@typescript-eslint/naming-convention': 'off', // TODO in styistic
+				'@typescript-eslint/no-restricted-types': 'off',
+				"no-restricted-imports": "off",
+				"@typescript-eslint/no-restricted-imports": "off",
+				'@typescript-eslint/prefer-readonly': 'off',
+				'@typescript-eslint/no-redeclare': 'off',
+				'@typescript-eslint/restrict-template-expressions': 'off',
+				"prefer-destructuring": "off",
+				'@typescript-eslint/prefer-destructuring': 'off',
+				'@typescript-eslint/parameter-properties': 'off',
+				'@typescript-eslint/require-array-sort-compare': 'off',
+				'consistent-return': 'off',
+				'@typescript-eslint/consistent-return': 'off',
+				"no-dupe-class-members": "off",
+				'@typescript-eslint/no-dupe-class-members': 'off',
+				/* TS done in theory - to check in practice */
 
 				/* tailwind rules */
 				...(tailwindFlag && {
