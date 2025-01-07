@@ -26,7 +26,7 @@ import svelteParser from 'svelte-eslint-parser';
 
 // Toggles for enabling/disabling rule groups
 const perfectionistFlag = false;
-const svelteFlag = true;
+const svelteFlag = false;
 const typescriptFlag = false;
 const unicornFlag = false;
 const stylisticFlag = false;
@@ -40,7 +40,7 @@ const sonarjsFlag = false;
 const aliasFlag = false;
 const htmlFlag = false;
 const esEsFlag = false;
-const promiseFlag = false;
+const promiseFlag = true;
 const drizzleFlag = false;
 const prettierFlag = false;
 const nodeFlag = false;
@@ -179,7 +179,7 @@ export default [
 				'promise/no-return-wrap': 'error',
 				'promise/param-names': 'error',
 				'promise/catch-or-return': 'error',
-				'promise/no-native': 'error',
+				'promise/no-native': 'off',
 				'promise/no-nesting': 'error',
 				'promise/no-promise-in-callback': 'error',
 				'promise/no-callback-in-promise': 'error',
