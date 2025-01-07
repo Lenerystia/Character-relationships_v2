@@ -13,7 +13,6 @@ export async function fetchCharacter(compared: number) {
 	return fetchCharacterTest(db, compared);
 }
 //Testing "OOP" with help GPT
-//TODO zrobić jednak klasę Characters, a tam umieścić (pierw znaleźć) getCharacterById i zwrócić wszystkie informacje o postaci
 export async function fetchCharacters(): Promise<Character[]> {
 	const characterRecords = await db.select().from(characters).orderBy(characters.id);
 	return characterRecords.map(
@@ -61,7 +60,7 @@ export async function fetchRelations(): Promise<Relation[]> {
 	);
 }
 
-//like line 67
+// Like line 67
 export async function fetchRelationsClass(): Promise<Relations> {
 	const relationRecords = await db.select().from(relations).orderBy(relations.id);
 	return new Relations(
@@ -70,10 +69,3 @@ export async function fetchRelationsClass(): Promise<Relations> {
 		)
 	);
 }
-
-// Nie ważne
-// export async function fetchRelations(): Promise<Relation[]> {
-// 	const relationRecords = await db.select().from(relations);
-// 	return relationRecords.map((rel):Relation => new Relation(rel.id, rel.idChar1, rel.idChar2, rel.about)
-// 	);
-// }
