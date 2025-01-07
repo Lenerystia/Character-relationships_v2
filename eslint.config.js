@@ -26,14 +26,14 @@ import cspell from '@cspell/eslint-plugin';
 
 
 // Toggles for enabling/disabling rule groups
-const perfectionistFlag = false;
-const svelteFlag = true;
+const perfectionistFlag = true;
+const svelteFlag = false;
 const typescriptFlag = true;
 const unicornFlag = false;
 const stylisticFlag = false;
-const jsFlag = true;
+const jsFlag = false;
 const vitestFlag = false;
-const tsDocFlag = true;
+const tsDocFlag = false;
 const esImportFlag = false;
 const functionalFlag = false;
 const securityFlag = false;
@@ -47,7 +47,7 @@ const prettierFlag = false;
 const nodeFlag = false;
 const pandacssFlag = false;
 const tailwindFlag = false;
-const cspellFlag = true;
+const cspellFlag = false;
 
 export default [
 	prettier,
@@ -62,7 +62,8 @@ export default [
 			'vite.config.ts',
 			'eslint.config.js',
 			'drizzle.config.ts',
-			'commitlint.config.js'
+			'commitlint.config.js',
+			'vitest.config.js',
 		],
 		languageOptions: {
 			parser: svelteParser,
@@ -458,12 +459,10 @@ export default [
 
 			/* Perfectionist rules */
 			...(perfectionistFlag && {
-			...perfectionist.configs['recommended-alphabetical'].rules,
-			// 'perfectionist/sort-exports': ['error', { order: 'desc', type: 'natural' }],
-			// 'perfectionist/sort-imports': ['error', { order: 'asc', type: 'natural' }],
-			// 'perfectionist/sort-interfaces': ['error', { order: 'asc', type: 'natural' }],
-			// 'perfectionist/sort-named-exports': ['error', { order: 'asc', type: 'natural' }],
-			// 'perfectionist/sort-named-imports': ['error', { order: 'asc', type: 'natural' }],
+			...perfectionist.configs['recommended-natural'].rules,
+				'perfectionist/sort-objects': 'off',
+				'perfectionist/sort-classes': 'off',
+				'perfectionist/sort-object-types': 'off',
 		}),
 
 			/* Unicorn rules */
