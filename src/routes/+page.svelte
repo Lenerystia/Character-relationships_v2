@@ -1,6 +1,6 @@
-<scrip lang="ts">
+<script lang="ts">
 
-</scrip>
+</script>
 
 <h1>Menu</h1>
 

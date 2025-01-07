@@ -19,9 +19,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each relations as relation}
+			{#each relations as relation (relation.id)}
 				<tr>
-					{#each Object.values(relation) as cell}
+					{#each Object.values(relation) as cell (cell)}
 						<td>{cell}</td>
 					{/each}
 				</tr>
@@ -31,4 +31,3 @@
 </div>
 
 <br />
-

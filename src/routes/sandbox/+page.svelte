@@ -18,7 +18,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each characters as character}
+			{#each characters as character (character.id)}
 				<tr>
 					<td>{character.id}</td>
 					<td>{character.firstName}</td>

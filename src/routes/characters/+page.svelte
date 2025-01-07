@@ -40,12 +40,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each characters as character}
+			{#each characters as character (character.id)}
 				<tr>
 					<td>{character.id}</td>
 					<td>{character.firstName}</td>
 					<td>{character.lastName}</td>
-					<td><button on:click={() => deleteCharacter(character.id)}>Delete</button></td>
+					<td><button type="button" on:click={() => deleteCharacter(character.id)}>Delete</button></td>
 				</tr>
 			{/each}
 		</tbody>

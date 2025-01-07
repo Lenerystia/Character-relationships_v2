@@ -33,14 +33,14 @@
 <h1>Add New Character</h1>
 <form on:submit={handleSubmit}>
 	<label for="firstName">First Name:</label>
-	<input id="firstName" name="firstName" bind:value={firstName} type="text" />
+	<input id="firstName" name="firstName" type="text" bind:value={firstName} />
 
 	<label for="lastName">Last Name:</label>
-	<input id="lastName" name="lastName" bind:value={lastName} type="text" />
+	<input id="lastName" name="lastName" type="text" bind:value={lastName} />
 
 	<button type="submit">Add Character</button>
 </form>
 
 {#if errorMessage}
-	<p style="color: red; text-align: center">{errorMessage}</p>
+	<p style:color="red" style:text-align="center">{errorMessage}</p>
 {/if}

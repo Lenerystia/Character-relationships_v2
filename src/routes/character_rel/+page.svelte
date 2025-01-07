@@ -40,15 +40,15 @@
 				</tr>
 				</thead>
 				<tbody>
-				{#each characters as character}
-					{#each getRelationsForCharacter(character.id) as relation}
+				{#each characters as character (character.id)}
+					{#each getRelationsForCharacter(character.id) as relation (relation.id)}
 						<tr>
 							<td>
 								{#if character.firstName}{character.firstName}{:else}Unknown{/if}
 								{#if character.lastName}{character.lastName}{:else}Unknown{/if}
 							</td>
 							<td>
-								{#each getRelatedCharacter(relation.idChar2) as relatedCharacter}
+								{#each getRelatedCharacter(relation.idChar2) as relatedCharacter (relatedCharacter.id)}
 									{#if relatedCharacter.firstName}{relatedCharacter.firstName}{:else}Unknown{/if}
 									{#if relatedCharacter.lastName}{relatedCharacter.lastName}{:else}Unknown{/if}
 								{/each}
@@ -62,6 +62,7 @@
 		</div>
 	</div>
 	<div id="svg">
-		<svg id="graph" width="1050px" height="1000px" />
+		<svg id="graph" height="1000px" width="1050px" />
 	</div>
 </main>
+

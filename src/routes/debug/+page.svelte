@@ -11,16 +11,16 @@
 	<div>
 		<table>
 			<thead>
-				<tr>
-					{#each Object.keys(AllCharacters[0]) as colHead}
-						<th>{colHead}</th>
-					{/each}
-				</tr>
+			<tr>
+				{#each Object.keys(AllCharacters[0]) as columnName (columnName)}
+					<th>{columnName}</th>
+				{/each}
+			</tr>
 			</thead>
 			<tbody>
-				{#each AllCharacters as character}
+				{#each AllCharacters as character (character.id)}
 					<tr>
-						{#each Object.values(character) as cell}
+						{#each Object.values(character) as cell (cell)}
 							<td>{cell}</td>
 						{/each}
 					</tr>
