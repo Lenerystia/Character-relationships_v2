@@ -383,29 +383,7 @@ export default [
 			"no-redeclare": "error",
 			"no-regex-spaces": "warn",
 			// "no-restricted-imports": ["warn", baseRestrictedImports],
-			"no-restricted-syntax": [
-				"warn",
-				{
-					selector: "CallExpression[callee.name='Number']",
-					message: "Don't use the Number function. Use parseInt or parseFloat instead.",
-				},
-				{
-					selector: "CallExpression[callee.name='Boolean']",
-					message: "Don't use the Boolean function. Use a strict comparison instead.",
-				},
-				{
-					selector: "TSEnumDeclaration",
-					message: "Use a type with a union of strings instead.",
-				},
-				{
-					selector: "TSTypeReference Identifier[name='React']",
-					message: "Import the type explicitly instead of using the React global.",
-				},
-				{
-					selector: "TSTypeReference Identifier[name='PropsWithChildren']",
-					message: "Explicitly declare children in your props type.",
-				},
-			],
+			"no-restricted-syntax": 'off',
 			"no-return-assign": ["warn", "always"],
 			"no-script-url": "error",
 			"no-sequences": [
