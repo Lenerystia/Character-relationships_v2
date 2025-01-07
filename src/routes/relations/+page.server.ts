@@ -1,7 +1,8 @@
-import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
 import type { Relations } from '$lib/class/Relations';
-import { RelationRepository } from '$lib/server/repositories/RelationRepository';
 import type { TRelation } from '$lib/types/types';
+
+import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
+import { RelationRepository } from '$lib/server/repositories/RelationRepository';
 import { error } from '@sveltejs/kit';
 
 export const load = async () => {

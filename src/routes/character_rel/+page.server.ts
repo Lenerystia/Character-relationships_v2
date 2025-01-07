@@ -1,11 +1,12 @@
-import { error } from '@sveltejs/kit';
+import type { TCharacter, TRelation } from '$lib/types/types';
+
 import { Characters } from '$lib/class/Characters';
-import { Relations } from '$lib/class/Relations';
 import { CharacterFormatter } from '$lib/class/formattters/CharacterFormatter';
 import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
+import { Relations } from '$lib/class/Relations';
 import CharacterRepository from '$lib/server/repositories/CharacterRepository';
 import { RelationRepository } from '$lib/server/repositories/RelationRepository';
-import type { TCharacter, TRelation } from '$lib/types/types';
+import { error } from '@sveltejs/kit';
 
 export async function load() {
 	// Fetch data from the database

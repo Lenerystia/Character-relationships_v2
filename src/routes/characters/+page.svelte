@@ -1,6 +1,8 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
+
 	import type { TCharacter } from '$lib/types/types';
+
 	import { goto } from '$app/navigation';
 
 	export let data: { characters: TCharacter[] };

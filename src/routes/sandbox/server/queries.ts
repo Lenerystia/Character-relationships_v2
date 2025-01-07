@@ -1,20 +1,24 @@
+import type { TCharacter } from '$lib/types/types';
+import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+
+import { Character } from '$lib/class/Character';
+import { Characters } from '$lib/class/Characters';
+import { Relation } from '$lib/class/Relation';
+import { Relations } from '$lib/class/Relations';
 import { db } from '$lib/server/db';
 import { characters, relations } from '$lib/server/db/schema/schema';
 import { eq } from 'drizzle-orm';
-import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { Character } from '$lib/class/Character';
-import { Relation, Relations } from '$lib/class/Relation';
-import type { TCharacter } from '$lib/types/types';
-import { Characters } from '$lib/class/Characters';
 
-export async function fetchCharacterTest(
-	db: PostgresJsDatabase<Record<string, never>>,
-	compared: number
-): Promise<TCharacter[]> {
-	return db.select().from(characters).where(eq(characters.id, compared));
-}
 export async function fetchCharacter(compared: number) {
 	return fetchCharacterTest(db, compared);
+}
+//Testing "OOP" with help GPT
+//TODO zrobić jednak klasę Characters, a tam umieścić (pierw znaleźć) getCharacterById i zwrócić wszystkie informacje o postaci
+export async function fetchCharacters(): Promise<Character[]> {
+	const characterRecords = await db.select().from(characters).orderBy(characters.id);
+	return characterRecords.map(
+		(char): Character => new Character(char.id, char.firstName, char.lastName)
+	);
 }
 
 //src/routes/characters/+server.ts
@@ -30,21 +34,19 @@ export async function fetchCharacter(compared: number) {
 // }
 
 
-//Testing "OOP" with help GPT
-//TODO zrobić jednak klasę Characters, a tam umieścić (pierw znaleźć) getCharacterById i zwrócić wszystkie informacje o postaci
-export async function fetchCharacters(): Promise<Character[]> {
-	const characterRecords = await db.select().from(characters).orderBy(characters.id);
-	return characterRecords.map(
-		(char): Character => new Character(char.id, char.firstName, char.lastName)
-	);
-}
-
 export async function fetchCharactersClass(): Promise<Characters> {
 	const characterRecords = await db.select().from(characters).orderBy(characters.id);
 	const charactersArray = characterRecords.map(
 		(char): Character => new Character(char.id, char.firstName, char.lastName)
 	);
 	return new Characters(charactersArray);
+}
+
+export async function fetchCharacterTest(
+	db: PostgresJsDatabase<Record<string, never>>,
+	compared: number
+): Promise<TCharacter[]> {
+	return db.select().from(characters).where(eq(characters.id, compared));
 }
 
 /**

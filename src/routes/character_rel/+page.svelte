@@ -1,7 +1,9 @@
 <script lang="ts">
   import '$lib/scripts/app.css';
-  import { onMount } from 'svelte';
+
   import type { TCharacter, TRelation } from '$lib/types/types';
+
+  import { onMount } from 'svelte';
 
   export let data: {
     characters: TCharacter[];

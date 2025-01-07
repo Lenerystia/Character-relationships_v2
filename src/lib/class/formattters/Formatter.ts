@@ -1,5 +1,6 @@
-import { Relation } from '$lib/class/Relation';
 import type { Character } from '$lib/class/Character';
+
+import { Relation } from '$lib/class/Relation';
 
 export class Formatter {
 	constructor(public readonly characters: Character[], public readonly Relation: Relation[]) {}
@@ -18,7 +19,7 @@ export class Formatter {
 	// 	return `${IniciatorCharacterName}`;
 	// }
 
-	getFullNameInitiatorCharacter(relation: Relation): string | null {
+	getFullNameInitiatorCharacter(relation: Relation): null | string {
 		const initiator = this.characters.find(
 			(char) => char.id === relation.idChar1
 		);
