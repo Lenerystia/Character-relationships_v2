@@ -1,6 +1,6 @@
 // import { db } from '$lib/server/db';
 // import { characters } from '$lib/server/db/schema';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // vi.mock('$lib/server/db/index', () => ({
 //     db: {
