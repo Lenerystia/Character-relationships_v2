@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import '$lib/scripts/app.css';
 	import type { TCharacter } from '$lib/types/types';
+
+	import '$lib/scripts/app.css';
+	import { page } from '$app/stores';
 
 	let characterId = parseInt($page.params.charId);
 	export let data: { character: TCharacter[] };

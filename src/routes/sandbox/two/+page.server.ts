@@ -1,5 +1,6 @@
-import { fetchCharactersClass } from '../server/queries';
 import { Characters } from '$lib/class/Characters';
+
+import { fetchCharactersClass } from '../server/queries';
 
 export const load = async () => {
 	const charactersInstance: Characters = await fetchCharactersClass();

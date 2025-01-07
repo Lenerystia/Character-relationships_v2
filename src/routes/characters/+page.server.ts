@@ -1,7 +1,8 @@
 import type { Characters } from '$lib/class/Characters';
+import type { TCharacter } from '$lib/types/types';
+
 import { CharacterFormatter } from '$lib/class/formattters/CharacterFormatter';
 import CharacterRepository from '$lib/server/repositories/CharacterRepository';
-import type { TCharacter } from '$lib/types/types';
 import { error } from '@sveltejs/kit';
 
 export const load = async () => {

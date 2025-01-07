@@ -1,8 +1,10 @@
-import { graphviz } from 'd3-graphviz';
 import type { TCharacter, TRelation } from '$lib/types/types';
+
 import { Character } from '$lib/class/Character';
 import { Relation } from '$lib/class/Relation';
 import { characters, relations } from '$lib/server/db/schema/schema';
+import { graphviz } from 'd3-graphviz';
+
 import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/queries';
 
 // function getCharacterName(characterId: number, characters: Character[]): string {

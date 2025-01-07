@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
-	export let data: string | null; // The full name of the initiator character
+	export let data: null | string; // The full name of the initiator character
 </script>
 
 <h1>Initiator Full Name</h1>
