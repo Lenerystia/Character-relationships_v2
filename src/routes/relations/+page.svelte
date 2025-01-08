@@ -21,9 +21,13 @@
 		<tbody>
 			{#each relations as relation (relation.id)}
 				<tr>
-					{#each Object.values(relation) as cell (cell)}
-						<td>{cell}</td>
-					{/each}
+					<td>{relation.id}</td>
+					<td>{relation.idChar1}</td>
+					<td>{relation.idChar2}</td>
+					<td>{relation.about}</td>
+					<!--{#each Object.values(relation) as cell}-->
+					<!--	<td>{cell}</td>-->
+					<!--{/each}-->
 				</tr>
 			{/each}
 		</tbody>
