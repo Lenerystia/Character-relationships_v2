@@ -41,6 +41,7 @@
 		"@types/node": "^22.10.2",
 		"@vitest/eslint-plugin": "^1.1.20",
 		"commitlint": "^19.6.1",
+		"commitlint-plugin-function-rules": "^4.0.1",
 		"cspell": "^8.17.1",
 		"drizzle-kit": "^0.22.0",
 		"eslint": "^9.16.0",
