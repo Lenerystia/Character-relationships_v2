@@ -1,6 +1,7 @@
 import { db } from '$lib/server/db';
 import { characters } from '$lib/server/db/schema/schema';
 import { error, type RequestHandler } from '@sveltejs/kit';
+import { StatusCodes } from 'http-status-codes';
 
 export const POST: RequestHandler = async ({ request }: { request: Request }) => {
 		const formData = await request.formData();
@@ -8,7 +9,7 @@ export const POST: RequestHandler = async ({ request }: { request: Request }) =>
 		const lastName = formData.get('lastName') as string;
 
 		if (!firstName || !lastName) {
-			throw error(400, { message: 'Missing character name' });
+			throw error(StatusCodes.NOT_FOUND, { message: 'Missing character name' });
 		}
 		//TODO: One any properties is required - whatever which one
 		
