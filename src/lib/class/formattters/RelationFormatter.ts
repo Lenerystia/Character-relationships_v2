@@ -1,7 +1,6 @@
 import type { Relation } from "../Relation";
 
 export class RelationFormatter {
-    // Metoda konwertująca instancję Character na POJO
     static toPOJO(relation: Relation) {
       return {
         id: relation.id,
@@ -10,8 +9,7 @@ export class RelationFormatter {
         about: relation.about
       };
     }
-  
-    // Metoda konwertująca tablicę instancji Character na tablicę POJO
+
     static toPOJOs(relations: Relation[]) {
       return relations.map(this.toPOJO);
     }
