@@ -1,7 +1,7 @@
+import type { Character } from '$lib/class/Character';
+import type { Relation } from '$lib/class/Relation';
 import type { TCharacter, TRelation } from '$lib/types/types';
 
-import { Character } from '$lib/class/Character';
-import { Relation } from '$lib/class/Relation';
 import { characters, relations } from '$lib/server/db/schema/schema';
 import { graphviz } from 'd3-graphviz';
 
@@ -45,8 +45,6 @@ export function drawGraph(relations: Relation[]): void {
 	// diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
 	//relation.first + relation.char + relation.name
 	// relation = relations.getRelationOf(id)
-	// z relations do relations do filtrowania ALBO proste - tablica
-	// ostrożnie z pierwszym by nie było, że zbyt wejdę w enterprise
 	const diag = relations.map((relation) => relation.formattedRelation).join('');
 	graphviz('#graph').renderDot(`digraph { ${diag} }`);
 }
