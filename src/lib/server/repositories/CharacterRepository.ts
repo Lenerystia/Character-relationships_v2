@@ -48,7 +48,7 @@ class CharacterRepository {
 	 * @param id The ID of the character to delete
 	 * @returns A promise that resolves to a Response object with a status code of 200 if successful, or a status code of 500 if an error occurs.
 	 */
-	// TODO - take framework to resposes status codes or finally
+	// TODO - take framework to responses status codes or finally
 	static async deleteCharacterById(id: number): Promise<Response> {
 		try {
 			await db.delete(characters).where(eq(characters.id, id));

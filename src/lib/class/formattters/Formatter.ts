@@ -1,6 +1,5 @@
 import type { Character } from '$lib/class/Character';
-
-import { Relation } from '$lib/class/Relation';
+import type { Relation } from '$lib/class/Relation';
 
 export class Formatter {
 	constructor(public readonly characters: Character[], public readonly Relation: Relation[]) {}
@@ -14,9 +13,9 @@ export class Formatter {
 	// 	return relations.filter((rel: TRelation) => rel.idChar1 === characterId);
 	// }
 
-	// getFullNameIniciatorCharacter(character: Character[], relations: Relation[]) {
-	// 	const IniciatorCharacterName = relations.filter((rel: Relation) => rel.idChar1 === character.id);
-	// 	return `${IniciatorCharacterName}`;
+	// getFullNameInitiatorCharacter(character: Character[], relations: Relation[]) {
+	// 	const InitiatorCharacterName = relations.filter((rel: Relation) => rel.idChar1 === character.id);
+	// 	return `${InitiatorCharacterName}`;
 	// }
 
 	getFullNameInitiatorCharacter(relation: Relation): null | string {
@@ -35,9 +34,9 @@ export class Formatter {
 	// }
 
 	// getFormattedRelationOneSided(characters: Character[], relations: Relation[]): string {
-	// 	return `"${this.getFullNameIniciatorCharacter(characters, relations)}" -> "${this.getFullNameRelatedCharacter}" [label="${relations.about}"];`;
+	// 	return `"${this.getFullName	InitiatorCharacter(characters, relations)}" -> "${this.getFullNameRelatedCharacter}" [label="${relations.about}"];`;
 	// }
 	// getFormattedRelationDoubleSided(relation: Relation): string {
-	// 	return `"${relation.getFullNameIniciatorCharacter}" <-> "${relation.getFullNameRelatedCharacter}" [label="${relation.about}"];`;
+	// 	return `"${relation.getFullNameInitiatorCharacter}" <-> "${relation.getFullNameRelatedCharacter}" [label="${relation.about}"];`;
 	// }
 }
