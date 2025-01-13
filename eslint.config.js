@@ -13,6 +13,7 @@ import esEs from 'eslint-plugin-eslint-plugin';
 import functional from 'eslint-plugin-functional';
 import esImport from 'eslint-plugin-import';
 import alias from 'eslint-plugin-import-alias';
+import json from 'eslint-plugin-json';
 import node from 'eslint-plugin-n';
 import perfectionist from 'eslint-plugin-perfectionist';
 import promise from 'eslint-plugin-promise';
@@ -47,6 +48,7 @@ const nodeFlag = true;
 const cspellFlag = true;
 const pandacssFlag = false;
 const tailwindFlag = false;
+const jsonFlag = true;
 
 export default [
 	prettier,
@@ -838,7 +840,29 @@ export default [
 					'vitest/no-done-callback': 'off', //deprecated
 					'vitest/consistent-test-filename': ['error', { pattern: '.*\\.(spec|test)\\.[jt]s$' }],
 					'vitest/consistent-test-it': 'error',
-					'vitest/expect-expect': ['error', { assertFunctionNames: ['expect'] }],
+					'vitest/expect-expect': [
+						'error',
+						{
+							assertFunctionNames: [
+								'expect',
+								'request.*.expect',
+								'request.**.expect',
+								'request.*.expect*',
+								'get(*).expect',
+								'post(*).expect',
+								'put(*).expect',
+								'delete(*).expect',
+								'sendGetRequest(*).expect',
+								'sendGetRequest(*).*.expect',
+								'sendPostRequest(*).expect',
+								'sendPostRequest(*).*.expect',
+								'sendPutRequest(*).expect',
+								'sendPutRequest(*).*.expect',
+								'sendDeleteRequest(*).expect',
+								'sendDeleteRequest(*).*.expect'
+							]
+						}
+					],
 					'vitest/max-expects': ['error', { max: 5 }],
 					'vitest/max-nested-describe': ['error', { max: 3 }],
 					'vitest/no-alias-methods': 'error',
@@ -847,7 +871,12 @@ export default [
 					'vitest/no-conditional-tests': 'error',
 					'vitest/no-disabled-tests': 'error',
 					'vitest/no-duplicate-hooks': 'error',
-					'vitest/no-focused-tests': 'error',
+					'vitest/no-focused-tests': [
+						'error',
+						{
+							fixable: false
+						}
+					],
 					'vitest/no-hooks': 'error',
 					'vitest/no-identical-title': 'error',
 					'vitest/no-import-node-test': 'error',
@@ -886,7 +915,12 @@ export default [
 					'vitest/require-top-level-describe': 'error',
 					'vitest/valid-describe-callback': 'error',
 					'vitest/valid-expect': ['error', { maxArgs: 1 }],
-					'vitest/valid-title': 'error',
+					'vitest/valid-title': [
+						'error',
+						{
+							ignoreTypeOfDescribeName: true
+						}
+					],
 					'vitest/valid-expect-in-promise': 'error'
 				})
 			})
@@ -962,6 +996,19 @@ export default [
 		rules: {
 			...(htmlFlag && {
 				...html.configs.recommended.rules
+			})
+		}
+	},
+	{
+		name: 'JSON',
+		files: ['**/*.json'],
+		plugins: {
+			json: json
+		},
+		rules: {
+			...(jsonFlag && {
+				'json/*': 'warn',
+				'json/json': 'error',
 			})
 		}
 	}
