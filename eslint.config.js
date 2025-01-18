@@ -1,54 +1,54 @@
+import alias from 'eslint-plugin-import-alias';
 import cspell from '@cspell/eslint-plugin';
-import js from '@eslint/js';
-import html from '@html-eslint/eslint-plugin';
-import htmlParser from '@html-eslint/parser';
-import panda from '@pandacss/eslint-plugin';
-import stylistic from '@stylistic/eslint-plugin';
-import ts from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import vitest from '@vitest/eslint-plugin';
-import prettier from 'eslint-config-prettier';
 import drizzle from 'eslint-plugin-drizzle';
 import esEs from 'eslint-plugin-eslint-plugin';
-import functional from 'eslint-plugin-functional';
 import esImport from 'eslint-plugin-import';
-import alias from 'eslint-plugin-import-alias';
+import functional from 'eslint-plugin-functional';
+import html from '@html-eslint/eslint-plugin';
+import htmlParser from '@html-eslint/parser';
+import js from '@eslint/js';
 import json from 'eslint-plugin-json';
 import node from 'eslint-plugin-n';
+import panda from '@pandacss/eslint-plugin';
 import perfectionist from 'eslint-plugin-perfectionist';
+import prettier from 'eslint-config-prettier';
 import promise from 'eslint-plugin-promise';
 import security from 'eslint-plugin-security';
 import sonarjs from 'eslint-plugin-sonarjs';
+import stylistic from '@stylistic/eslint-plugin';
 import svelte from 'eslint-plugin-svelte';
-import tailwind from 'eslint-plugin-tailwindcss';
-import tsDoc from 'eslint-plugin-tsdoc';
-import unicorn from 'eslint-plugin-unicorn';
 import svelteParser from 'svelte-eslint-parser';
+import tailwind from 'eslint-plugin-tailwindcss';
+import ts from '@typescript-eslint/eslint-plugin';
+import tsDoc from 'eslint-plugin-tsdoc';
+import tsParser from '@typescript-eslint/parser';
+import unicorn from 'eslint-plugin-unicorn';
+import vitest from '@vitest/eslint-plugin';
 
 // Toggles for enabling/disabling rule groups
-const jsFlag = true;
-const typescriptFlag = true;
-const perfectionistFlag = true;
-const svelteFlag = true;
-const unicornFlag = true;
-const stylisticFlag = true;
-const vitestFlag = true;
-const tsDocFlag = true;
+const aliasFlag = true;
+const cspellFlag = true;
+const drizzleFlag = true;
+const esEsFlag = true;
 const esImportFlag = true;
 const functionalFlag = true;
+const htmlFlag = true;
+const jsFlag = true;
+const jsonFlag = true;
+const nodeFlag = true;
+const pandacssFlag = false;
+const perfectionistFlag = true;
+const prettierFlag = true;
+const promiseFlag = true;
 const securityFlag = true;
 const sonarjsFlag = true;
-const aliasFlag = true;
-const htmlFlag = true;
-const esEsFlag = true;
-const promiseFlag = true;
-const drizzleFlag = true;
-const prettierFlag = true;
-const nodeFlag = true;
-const cspellFlag = true;
-const pandacssFlag = false;
+const stylisticFlag = true;
+const svelteFlag = true;
 const tailwindFlag = false;
-const jsonFlag = true;
+const tsDocFlag = true;
+const typescriptFlag = true;
+const unicornFlag = true;
+const vitestFlag = false;
 
 export default [
 	prettier,
@@ -56,6 +56,7 @@ export default [
 		name: 'Main ruleset',
 		files: ['**/*.{ts,tsx,js,jsx,cjs,mjs,svelte}'],
 		ignores: [
+			'tests/**', //TEMP
 			'node_modules',
 			'build',
 			'.svelte-kit/**',
@@ -66,7 +67,8 @@ export default [
 			'commitlint.config.js',
 			'vitest.config.js',
 			'src/routes/sandbox/**',
-			'src/routes/debug/**'
+			'src/routes/debug/**',
+			'tsconfig.json',
 		],
 		languageOptions: {
 			parser: svelteParser,
@@ -290,12 +292,7 @@ export default [
 						jsx: 'never'
 					}
 				],
-				'import/no-restricted-paths': [
-					'error',
-					{
-						zones: [{ target: './src', from: './node_modules' }]
-					}
-				],
+				'import/no-restricted-paths': 'off',
 				'import/order': [
 					'warn',
 					{
@@ -325,7 +322,10 @@ export default [
 			/* functional rules */
 			...(functionalFlag && {
 				...functional.configs.all.rules,
-				'functional/prefer-immutable-types': 'off'
+				'functional/prefer-immutable-types': 'off',
+				'functional/functional-parameters': 'off',
+				'functional/no-conditional-statements': 'off', // TODO - Can I precise what tenant and what is a conditional statement?
+				'functional/no-throw-statements': 'error',
 			}),
 
 			/* Tsdoc */
@@ -342,6 +342,7 @@ export default [
 			...(jsFlag && {
 				...js.configs.all.rules,
 				// ...js.configs.recommended.rules,
+				'sort-imports': 'off',  // Disabled due to a conflict with a rule from eslint-plugin-import
 				'array-callback-return': [
 					'error',
 					{
@@ -437,7 +438,7 @@ export default [
 				'default-param-last': 'error',
 				eqeqeq: 'error',
 				'func-names': ['warn', 'never'],
-				'func-style': ['warn', 'declaration'],
+				'func-style': ['warn', 'expression'],
 				'no-array-constructor': 'error',
 				'no-bitwise': 'error',
 				'no-case-declarations': 'error',
