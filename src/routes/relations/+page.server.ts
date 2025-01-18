@@ -15,6 +15,6 @@ export const load = async () => {
 	}
 	const serializedRelations: TRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
 	return {
-		relations: serializedRelations
+		relations: serializedRelations,
 	};
 };
