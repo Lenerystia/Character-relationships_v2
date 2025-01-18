@@ -18,3 +18,42 @@ export const load = async () => {
 		relations: serializedRelations,
 	};
 };
+
+//
+//
+//
+// export const load = async () => {
+// 	const relations: Relations = await RelationRepository.getRelations();
+//
+// 	if (relations.relationsArray.length === EMPTY) {
+// 		return {
+// 			error: 'Relations not found',
+// 			status: StatusCodes.NOT_FOUND,
+// 		};
+// 	}
+//
+// 	const serializedRelations: TRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
+// 	return {
+// 		data: {
+// 			relations: serializedRelations,
+// 		},
+// 		status: StatusCodes.OK,
+// 	};
+// };
+//
+//
+//
+//
+// ----------------------
+// export const load = async () => {
+// 	const relations: Relations = await RelationRepository.getRelations();
+//
+// 	if (relations.relationsArray.length === EMPTY) {
+// 		return { error: new Error('Relations not found') };
+// 	}
+//
+// 	const serializedRelations: TRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
+// 	return {
+// 		value: serializedRelations,
+// 	};
+// };
