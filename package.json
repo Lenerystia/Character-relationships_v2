@@ -21,7 +21,7 @@
 		"commitlint": "commitlint --edit",
 		"list-outdated-dependencies": "npm-check-updates --format repo,group --peer",
 		"update-dependencies": "npm run list-outdated-dependencies -- -u && npm install && npm update && npm dedupe && npm run autofix && npm run release",
-        "clean": "rimraf node_modules coverage dist"
+		"clean": "rimraf node_modules coverage dist"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.6.1",
@@ -50,7 +50,7 @@
 		"eslint-plugin-eslint-plugin": "^6.4.0",
 		"eslint-plugin-import": "^2.31.0",
 		"eslint-plugin-import-alias": "^1.2.0",
-		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-n": "^17.15.1",
 		"eslint-plugin-perfectionist": "^4.3.0",
 		"eslint-plugin-promise": "^7.2.1",
 		"eslint-plugin-sonarjs": "^3.0.1",
