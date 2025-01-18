@@ -86,6 +86,7 @@
 		"eslint-plugin-unicorn": "^56.0.1",
 		"postgres": "^3.4.4",
 		"prettier-plugin-organize-imports": "^4.1.0",
+		"skott": "^0.35.4",
 		"svelte-eslint-parser": "^0.43.0",
 		"zod": "^3.24.1"
 	},
