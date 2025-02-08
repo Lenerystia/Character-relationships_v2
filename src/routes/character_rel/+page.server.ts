@@ -1,5 +1,5 @@
 import type { Characters } from '$lib/class/Characters';
-import type { Relations } from '$lib/class/Relations';
+import type { Relationships } from '$lib/class/Relationships';
 import type { TCharacter, TRelation } from '$lib/types/types';
 
 import { CharacterFormatter } from '$lib/class/formattters/CharacterFormatter';
@@ -13,7 +13,7 @@ import { StatusCodes } from 'http-status-codes';
 export async function load() {
 	// Fetch data from the database
 	const characters: Characters = await CharacterRepository.getCharacters();
-	const relations: Relations = await RelationRepository.getRelations();
+	const relations: Relationships = await RelationRepository.getRelations();
 
 	// Check if the data is empty and throw an error if so
 	if (characters.charactersArray.length !== EMPTY) {

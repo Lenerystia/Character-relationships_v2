@@ -3,8 +3,8 @@ import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { Character } from '$lib/class/Character';
 import { Characters } from '$lib/class/Characters';
-import { Relation } from '$lib/class/Relation';
-import { Relations } from '$lib/class/Relations';
+import { Relationship } from '$lib/class/Relationship';
+import { Relationships } from '$lib/class/Relationships';
 import { db } from '$lib/server/db';
 import { characters, relations } from '$lib/server/db/schema/schema';
 import { eq } from 'drizzle-orm';
@@ -51,21 +51,21 @@ export async function fetchCharacterTest(
 /**
  * Fetches all relation records from the database.
  *
- * @returns {Promise<Relation[]>} A promise that resolves to an array of Relation objects.
+ * @returns {Promise<Relationship[]>} A promise that resolves to an array of Relation objects.
  */
-export async function fetchRelations(): Promise<Relation[]> {
+export async function fetchRelations(): Promise<Relationship[]> {
 	const relationRecords = await db.select().from(relations);
 	return relationRecords.map(
-		(rel): Relation => new Relation(rel.id, rel.idChar1, rel.idChar2, rel.about)
+		(rel): Relationship => new Relationship(rel.id, rel.idChar1, rel.idChar2, rel.about)
 	);
 }
 
 // Like line 67
-export async function fetchRelationsClass(): Promise<Relations> {
+export async function fetchRelationsClass(): Promise<Relationships> {
 	const relationRecords = await db.select().from(relations).orderBy(relations.id);
-	return new Relations(
+	return new Relationships(
 		relationRecords.map(
-			(rel): Relation => new Relation(rel.id, rel.idChar1, rel.idChar2, rel.about)
+			(rel): Relationship => new Relationship(rel.id, rel.idChar1, rel.idChar2, rel.about)
 		)
 	);
 }

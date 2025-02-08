@@ -1,7 +1,7 @@
-import type { Relation } from "../Relation";
+import type { Relationship } from "../Relationship";
 
 export class RelationFormatter {
-    static toPOJO(relation: Relation) {
+    static toPOJO(relation: Relationship) {
       return {
         id: relation.id,
         idChar1: relation.idChar1,  
@@ -10,7 +10,7 @@ export class RelationFormatter {
       };
     }
 
-    static toPOJOs(relations: Relation[]) {
+    static toPOJOs(relations: Relationship[]) {
       return relations.map(this.toPOJO);
     }
 

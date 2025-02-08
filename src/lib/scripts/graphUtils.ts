@@ -1,5 +1,5 @@
 import type { Character } from '$lib/class/Character';
-import type { Relation } from '$lib/class/Relation';
+import type { Relationship } from '$lib/class/Relationship';
 import type { TCharacter, TRelation } from '$lib/types/types';
 
 import { characters, relations } from '$lib/server/db/schema/schema';
@@ -41,7 +41,7 @@ import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/que
 // );
 
 
-export function drawGraph(relations: Relation[]): void {
+export function drawGraph(relations: Relationship[]): void {
 	// diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
 	//relation.first + relation.char + relation.name
 	// relation = relations.getRelationOf(id)

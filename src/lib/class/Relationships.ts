@@ -1,9 +1,9 @@
-import { Relation } from '$lib/class/Relation';
+import { Relationship } from '$lib/class/Relationship';
 
-export class Relations {
-	relationsArray: Relation[];
+export class Relationships {
+	relationsArray: Relationship[];
 
-	constructor(relations: Relation[]) {
+	constructor(relations: Relationship[]) {
 		this.relationsArray = relations;
 	}
 
@@ -30,14 +30,14 @@ export class Relations {
 		return Array.from(new Set(relatedIds));
 	}
 
-	groupRelationsByAbout(): Record<string, Relation[]> {
+	groupRelationsByAbout(): Record<string, Relationship[]> {
 		return this.relationsArray.reduce((groups, relation) => {
 			if (!groups[relation.about]) {
 				groups[relation.about] = [];
 			}
 			groups[relation.about].push(relation);
 			return groups;
-		}, {} as Record<string, Relation[]>);
+		}, {} as Record<string, Relationship[]>);
 	}
 	
 }
