@@ -26,28 +26,28 @@ import unicorn from 'eslint-plugin-unicorn';
 import vitest from '@vitest/eslint-plugin';
 
 // Toggles for enabling/disabling rule groups
-const aliasFlag = true;
-const cspellFlag = true;
-const drizzleFlag = true;
-const esEsFlag = true;
-const esImportFlag = true;
-const functionalFlag = true;
-const htmlFlag = true;
-const jsFlag = true;
-const jsonFlag = true;
-const nodeFlag = true;
+const aliasFlag = false;
+const cspellFlag = false;
+const drizzleFlag = false;
+const esEsFlag = false;
+const esImportFlag = false;
+const functionalFlag = false;
+const htmlFlag = false;
+const jsFlag = false;
+const jsonFlag = false;
+const nodeFlag = false;
 const pandacssFlag = false;
-const perfectionistFlag = true;
-const prettierFlag = true;
-const promiseFlag = true;
-const securityFlag = true;
-const sonarjsFlag = true;
-const stylisticFlag = true;
-const svelteFlag = true;
+const perfectionistFlag = false;
+const prettierFlag = false;
+const promiseFlag = false;
+const securityFlag = false;
+const sonarjsFlag = false;
+const stylisticFlag = false;
+const svelteFlag = false;
 const tailwindFlag = false;
-const tsDocFlag = true;
+const tsDocFlag = false;
 const typescriptFlag = true;
-const unicornFlag = true;
+const unicornFlag = false;
 const vitestFlag = false;
 
 export default [
@@ -76,8 +76,8 @@ export default [
 				parser: tsParser,
 				project: './tsconfig.json',
 				extraFileExtensions: ['.svelte'],
-				tsconfigRootDir: import.meta.dirname
-			}
+				tsconfigRootDir: import.meta.dirname,
+			},
 		},
 		plugins: {
 			'@typescript-eslint': ts,
@@ -98,18 +98,18 @@ export default [
 			alias: alias,
 			node: node,
 			cspell: cspell,
-			vitest: vitest
+			vitest: vitest,
 		},
 		settings: {
 			'import/resolver': {
 				typescript: {
-					alwaysTryTypes: true
-				}
-			}
+					alwaysTryTypes: true,
+				},
+			},
 		},
 		rules: {
 			...(cspellFlag && {
-				'cspell/spellchecker': 'warn'
+				'cspell/spellchecker': 'warn',
 			}),
 			...(nodeFlag && {
 				'node/callback-return': 'error',
@@ -150,7 +150,7 @@ export default [
 				'node/prefer-node-protocol': 'error',
 				'node/prefer-promises/dns': 'error',
 				'node/prefer-promises/fs': 'error',
-				'node/process-exit-as-throw': 'error'
+				'node/process-exit-as-throw': 'error',
 			}),
 			/* Svelte rules */
 			...(svelteFlag && {
@@ -214,7 +214,7 @@ export default [
 				'svelte/no-svelte-internal': 'error',
 				'svelte/no-unused-class-name': 'error',
 				'svelte/block-lang': ['error', { script: ['ts'], style: 'scss' }],
-				'svelte/button-has-type': 'error'
+				'svelte/button-has-type': 'error',
 			}),
 
 			/* promise rules */
@@ -235,13 +235,13 @@ export default [
 				'promise/prefer-await-to-callbacks': 'error',
 				'promise/prefer-await-to-then': 'error',
 				'promise/prefer-catch': 'error',
-				'promise/spec-only': 'error'
+				'promise/spec-only': 'error',
 			}),
 
 			/* drizzle rules */
 			...(drizzleFlag && {
 				'drizzle/enforce-delete-with-where': 'error',
-				'drizzle/enforce-update-with-where': 'error'
+				'drizzle/enforce-update-with-where': 'error',
 			}),
 			/* alias rules */
 			...(aliasFlag && {
@@ -252,16 +252,16 @@ export default [
 						aliases: [
 							{ alias: '@src', matcher: '^src' }, // src/modules/app/test -> @src/modules/app/test
 							{ alias: '@test', matcher: '^test/unit' }, // test/unit/modules/app -> @test/modules/app
-							{ alias: '@testRoot', matcher: '^(test)/e2e' } // test/e2e/modules/app -> @testRoot/e2e/modules/app
-						]
-					}
-				]
+							{ alias: '@testRoot', matcher: '^(test)/e2e' }, // test/e2e/modules/app -> @testRoot/e2e/modules/app
+						],
+					},
+				],
 			}),
 			/* sonarjs rules */
 			...(sonarjsFlag && {
 				...sonarjs.configs.recommended.rules,
 				'sonarjs/deprecation': 'off',
-				'sonarjs/no-implicit-dependencies': 'error'
+				'sonarjs/no-implicit-dependencies': 'error',
 			}),
 			/* security rules */
 			...(securityFlag && {
@@ -270,7 +270,7 @@ export default [
 				'security/detect-unsafe-regex': 'error',
 				'security/detect-non-literal-regexp': 'error',
 				'security/detect-non-literal-require': 'error',
-				'security/detect-non-literal-fs-filename': 'error'
+				'security/detect-non-literal-fs-filename': 'error',
 			}),
 
 			/* import rules */
@@ -289,8 +289,8 @@ export default [
 						ts: 'never',
 						tsx: 'never',
 						js: 'never',
-						jsx: 'never'
-					}
+						jsx: 'never',
+					},
 				],
 				'import/no-restricted-paths': 'off',
 				'import/order': [
@@ -301,12 +301,12 @@ export default [
 							{
 								pattern: '@/**',
 								group: 'internal',
-								position: 'after'
-							}
+								position: 'after',
+							},
 						],
 						alphabetize: { order: 'asc', caseInsensitive: true },
-						'newlines-between': 'always'
-					}
+						'newlines-between': 'always',
+					},
 				],
 
 				'import/no-duplicates': 'warn',
@@ -315,9 +315,9 @@ export default [
 				'import/no-extraneous-dependencies': [
 					'error',
 					{
-						devDependencies: ['**/*.test.ts', '**/scripts/**']
-					}
-				]
+						devDependencies: ['**/*.test.ts', '**/scripts/**'],
+					},
+				],
 			}),
 			/* functional rules */
 			...(functionalFlag && {
@@ -330,24 +330,24 @@ export default [
 
 			/* Tsdoc */
 			...(tsDocFlag && {
-				'tsDoc/syntax': 'warn'
+				'tsDoc/syntax': 'warn',
 			}),
 
 			/* Prettier rules */
 			...(prettierFlag && {
-				...prettier.rules
+				...prettier.rules,
 			}),
 
 			/* js rules */
 			...(jsFlag && {
 				...js.configs.all.rules,
 				// ...js.configs.recommended.rules,
-				'sort-imports': 'off',  // Disabled due to a conflict with a rule from eslint-plugin-import
+				'sort-imports': 'off', // Disabled due to a conflict with a rule from eslint-plugin-import
 				'array-callback-return': [
 					'error',
 					{
-						checkForEach: true
-					}
+						checkForEach: true,
+					},
 				],
 				'constructor-super': 'error',
 				'for-direction': 'error',
@@ -380,8 +380,8 @@ export default [
 					{
 						skipStrings: false,
 						skipTemplates: false,
-						skipJSXText: false
-					}
+						skipJSXText: false,
+					},
 				],
 				'no-loss-of-precision': 'error',
 				'no-misleading-character-class': 'error',
@@ -402,14 +402,14 @@ export default [
 				'no-unsafe-negation': [
 					'error',
 					{
-						enforceForOrderingRelations: true
-					}
+						enforceForOrderingRelations: true,
+					},
 				],
 				'no-unsafe-optional-chaining': [
 					'error',
 					{
-						disallowArithmeticOperators: true
-					}
+						disallowArithmeticOperators: true,
+					},
 				],
 				'no-unused-private-class-members': 'warn',
 				'no-unused-vars': [
@@ -417,8 +417,8 @@ export default [
 					{
 						varsIgnorePattern: '^_',
 						argsIgnorePattern: '^_',
-						reportUsedIgnorePattern: true
-					}
+						reportUsedIgnorePattern: true,
+					},
 				],
 				'no-use-before-define': [
 					'warn',
@@ -426,8 +426,8 @@ export default [
 						functions: false,
 						classes: false,
 						variables: true,
-						allowNamedExports: false
-					}
+						allowNamedExports: false,
+					},
 				],
 				'no-useless-backreference': 'error',
 				'use-isnan': 'error',
@@ -453,8 +453,8 @@ export default [
 				'no-extra-boolean-cast': [
 					'warn',
 					{
-						enforceForLogicalOperands: true
-					}
+						enforceForLogicalOperands: true,
+					},
 				],
 				'no-global-assign': 'error',
 				'no-implicit-coercion': 'error',
@@ -463,8 +463,8 @@ export default [
 				'no-invalid-this': [
 					'error',
 					{
-						capIsConstructor: false
-					}
+						capIsConstructor: false,
+					},
 				],
 				'no-labels': 'error',
 				'no-lone-blocks': 'error',
@@ -486,30 +486,30 @@ export default [
 				'no-sequences': [
 					'warn',
 					{
-						allowInParentheses: false
-					}
+						allowInParentheses: false,
+					},
 				],
 				'no-shadow': [
 					'error',
 					{
-						ignoreOnInitialization: true
-					}
+						ignoreOnInitialization: true,
+					},
 				],
 				'no-shadow-restricted-names': 'error',
 				'no-throw-literal': 'error',
 				'no-unused-expressions': [
 					'warn',
 					{
-						enforceForJSX: true
-					}
+						enforceForJSX: true,
+					},
 				],
 				'no-useless-call': 'error',
 				'no-useless-catch': 'warn',
 				'no-useless-computed-key': [
 					'warn',
 					{
-						enforceForClassMembers: true
-					}
+						enforceForClassMembers: true,
+					},
 				],
 				'no-useless-concat': 'error',
 				'no-useless-escape': 'warn',
@@ -529,7 +529,7 @@ export default [
 				'prefer-template': 'warn',
 				radix: 'error',
 				'require-await': 'error',
-				'require-yield': 'error'
+				'require-yield': 'error',
 			}),
 
 			/* Perfectionist rules */
@@ -537,7 +537,7 @@ export default [
 				...perfectionist.configs['recommended-natural'].rules,
 				'perfectionist/sort-objects': 'off',
 				'perfectionist/sort-classes': 'off',
-				'perfectionist/sort-object-types': 'off'
+				'perfectionist/sort-object-types': 'off',
 			}),
 
 			/* Unicorn rules */
@@ -545,7 +545,7 @@ export default [
 				...unicorn.configs.all.rules,
 				// ...unicorn.configs.recommended.rules,
 				'unicorn/better-regex': 'error',
-				'unicorn/prefer-query-selector': 'error'
+				'unicorn/prefer-query-selector': 'error',
 			}),
 
 			...(stylisticFlag && {
@@ -553,7 +553,7 @@ export default [
 				'@stylistic/array-bracket-newline': ['error', 'consistent'],
 				'@stylistic/array-bracket-spacing': [
 					'error',
-					'never'
+					'never',
 					// {
 					// 	arraysInArrays: true,
 					// 	objectsInArrays: false,
@@ -566,16 +566,16 @@ export default [
 					'error',
 					{
 						after: true,
-						before: false
-					}
+						before: false,
+					},
 				],
 				'@stylistic/indent': ['error', 'tab'],
 				'@stylistic/keyword-spacing': [
 					'error',
 					{
 						after: true,
-						before: true
-					}
+						before: true,
+					},
 				],
 				// @stylistic/linebreak-stylistic: ['error', 'unix' | 'windows' | 'off']
 				'@stylistic/multiline-comment-stylistic': 'off',
@@ -583,16 +583,16 @@ export default [
 					'error',
 					{
 						max: 1,
-						maxEOF: 1
-					}
+						maxEOF: 1,
+					},
 				],
 				'@stylistic/no-tabs': 'off',
 				'@stylistic/no-trailing-spaces': [
 					'error',
 					{
 						ignoreComments: true,
-						skipBlankLines: false
-					}
+						skipBlankLines: false,
+					},
 				],
 				'@stylistic/object-curly-spacing': ['error', 'always'],
 				'@stylistic/padded-blocks': ['error', 'never', { allowSingleLineBlocks: true }],
@@ -600,9 +600,9 @@ export default [
 				'@stylistic/quotes': [
 					'error',
 					'single',
-					{ allowTemplateLiterals: true, avoidEscape: true }
+					{ allowTemplateLiterals: true, avoidEscape: true },
 				],
-				'@stylistic/semi': ['error', 'always']
+				'@stylistic/semi': ['error', 'always'],
 			}),
 
 			// TypeScript-specific rules
@@ -684,15 +684,15 @@ export default [
 				'@typescript-eslint/promise-function-async': ['error', { allowAny: false }],
 				'@typescript-eslint/prefer-string-starts-ends-with': [
 					'error',
-					{ allowSingleElementEquality: 'always' }
+					{ allowSingleElementEquality: 'always' },
 				],
 				'@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
 				'@typescript-eslint/consistent-type-assertions': [
 					'error',
 					{
 						assertionStyle: 'as',
-						objectLiteralTypeAssertions: 'allow-as-parameter'
-					}
+						objectLiteralTypeAssertions: 'allow-as-parameter',
+					},
 				],
 				'dot-notation': 'off',
 				'@typescript-eslint/dot-notation': ['error', { allowKeywords: true, allowPattern: '' }], // To test
@@ -701,7 +701,7 @@ export default [
 				'@typescript-eslint/array-type': ['error', { default: 'array-simple', readonly: 'array' }],
 				'@typescript-eslint/ban-ts-comment': [
 					'error',
-					{ 'ts-expect-error': 'allow-with-description' }
+					{ 'ts-expect-error': 'allow-with-description' },
 				],
 				'prefer-promise-reject-errors': 'off',
 				'@typescript-eslint/prefer-promise-reject-errors': 'error',
@@ -717,8 +717,8 @@ export default [
 						args: 'after-used',
 						caughtErrors: 'all',
 						ignoreRestSiblings: false,
-						reportUsedIgnorePattern: false
-					}
+						reportUsedIgnorePattern: false,
+					},
 				],
 				'@typescript-eslint/no-require-imports': ['error', { allowAsImport: false }],
 				'no-unused-expressions': 'off',
@@ -728,8 +728,8 @@ export default [
 						enforceForJSX: false,
 						allowShortCircuit: true,
 						allowTernary: true,
-						allowTaggedTemplates: true
-					}
+						allowTaggedTemplates: true,
+					},
 				],
 				'no-use-before-define': 'off',
 				'@typescript-eslint/no-use-before-define': 'error',
@@ -747,50 +747,55 @@ export default [
 					{
 						ignoreEnums: true,
 						ignoreTypeIndexes: true,
-						ignoreArrayIndexes: true
-					}
+						ignoreArrayIndexes: true,
+					},
 				],
 				'@typescript-eslint/prefer-literal-enum-member': 'error',
 				'@typescript-eslint/prefer-nullish-coalescing': 'error',
 
-				'@typescript-eslint/prefer-readonly-parameter-types': 'error',
+				'@typescript-eslint/prefer-readonly-parameter-types': [
+					'error',
+					{
+						ignoreInferredTypes: true,
+					},
+				],
 				'@typescript-eslint/unbound-method': 'error',
 				'class-methods-use-this': 'off',
 				'@typescript-eslint/class-methods-use-this': 'error',
 				'@typescript-eslint/consistent-type-exports': [
 					'error',
-					{ fixMixedExportsWithInlineTypeSpecifier: true }
+					{ fixMixedExportsWithInlineTypeSpecifier: true },
 				],
 				'@typescript-eslint/consistent-type-imports': [
 					'error',
 					{
 						disallowTypeAnnotations: true,
 						fixStyle: 'inline-type-imports',
-						prefer: 'type-imports'
-					}
+						prefer: 'type-imports',
+					},
 				],
 				'@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 				'@typescript-eslint/explicit-member-accessibility': [
 					'error',
-					{ accessibility: 'explicit' }
+					{ accessibility: 'explicit' },
 				],
 				'require-await': 'off',
 				'@typescript-eslint/require-await': 'error',
 				'@typescript-eslint/explicit-function-return-type': 'off', // TODO
 				'@typescript-eslint/unified-signatures': [
 					'error',
-					{ ignoreDifferentlyNamedParameters: false }
+					{ ignoreDifferentlyNamedParameters: false },
 				],
 				'@typescript-eslint/triple-slash-reference': [
 					'error',
-					{ lib: 'never', path: 'never', types: 'never' }
+					{ lib: 'never', path: 'never', types: 'never' },
 				],
 				'@typescript-eslint/strict-boolean-expressions': [
 					'error',
 					{
 						allowNullableBoolean: false,
-						allowNullableObject: false
-					}
+						allowNullableObject: false,
+					},
 				],
 				'no-return-await': 'off',
 				'@typescript-eslint/return-await': ['error', 'always'],
@@ -801,8 +806,8 @@ export default [
 						allowBoolean: false,
 						allowNullish: false,
 						allowNumberAndString: false,
-						allowRegExp: false
-					}
+						allowRegExp: false,
+					},
 				],
 				'max-params': 'off',
 				'@typescript-eslint/max-params': ['error', { max: 4 }],
@@ -827,14 +832,16 @@ export default [
 				'@typescript-eslint/no-dupe-class-members': 'off',
 				/* TS done in theory - to check in practice */
 
+				'@typescript-eslint/no-extraneous-class': ['error', { allowStaticOnly: true }],
+
 				/* tailwind rules */
 				...(tailwindFlag && {
-					'tailwind/classnames-order': 'error'
+					'tailwind/classnames-order': 'error',
 				}),
 
 				/* pandacss rules */
 				...(pandacssFlag && {
-					'@pandacss/file-not-included': 'error'
+					'@pandacss/file-not-included': 'error',
 				}),
 				...(vitestFlag && {
 					...vitest.configs.recommended.rules,
@@ -860,9 +867,9 @@ export default [
 								'sendPutRequest(*).expect',
 								'sendPutRequest(*).*.expect',
 								'sendDeleteRequest(*).expect',
-								'sendDeleteRequest(*).*.expect'
-							]
-						}
+								'sendDeleteRequest(*).*.expect',
+							],
+						},
 					],
 					'vitest/max-expects': ['error', { max: 5 }],
 					'vitest/max-nested-describe': ['error', { max: 3 }],
@@ -875,8 +882,8 @@ export default [
 					'vitest/no-focused-tests': [
 						'error',
 						{
-							fixable: false
-						}
+							fixable: false,
+						},
 					],
 					'vitest/no-hooks': 'error',
 					'vitest/no-identical-title': 'error',
@@ -919,19 +926,19 @@ export default [
 					'vitest/valid-title': [
 						'error',
 						{
-							ignoreTypeOfDescribeName: true
-						}
+							ignoreTypeOfDescribeName: true,
+						},
 					],
-					'vitest/valid-expect-in-promise': 'error'
-				})
-			})
-		}
+					'vitest/valid-expect-in-promise': 'error',
+				}),
+			}),
+		},
 	},
 	{
 		name: 'tests',
 		plugins: {
 			js: js,
-			'@typescript-eslint': ts
+			'@typescript-eslint': ts,
 			// Enter other plugins whose rules you want to match separately for the tests.
 		},
 		files: ['tests/**'],
@@ -939,14 +946,14 @@ export default [
 			...(vitestFlag &&
 				{
 					// Enter the rules you want to match separately for the tests.
-				})
-		}
+				}),
+		},
 	},
 	{
-		name: 'eslinting eslint',
+		name: 'Eslinting eslint',
 		files: ['eslint.config.js'],
 		plugins: {
-			esEs
+			esEs,
 		},
 		rules: {
 			...(esEsFlag && {
@@ -980,37 +987,37 @@ export default [
 				'esEs/no-only-tests': 'error',
 				'esEs/prefer-output-null': 'error',
 				'esEs/test-case-property-ordering': 'error',
-				'esEs/test-case-shorthand-strings': 'error'
-			})
-		}
+				'esEs/test-case-shorthand-strings': 'error',
+			}),
+		},
 	},
 	{
 		name: 'HTML',
 		files: ['**/*.html'],
 		ignores: ['.svelte-kit/**', '**/fixtures', 'node_modules', 'build'],
 		languageOptions: {
-			parser: htmlParser
+			parser: htmlParser,
 		},
 		plugins: {
-			'@html-eslint': html
+			'@html-eslint': html,
 		},
 		rules: {
 			...(htmlFlag && {
-				...html.configs.recommended.rules
-			})
-		}
+				...html.configs.recommended.rules,
+			}),
+		},
 	},
 	{
 		name: 'JSON',
 		files: ['**/*.json'],
 		plugins: {
-			json: json
+			json: json,
 		},
 		rules: {
 			...(jsonFlag && {
 				'json/*': 'warn',
 				'json/json': 'error',
-			})
-		}
-	}
+			}),
+		},
+	},
 ];
