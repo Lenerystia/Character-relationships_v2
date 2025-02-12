@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
-	import type { TRelation } from '$lib/types/types';
+	import type { IRelation } from '$lib/interfaces/interfaces';
 
-	export let data: { relations: TRelation[] };
+	export let data: { relations: IRelation[] };
 	let relations = data.relations;
 </script>
 

@@ -1,5 +1,5 @@
 import type { Characters } from '$lib/class/Characters';
-import type { TCharacter } from '$lib/types/types';
+import type { ICharacter } from '$lib/interfaces/interfaces';
 
 import { CharacterFormatter } from '$lib/class/formattters/CharacterFormatter';
 import { EMPTY } from '$lib/constants';
@@ -13,7 +13,7 @@ export const load = async () => {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Characters not found' });
 	}
 	
-	const serializedCharacters: TCharacter[] = CharacterFormatter.toPOJOs(characters.charactersArray);
+	const serializedCharacters: ICharacter[] = CharacterFormatter.toPOJOs(characters.charactersArray);
 	return {
 		characters: serializedCharacters,
 	};

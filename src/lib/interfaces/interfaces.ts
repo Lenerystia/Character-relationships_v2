@@ -1,9 +1,9 @@
-export type TCharacter = {
+export interface ICharacter {
     id: number;
     firstName: string;
     lastName: string;
 }
-export type TRelation = {
+export interface IRelation {
     id: number;
     idChar1: number;
     idChar2: number;

@@ -1,10 +1,9 @@
 import type { Character } from '$lib/class/Character';
 import type { Relationship } from '$lib/class/Relationship';
-import type { TCharacter, TRelation } from '$lib/types/types';
 
-import { characters, relations } from '$lib/server/db/schema/schema';
 import { graphviz } from 'd3-graphviz';
 
+import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
 import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/queries';
 
 // function getCharacterName(characterId: number, characters: Character[]): string {
@@ -40,21 +39,20 @@ import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/que
 // 	)
 // );
 
-
-export function drawGraph(relations: Relationship[]): void {
+export function drawGraph(relations: readonly Relationship[]): void {
 	// diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
 	//relation.first + relation.char + relation.name
 	// relation = relations.getRelationOf(id)
-	const diag = relations.map((relation) => relation.formattedRelation).join('');
+	const diag = relations.map(relation => RelationFormatter.toString(relation)).join(' ');
+
 	graphviz('#graph').renderDot(`digraph { ${diag} }`);
 }
 
-
 export async function renderGraph(): Promise<void> {
-	const charactersArray = await fetchCharacters()
-	const	charactersMap = new Map<number, Character>();
-	charactersArray.forEach((char) => charactersMap.set(char.id, char));
+	const charactersArray = await fetchCharacters();
+	const charactersMap = new Map<number, Character>();
+	charactersArray.forEach(char => charactersMap.set(char.id, char));
 
-	const formattedRelations = await fetchRelations(charactersMap);
+	const formattedRelations = await fetchRelations();
 	drawGraph(formattedRelations);
 }

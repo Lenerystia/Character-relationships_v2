@@ -1,5 +1,5 @@
 import type { Relationships } from '$lib/class/Relationships';
-import type { TRelation } from '$lib/types/types';
+import type { IRelation } from '$lib/interfaces/interfaces';
 
 import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
 import { EMPTY } from '$lib/constants';
@@ -13,7 +13,7 @@ export const load = async () => {
 	if (relations.relationsArray.length === EMPTY) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Relations not found' });
 	}
-	const serializedRelations: TRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
+	const serializedRelations: IRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
 	return {
 		relations: serializedRelations,
 	};

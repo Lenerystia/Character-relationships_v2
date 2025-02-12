@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { TCharacter } from '$lib/types/types';
+	import type { ICharacter } from '$lib/interfaces/interfaces';
 
 	import '$lib/scripts/app.css';
 	import { page } from '$app/stores';
 
 	let characterId = parseInt($page.params.charId);
-	export let data: { character: TCharacter[] };
+	export let data: { character: ICharacter[] };
 	let character = data.character[0];
 </script>
 

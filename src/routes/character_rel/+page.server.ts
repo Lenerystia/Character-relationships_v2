@@ -1,6 +1,6 @@
 import type { Characters } from '$lib/class/Characters';
 import type { Relationships } from '$lib/class/Relationships';
-import type { TCharacter, TRelation } from '$lib/types/types';
+import type { ICharacter, IRelation } from '$lib/interfaces/interfaces';
 
 import { CharacterFormatter } from '$lib/class/formattters/CharacterFormatter';
 import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
@@ -24,8 +24,8 @@ export async function load() {
 	}
 
 	// Convert the instances of Characters and Relations to plain objects
-	const serializedCharacters: TCharacter[] = CharacterFormatter.toPOJOs(characters.charactersArray);
-	const serializedRelations: TRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
+	const serializedCharacters: ICharacter[] = CharacterFormatter.toPOJOs(characters.charactersArray);
+	const serializedRelations: IRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
 
 	// Return the serialized data
 	return {

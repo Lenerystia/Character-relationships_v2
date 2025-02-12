@@ -2,7 +2,10 @@ import type { Character } from '$lib/class/Character';
 import type { Relationship } from '$lib/class/Relationship';
 
 export class Formatter {
-	constructor(public readonly characters: Character[], public readonly Relation: Relationship[]) {}
+	public constructor(
+		public readonly characters: readonly Character[],
+		public readonly Relation: readonly Relationship[],
+	) {}
 	//TODO - odpowiedzialna za jedną rzecz, za to robi to dobrze
 	// wróć się do celu - dlaczego stworzyłeś te klasę? Sklejanie łańcucha do graphviza
 	// więc czemu tu getujesz?
@@ -18,11 +21,9 @@ export class Formatter {
 	// 	return `${InitiatorCharacterName}`;
 	// }
 
-	getFullNameInitiatorCharacter(relation: Relationship): null | string {
-		const initiator = this.characters.find(
-			(char) => char.id === relation.idChar1
-		);
-		if (initiator) {
+	public getFullNameInitiatorCharacter(relation: Relationship): null | string {
+		const initiator = this.characters.find(char => char.id === relation.idChar1);
+		if (initiator != null) {
 			return `${initiator.firstName} ${initiator.lastName}`;
 		}
 		return null;

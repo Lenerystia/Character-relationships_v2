@@ -1,11 +1,11 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
 
-	import type { TCharacter } from '$lib/types/types';
+	import type { ICharacter } from '$lib/interfaces/interfaces';
 
 	import { goto } from '$app/navigation';
 
-	export let data: { characters: TCharacter[] };
+	export let data: { characters: ICharacter[] };
 	let characters = data.characters;
 
 	export async function deleteCharacter(id: number) {
@@ -18,10 +18,16 @@
 				body: JSON.stringify({ id })
 			});
 			if (response.ok) {
-				goto('/characters', { replaceState: true });
+				await goto('/characters', { replaceState: true });
 				window.location.reload();
 			} else {
-				const errorData = await response.json();
+				interface ErrorResponse {
+					message: string;
+				}
+
+				// TODO: Add better error handling
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+				const errorData = await response.json() as ErrorResponse;
 				alert(`Failed to delete character: ${errorData.message}`);
 			}
 		}
@@ -45,7 +51,7 @@
 					<td>{character.id}</td>
 					<td>{character.firstName}</td>
 					<td>{character.lastName}</td>
-					<td><button type="button" on:click={() => deleteCharacter(character.id)}>Delete</button></td>
+					<td><button type="button" on:click={async () => { await deleteCharacter(character.id); }}>Delete</button></td>
 				</tr>
 			{/each}
 		</tbody>

@@ -1,4 +1,4 @@
-import type { TCharacter } from '$lib/types/types';
+import type { ICharacter } from '$lib/interfaces/interfaces';
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { Character } from '$lib/class/Character';
@@ -44,7 +44,7 @@ export async function fetchCharactersClass(): Promise<Characters> {
 export async function fetchCharacterTest(
 	db: PostgresJsDatabase<Record<string, never>>,
 	compared: number
-): Promise<TCharacter[]> {
+): Promise<ICharacter[]> {
 	return db.select().from(characters).where(eq(characters.id, compared));
 }
 

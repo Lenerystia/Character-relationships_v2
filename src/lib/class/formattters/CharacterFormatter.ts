@@ -1,7 +1,7 @@
 import type { Character } from '../Character';
 
 export class CharacterFormatter {
-	static toPOJO(character: Character) {
+	public static toPOJO(character: Character) {
 		return {
 			id: character.id,
 			firstName: character.firstName,
@@ -9,20 +9,20 @@ export class CharacterFormatter {
 		};
 	}
 
-	static toPOJOs(characters: Character[]) {
-		return characters.map(this.toPOJO);
+	public static toPOJOs(characters: readonly Character[]) {
+		return characters.map(character => this.toPOJO(character));
 	}
 
-	static getFullName(character: Character): string {
-		return `${character.firstName} ${character.lastName}`;
-	}
+	// public static getFullName(character: Character): string {
+	// 	return `${character.firstName} ${character.lastName}`;
+	// }
 
-	static POJOfullName(character: Character) {
-		return {
-			id: character.id,
-			firstName: character.firstName,
-			lastName: character.lastName,
-			fullName: this.getFullName(character)
-		};
-	}
+	// public static POJOfullName(character: Character) {
+	// 	return {
+	// 		id: character.id,
+	// 		firstName: character.firstName,
+	// 		lastName: character.lastName,
+	// 		fullName: this.getFullName(character)
+	// 	};
+	// }
 }
