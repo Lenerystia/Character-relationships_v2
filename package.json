@@ -27,7 +27,7 @@
 		"@commitlint/cli": "^19.7.1",
 		"@commitlint/config-conventional": "^19.7.1",
 		"@cspell/eslint-plugin": "^8.17.3",
-		"@faker-js/faker": "^9.4.0",
+		"@faker-js/faker": "^9.5.0",
 		"@html-eslint/eslint-plugin": "^0.34.0",
 		"@html-eslint/parser": "^0.34.0",
 		"@pandacss/eslint-plugin": "^0.2.6",
@@ -39,7 +39,7 @@
 		"@types/eslint": "^9.6.1",
 		"@types/eslint-plugin-security": "^3.0.0",
 		"@types/node": "^22.13.1",
-		"@vitest/eslint-plugin": "^1.1.28",
+		"@vitest/eslint-plugin": "^1.1.30",
 		"commitlint": "^19.7.1",
 		"commitlint-plugin-function-rules": "^4.0.1",
 		"cspell": "^8.17.3",
@@ -58,14 +58,14 @@
 		"eslint-plugin-svelte": "^2.46.1",
 		"eslint-plugin-tailwindcss": "^3.18.0",
 		"eslint-plugin-tsdoc": "^0.4.0",
-		"globals": "^15.14.0",
+		"globals": "^15.15.0",
 		"husky": "^9.1.7",
 		"lint-staged": "^15.4.3",
 		"prettier": "^3.5.0",
 		"prettier-plugin-svelte": "^3.3.3",
 		"stylelint": "^16.14.1",
 		"stylelint-config-standard": "^37.0.0",
-		"svelte": "^5.19.10",
+		"svelte": "^5.20.0",
 		"svelte-check": "^4.1.4",
 		"typescript": "^5.7.3",
 		"typescript-eslint": "^8.24.0",
@@ -90,7 +90,7 @@
 		"postgres": "^3.4.5",
 		"prettier-plugin-organize-imports": "^4.1.0",
 		"svelte-eslint-parser": "^0.43.0",
-		"zod": "^3.24.1"
+		"zod": "^3.24.2"
 	},
 	"lint-staged": {
 		"*.{ts,svelte}": [
