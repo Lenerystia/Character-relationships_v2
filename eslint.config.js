@@ -1,29 +1,29 @@
-import alias from 'eslint-plugin-import-alias';
 import cspell from '@cspell/eslint-plugin';
-import drizzle from 'eslint-plugin-drizzle';
-import esEs from 'eslint-plugin-eslint-plugin';
-import esImport from 'eslint-plugin-import';
-import functional from 'eslint-plugin-functional';
+import js from '@eslint/js';
+import json from '@eslint/json';
 import html from '@html-eslint/eslint-plugin';
 import htmlParser from '@html-eslint/parser';
-import js from '@eslint/js';
-import json from 'eslint-plugin-json';
-import node from 'eslint-plugin-n';
 import panda from '@pandacss/eslint-plugin';
-import perfectionist from 'eslint-plugin-perfectionist';
+import stylistic from '@stylistic/eslint-plugin';
+import ts from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import vitest from '@vitest/eslint-plugin';
 import prettier from 'eslint-config-prettier';
+import drizzle from 'eslint-plugin-drizzle';
+import esEs from 'eslint-plugin-eslint-plugin';
+import functional from 'eslint-plugin-functional';
+import esImport from 'eslint-plugin-import';
+import alias from 'eslint-plugin-import-alias';
+import node from 'eslint-plugin-n';
+import perfectionist from 'eslint-plugin-perfectionist';
 import promise from 'eslint-plugin-promise';
 import security from 'eslint-plugin-security';
 import sonarjs from 'eslint-plugin-sonarjs';
-import stylistic from '@stylistic/eslint-plugin';
 import svelte from 'eslint-plugin-svelte';
-import svelteParser from 'svelte-eslint-parser';
 import tailwind from 'eslint-plugin-tailwindcss';
-import ts from '@typescript-eslint/eslint-plugin';
 import tsDoc from 'eslint-plugin-tsdoc';
-import tsParser from '@typescript-eslint/parser';
 import unicorn from 'eslint-plugin-unicorn';
-import vitest from '@vitest/eslint-plugin';
+import svelteParser from 'svelte-eslint-parser';
 
 // Toggles for enabling/disabling rule groups
 const aliasFlag = false;
@@ -34,7 +34,7 @@ const esImportFlag = false;
 const functionalFlag = false;
 const htmlFlag = false;
 const jsFlag = false;
-const jsonFlag = false;
+const jsonFlag = true;
 const nodeFlag = false;
 const pandacssFlag = false;
 const perfectionistFlag = false;
@@ -56,7 +56,6 @@ export default [
 		name: 'Main ruleset',
 		files: ['**/*.{ts,tsx,js,jsx,cjs,mjs,svelte}'],
 		ignores: [
-			'tests/**', //TEMP
 			'node_modules',
 			'build',
 			'.svelte-kit/**',
@@ -676,7 +675,7 @@ export default [
 				'@typescript-eslint/related-getter-setter-pairs': 'off',
 				'@typescript-eslint/prefer-return-this-type': 'off',
 
-				/* Cofigurable */
+				/* Configurable */
 				'@typescript-eslint/explicit-module-boundary-types': 'off',
 				'@typescript-eslint/consistent-generic-constructors': ['error', 'constructor'],
 				'@typescript-eslint/typedef': 'off', // To test
@@ -798,7 +797,7 @@ export default [
 					},
 				],
 				'no-return-await': 'off',
-				'@typescript-eslint/return-await': ['error', 'always'],
+				'@typescript-eslint/return-await': ['error', 'in-try-catch'],
 				'@typescript-eslint/restrict-plus-operands': [
 					'error',
 					{
@@ -939,6 +938,7 @@ export default [
 		plugins: {
 			js: js,
 			'@typescript-eslint': ts,
+			vitest: vitest,
 			// Enter other plugins whose rules you want to match separately for the tests.
 		},
 		files: ['tests/**'],
@@ -950,7 +950,7 @@ export default [
 		},
 	},
 	{
-		name: 'Eslinting eslint',
+		name: 'Linting eslint',
 		files: ['eslint.config.js'],
 		plugins: {
 			esEs,
@@ -1010,13 +1010,14 @@ export default [
 	{
 		name: 'JSON',
 		files: ['**/*.json'],
+		ignores: ['package-lock.json'],
+		language: 'json/json',
 		plugins: {
 			json: json,
 		},
 		rules: {
 			...(jsonFlag && {
-				'json/*': 'warn',
-				'json/json': 'error',
+				...json.configs.recommended.rules,
 			}),
 		},
 	},
