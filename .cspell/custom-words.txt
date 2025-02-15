@@ -1,0 +1,6 @@
+cspell
+commitlint
+stylelintrc
+sonarjs
+pandacss
+curlies
