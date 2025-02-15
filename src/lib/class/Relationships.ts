@@ -3,7 +3,7 @@ import type { Relationship } from '$lib/class/Relationship';
 export class Relationships {
 	public relationsArray: Relationship[];
 
-	// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-interfaces
+	// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 	public constructor(relations: Relationship[]) {
 		this.relationsArray = relations;
 	}

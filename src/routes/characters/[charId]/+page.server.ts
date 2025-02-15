@@ -8,7 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 import { fetchCharacter } from '../../sandbox/server/queries.js';
 
 
-// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-interfaces
+// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export async function load({ params }: LoadEvent) {
 	{
 		if (params.charId === '' || params.charId === undefined) {

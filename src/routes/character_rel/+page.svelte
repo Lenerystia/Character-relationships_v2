@@ -1,25 +1,23 @@
 <script lang="ts">
   import '$lib/scripts/app.css';
 
-  import type { TCharacter, TRelation } from '$lib/types/types';
-
-  import { onMount } from 'svelte';
+  import type { ICharacter, IRelation } from '$lib/interfaces/interfaces';
 
   export let data: {
-    characters: TCharacter[];
-    relations: TRelation[];
+    characters: ICharacter[];
+    relations: IRelation[];
   };
 
   let characters = data.characters;
   let relations = data.relations;
 
   // Helper functions
-  function getRelationsForCharacter(characterId: number): TRelation[] {
-    return relations.filter((rel: TRelation) => rel.idChar1 === characterId);
+  function getRelationsForCharacter(characterId: number): IRelation[] {
+    return relations.filter((rel: Readonly<IRelation>) => rel.idChar1 === characterId);
   }
 
-  function getRelatedCharacter(relatedCharacterId: number): TCharacter[] {
-    return characters.filter((char: TCharacter) => char.id === relatedCharacterId);
+  function getRelatedCharacter(relatedCharacterId: number): ICharacter[] {
+    return characters.filter((char: Readonly<ICharacter>) => char.id === relatedCharacterId);
   }
 
 	// onMount(() => {

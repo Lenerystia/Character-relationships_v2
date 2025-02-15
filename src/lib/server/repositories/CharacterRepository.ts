@@ -10,8 +10,8 @@ class CharacterRepository {
 	 * The characters are ordered by their IDs in ascending order.
 	 * @returns A promise that resolves to an array of Character objects.
 	 */
-	static async getListCharacters(): Promise<Character[]> {
-		return await db.select().from(characters).orderBy(characters.id);
+	public static async getListCharacters(): Promise<Character[]> {
+		return db.select().from(characters).orderBy(characters.id);
 	}
 
 	/**
@@ -19,7 +19,7 @@ class CharacterRepository {
 	 * This is useful when you need to access the methods of the Characters class.
 	 * @returns {Promise<Characters>} A promise that resolves to the Characters instance.
 	 */
-	static async getCharacters(): Promise<Characters> {
+	public static async getCharacters(): Promise<Characters> {
 		const characterRecords = await db.select().from(characters).orderBy(characters.id);
 		//mapper
 		const charactersArray = characterRecords.map(
@@ -33,11 +33,11 @@ class CharacterRepository {
 	 * @param id The ID of the character to retrieve
 	 * @returns A single Character object
 	 */
-	static async getCharacterById(id: number): Promise<Character> {
+	public static async getCharacterById(id: number): Promise<Character> {
 		let characterRecord = await db.query.characters.findFirst({
 			where: eq(characters.id, id)
 		});
-		if (!characterRecord) {
+		if (characterRecord == null) {
 			throw new Error('Character not found');
 		}
 		return characterRecord;
@@ -49,7 +49,7 @@ class CharacterRepository {
 	 * @returns A promise that resolves to a Response object with a status code of 200 if successful, or a status code of 500 if an error occurs.
 	 */
 	// TODO - take framework to responses status codes or finally
-	static async deleteCharacterById(id: number): Promise<Response> {
+	public static async deleteCharacterById(id: number): Promise<Response> {
 		try {
 			await db.delete(characters).where(eq(characters.id, id));
 			return new Response('Character deleted successfully', { status: 200 });

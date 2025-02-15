@@ -10,7 +10,7 @@ export class RelationRepository {
    * The relations are ordered by their IDs in ascending order.
    * @returns A promise that resolves to an array of Relation objects.
    */
-  static async getListRelations(): Promise<Relationship[]> {
+  public static async getListRelations(): Promise<Relationship[]> {
     return db.select().from(relations).orderBy(relations.id);
   }
   
@@ -19,7 +19,7 @@ export class RelationRepository {
    * This is useful when you need to access the methods of the Relations class.
    * @returns {Promise<Relationships>} A promise that resolves to the Relations instance.
    */
-  static async getRelations() : Promise<Relationships> {
+  public static async getRelations() : Promise<Relationships> {
     const relationRecords = await db.select().from(relations).orderBy(relations.id);
     return new Relationships(
       relationRecords.map(
@@ -33,11 +33,11 @@ export class RelationRepository {
    * @param relationId The ID of the relation to retrieve.
    * @returns A promise that resolves to the Relation object.
    */
-  static async getRelationById(relationId: number): Promise<Relationship> {
+  public static async getRelationById(relationId: number): Promise<Relationship> {
     const relationRecord = await db.query.relations.findFirst({
       where: eq(relations.id, relationId),
     });
-    if (!relationRecord) {
+    if (relationRecord == null) {
       throw new Error('Relation not found');
     }
     return relationRecord;

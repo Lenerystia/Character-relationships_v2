@@ -27,8 +27,6 @@ try {
 } catch (error) {
 	if (error instanceof ZodError) {
 		let message = "Missing required values in .env:\n";
-		// We disable this rule because 'ZodIssue' comes from an external library and is not fully readonly.
-		// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-interfaces
 		error.issues.forEach((issue) => {
 			message += `${issue.path[0]}\n`;
 		});

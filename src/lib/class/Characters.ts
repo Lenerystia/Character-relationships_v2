@@ -1,7 +1,7 @@
 import type { Character } from '$lib/class/Character';
 
 export class Characters {
-	// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-interfaces
+	// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 	public constructor(public charactersArray: Character[]) {}
 
 	// getCharacterById(characterId: number, characters: Character[]): Character {

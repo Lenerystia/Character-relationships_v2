@@ -6,6 +6,7 @@
 	let lastName = '';
 	let errorMessage = '';
 
+	// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 	const handleSubmit = async (event: Event) => {
 		event.preventDefault();
 
@@ -23,7 +24,7 @@
 		});
 
 		if (response.ok) {
-			goto('/characters', { replaceState: true });
+			await goto('/characters', { replaceState: true });
 		} else {
 			console.error('Error adding character. Please try again.');
 		}
