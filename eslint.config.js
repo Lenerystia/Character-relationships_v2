@@ -28,11 +28,11 @@ import svelteParser from 'svelte-eslint-parser';
 // Toggles for enabling/disabling rule groups
 const aliasFlag = false;
 const cspellFlag = false;
-const drizzleFlag = false;
-const esEsFlag = false;
+const drizzleFlag = true;
+const esEsFlag = true;
 const esImportFlag = false;
 const functionalFlag = false;
-const htmlFlag = false;
+const htmlFlag = true;
 const jsFlag = false;
 const jsonFlag = true;
 const nodeFlag = false;
@@ -48,7 +48,7 @@ const tailwindFlag = false;
 const tsDocFlag = false;
 const typescriptFlag = true;
 const unicornFlag = false;
-const vitestFlag = false;
+const vitestFlag = true;
 
 export default [
 	prettier,
@@ -844,99 +844,11 @@ export default [
 				...(pandacssFlag && {
 					'@pandacss/file-not-included': 'error',
 				}),
-				...(vitestFlag && {
-					...vitest.configs.recommended.rules,
-					'vitest/no-done-callback': 'off', //deprecated
-					'vitest/consistent-test-filename': ['error', { pattern: '.*\\.(spec|test)\\.[jt]s$' }],
-					'vitest/consistent-test-it': 'error',
-					'vitest/expect-expect': [
-						'error',
-						{
-							assertFunctionNames: [
-								'expect',
-								'request.*.expect',
-								'request.**.expect',
-								'request.*.expect*',
-								'get(*).expect',
-								'post(*).expect',
-								'put(*).expect',
-								'delete(*).expect',
-								'sendGetRequest(*).expect',
-								'sendGetRequest(*).*.expect',
-								'sendPostRequest(*).expect',
-								'sendPostRequest(*).*.expect',
-								'sendPutRequest(*).expect',
-								'sendPutRequest(*).*.expect',
-								'sendDeleteRequest(*).expect',
-								'sendDeleteRequest(*).*.expect',
-							],
-						},
-					],
-					'vitest/max-expects': ['error', { max: 5 }],
-					'vitest/max-nested-describe': ['error', { max: 3 }],
-					'vitest/no-alias-methods': 'error',
-					'vitest/no-commented-out-tests': 'error',
-					'vitest/no-conditional-expect': 'error',
-					'vitest/no-conditional-tests': 'error',
-					'vitest/no-disabled-tests': 'error',
-					'vitest/no-duplicate-hooks': 'error',
-					'vitest/no-focused-tests': [
-						'error',
-						{
-							fixable: false,
-						},
-					],
-					'vitest/no-hooks': 'error',
-					'vitest/no-identical-title': 'error',
-					'vitest/no-import-node-test': 'error',
-					'vitest/no-interpolation-in-snapshots': 'error',
-					'vitest/no-large-snapshots': ['error', { maxSize: 50 }],
-					'vitest/no-mocks-import': 'error',
-					'vitest/no-restricted-matchers': 'error',
-					'vitest/no-restricted-vi-methods': 'error',
-					'vitest/no-standalone-expect': 'error',
-					'vitest/no-test-prefixes': 'error',
-					'vitest/no-test-return-statement': 'error',
-					'vitest/prefer-called-with': 'error',
-					'vitest/prefer-comparison-matcher': 'error',
-					'vitest/prefer-each': 'error',
-					'vitest/prefer-equality-matcher': 'error',
-					'vitest/prefer-expect-assertions': 'error',
-					'vitest/prefer-expect-resolves': 'error',
-					'vitest/prefer-hooks-in-order': 'error',
-					'vitest/prefer-hooks-on-top': 'error',
-					'vitest/prefer-lowercase-title': ['error', { ignore: ['describe'] }],
-					'vitest/prefer-mock-promise-shorthand': 'error',
-					'vitest/prefer-snapshot-hint': 'error',
-					'vitest/prefer-spy-on': 'error',
-					'vitest/prefer-strict-equal': 'error',
-					'vitest/prefer-to-be': 'error',
-					'vitest/prefer-to-be-falsy': 'error',
-					'vitest/prefer-to-be-object': 'error',
-					'vitest/prefer-to-be-truthy': 'error',
-					'vitest/prefer-to-contain': 'error',
-					'vitest/prefer-to-have-length': 'error',
-					'vitest/prefer-todo': 'error',
-					'vitest/prefer-vi-mocked': 'error',
-					'vitest/require-hook': 'error',
-					'vitest/require-local-test-context-for-concurrent-snapshots': 'error',
-					'vitest/require-to-throw-message': 'error',
-					'vitest/require-top-level-describe': 'error',
-					'vitest/valid-describe-callback': 'error',
-					'vitest/valid-expect': ['error', { maxArgs: 1 }],
-					'vitest/valid-title': [
-						'error',
-						{
-							ignoreTypeOfDescribeName: true,
-						},
-					],
-					'vitest/valid-expect-in-promise': 'error',
-				}),
 			}),
 		},
 	},
 	{
-		name: 'tests',
+		name: 'Tests',
 		plugins: {
 			js: js,
 			'@typescript-eslint': ts,
@@ -945,10 +857,95 @@ export default [
 		},
 		files: ['tests/**'],
 		rules: {
-			...(vitestFlag &&
-				{
-					// Enter the rules you want to match separately for the tests.
-				}),
+			// Enter the rules you want to match separately for the tests.
+			...(vitestFlag && {
+				...vitest.configs.recommended.rules,
+				'vitest/no-done-callback': 'off', //deprecated
+				'vitest/consistent-test-filename': ['error', { pattern: '.*\\.(spec|test)\\.[jt]s$' }],
+				'vitest/consistent-test-it': 'error',
+				'vitest/expect-expect': [
+					'error',
+					{
+						assertFunctionNames: [
+							'expect',
+							'request.*.expect',
+							'request.**.expect',
+							'request.*.expect*',
+							'get(*).expect',
+							'post(*).expect',
+							'put(*).expect',
+							'delete(*).expect',
+							'sendGetRequest(*).expect',
+							'sendGetRequest(*).*.expect',
+							'sendPostRequest(*).expect',
+							'sendPostRequest(*).*.expect',
+							'sendPutRequest(*).expect',
+							'sendPutRequest(*).*.expect',
+							'sendDeleteRequest(*).expect',
+							'sendDeleteRequest(*).*.expect',
+						],
+					},
+				],
+				'vitest/max-expects': ['error', { max: 5 }],
+				'vitest/max-nested-describe': ['error', { max: 3 }],
+				'vitest/no-alias-methods': 'error',
+				'vitest/no-commented-out-tests': 'off',
+				'vitest/no-conditional-expect': 'error',
+				'vitest/no-conditional-tests': 'error',
+				'vitest/no-disabled-tests': 'error',
+				'vitest/no-duplicate-hooks': 'error',
+				'vitest/no-focused-tests': [
+					'error',
+					{
+						fixable: false,
+					},
+				],
+				'vitest/no-hooks': 'error',
+				'vitest/no-identical-title': 'error',
+				'vitest/no-import-node-test': 'error',
+				'vitest/no-interpolation-in-snapshots': 'error',
+				'vitest/no-large-snapshots': ['error', { maxSize: 50 }],
+				'vitest/no-mocks-import': 'error',
+				'vitest/no-restricted-matchers': 'error',
+				'vitest/no-restricted-vi-methods': 'error',
+				'vitest/no-standalone-expect': 'error',
+				'vitest/no-test-prefixes': 'error',
+				'vitest/no-test-return-statement': 'error',
+				'vitest/prefer-called-with': 'error',
+				'vitest/prefer-comparison-matcher': 'error',
+				'vitest/prefer-each': 'error',
+				'vitest/prefer-equality-matcher': 'error',
+				'vitest/prefer-expect-assertions': 'error',
+				'vitest/prefer-expect-resolves': 'error',
+				'vitest/prefer-hooks-in-order': 'error',
+				'vitest/prefer-hooks-on-top': 'error',
+				'vitest/prefer-lowercase-title': ['error', { ignore: ['describe'] }],
+				'vitest/prefer-mock-promise-shorthand': 'error',
+				'vitest/prefer-snapshot-hint': 'error',
+				'vitest/prefer-spy-on': 'error',
+				'vitest/prefer-strict-equal': 'error',
+				'vitest/prefer-to-be': 'error',
+				'vitest/prefer-to-be-falsy': 'error',
+				'vitest/prefer-to-be-object': 'error',
+				'vitest/prefer-to-be-truthy': 'error',
+				'vitest/prefer-to-contain': 'error',
+				'vitest/prefer-to-have-length': 'error',
+				'vitest/prefer-todo': 'error',
+				'vitest/prefer-vi-mocked': 'error',
+				'vitest/require-hook': 'error',
+				'vitest/require-local-test-context-for-concurrent-snapshots': 'error',
+				'vitest/require-to-throw-message': 'error',
+				'vitest/require-top-level-describe': 'error',
+				'vitest/valid-describe-callback': 'error',
+				'vitest/valid-expect': ['error', { maxArgs: 1 }],
+				'vitest/valid-title': [
+					'error',
+					{
+						ignoreTypeOfDescribeName: true,
+					},
+				],
+				'vitest/valid-expect-in-promise': 'error',
+			}),
 		},
 	},
 	{
@@ -1006,6 +1003,23 @@ export default [
 		rules: {
 			...(htmlFlag && {
 				...html.configs.recommended.rules,
+				'@html-eslint/indent': ['error', 'tab'],
+				'@html-eslint/no-extra-spacing-attrs': 'off',
+				'@html-eslint/require-closing-tags': ['error', { selfClosing: 'always' }],
+				'@html-eslint/require-meta-charset': 'error',
+				'@html-eslint/lowercase': 'error',
+				'@html-eslint/require-input-label': 'error',
+				'@html-eslint/require-explicit-size': 'error',
+				'@html-eslint/no-trailing-spaces': 'error',
+				'@html-eslint/no-extra-spacing-text': 'error',
+				'@html-eslint/require-meta-description': 'error',
+				'@html-eslint/require-frame-title': 'error',
+				'@html-eslint/no-non-scalable-viewport': 'error',
+				'@html-eslint/no-target-blank': 'error',
+				'@html-eslint/require-button-type': 'error',
+				'@html-eslint/no-heading-inside-button': 'error',
+				'@html-eslint/require-form-method': 'error',
+				'@html-eslint/sort-attrs': 'error',
 			}),
 		},
 	},
