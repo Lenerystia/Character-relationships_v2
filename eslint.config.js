@@ -33,7 +33,7 @@ const esEsFlag = true;
 const esImportFlag = false;
 const functionalFlag = false;
 const htmlFlag = true;
-const jsFlag = false;
+const jsFlag = true;
 const jsonFlag = true;
 const nodeFlag = false;
 const pandacssFlag = false;
@@ -49,6 +49,8 @@ const tsDocFlag = false;
 const typescriptFlag = true;
 const unicornFlag = false;
 const vitestFlag = true;
+//TODO search regex eslint plugin
+//TODO: Have js sense when I use typescript?
 
 export default [
 	prettier,
@@ -343,6 +345,12 @@ export default [
 			...(jsFlag && {
 				...js.configs.all.rules,
 				// ...js.configs.recommended.rules,
+				'no-duplicate-imports': 'off',
+				'max-statements': 'off',
+				'capitalized-comments': 'off',
+				'no-warning-comments': 'off', // TEMP
+				'no-undefined': 'off',
+				'require-unicode-regexp': 'off',
 				'sort-imports': 'off', // Disabled due to a conflict with a rule from eslint-plugin-import
 				'array-callback-return': [
 					'error',
@@ -528,7 +536,7 @@ export default [
 				'prefer-rest-params': 'warn',
 				'prefer-spread': 'warn',
 				'prefer-template': 'warn',
-				radix: 'error',
+				radix: 'off',
 				'require-await': 'error',
 				'require-yield': 'error',
 			}),

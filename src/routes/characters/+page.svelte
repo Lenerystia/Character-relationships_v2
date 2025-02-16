@@ -6,7 +6,7 @@
 	import { goto } from '$app/navigation';
 
 	export let data: { characters: ICharacter[] };
-	let characters = data.characters;
+	const characters = data.characters;
 
 	export async function deleteCharacter(id: number) {
 		if (confirm('Are you sure you want to delete this character?')) {

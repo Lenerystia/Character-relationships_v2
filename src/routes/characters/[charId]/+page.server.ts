@@ -20,7 +20,7 @@ export async function load({ params }: LoadEvent) {
 		const paramsCharacterId: string = params.charId;
 
 		const characterId: number = parseInt(paramsCharacterId);
-		if (isNaN(characterId) || !(/^\d+$/.test(paramsCharacterId))) {
+		if (isNaN(characterId) || !(/^\d+$/u.test(paramsCharacterId))) {
 			throw error(StatusCodes.BAD_REQUEST, {
 				message: `Character ID must be a number from 1 to ${Number.MAX_SAFE_INTEGER}`
 			});

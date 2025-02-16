@@ -34,10 +34,10 @@ class CharacterRepository {
 	 * @returns A single Character object
 	 */
 	public static async getCharacterById(id: number): Promise<Character> {
-		let characterRecord = await db.query.characters.findFirst({
+		const characterRecord = await db.query.characters.findFirst({
 			where: eq(characters.id, id)
 		});
-		if (characterRecord == null) {
+		if (characterRecord === null) {
 			throw new Error('Character not found');
 		}
 		return characterRecord;
@@ -54,7 +54,6 @@ class CharacterRepository {
 			await db.delete(characters).where(eq(characters.id, id));
 			return new Response('Character deleted successfully', { status: 200 });
 		} catch (error) {
-			console.error('Error deleting character:', error);
 			return new Response('Error deleting character!', { status: 500 });
 		}
 	}

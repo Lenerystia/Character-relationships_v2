@@ -8,8 +8,8 @@
     relations: IRelation[];
   };
 
-  let characters = data.characters;
-  let relations = data.relations;
+  const characters = data.characters;
+  const relations = data.relations;
 
   // Helper functions
   function getRelationsForCharacter(characterId: number): IRelation[] {

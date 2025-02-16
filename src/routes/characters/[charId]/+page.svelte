@@ -2,11 +2,11 @@
 	import type { ICharacter } from '$lib/interfaces/interfaces';
 
 	import '$lib/scripts/app.css';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
-	let characterId = parseInt($page.params.charId);
+	const characterId = parseInt(page.params.charId);
 	export let data: { character: ICharacter[] };
-	let character = data.character[0];
+	const character = data.character[0];
 </script>
 
 <h1>Test character: {characterId}</h1>

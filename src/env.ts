@@ -30,9 +30,9 @@ try {
 		error.issues.forEach((issue) => {
 			message += `${issue.path[0]}\n`;
 		});
-		const e = new Error(message);
-		e.stack = "";
-		throw e;
+		const err = new Error(message);
+		err.stack = "";
+		throw err;
 	} else {
 		console.error(error);
 	}
