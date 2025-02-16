@@ -3,7 +3,7 @@ import type { Relationship } from '$lib/class/Relationship';
 
 import { graphviz } from 'd3-graphviz';
 
-import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
+import { RelationshipFormatter } from '$lib/class/formattters/RelationshipFormatter';
 import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/queries';
 
 // function getCharacterName(characterId: number, characters: Character[]): string {
@@ -43,7 +43,7 @@ export function drawGraph(relations: readonly Relationship[]): void {
 	// diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
 	//relation.first + relation.char + relation.name
 	// relation = relations.getRelationOf(id)
-	const diag = relations.map(relation => RelationFormatter.toString(relation)).join(' ');
+	const diag = relations.map(relationShip => RelationshipFormatter.toString(relationShip)).join(' ');
 
 	graphviz('#graph').renderDot(`digraph { ${diag} }`);
 }

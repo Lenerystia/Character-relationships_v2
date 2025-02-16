@@ -1,6 +1,6 @@
 import type { Relationship } from '../Relationship';
 
-export class RelationFormatter {
+export class RelationshipFormatter {
 	public static toPOJO(relation: Relationship) {
 		return {
 			id: relation.id,
@@ -14,12 +14,11 @@ export class RelationFormatter {
 		return relations.map(relation => this.toPOJO(relation));
 	}
 
-
 	public static toString(relation: Relationship): string {
-		return `${relation.idChar1} -> ${relation.idChar2} [label="${relation.about}"];`;
+		return `"${relation.idChar1}" -> "${relation.idChar2}" [label="${relation.about}"];`;
 	}
 
-	// private static formattedRelation(relation: Relationship): string {
-	// 	return `"${relation.idChar1.fullName}" -> "${relation.idChar2.fullName}" [label="${this.about}"];`;
-	// }
+	// static formattedRelation(relation: Relation): string {
+	//   		return `"${relation.idChar1.fullName}" -> "${relation.idChar2.fullName}" [label="${this.about}"];`;
+	//   	}
 }

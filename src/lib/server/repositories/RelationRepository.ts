@@ -42,8 +42,6 @@ export class RelationRepository {
     }
     return relationRecord;
   }
-  
-
 }
 
 // export default RelationRepository;

@@ -3,7 +3,7 @@ import type { Relationships } from '$lib/class/Relationships';
 import type { ICharacter, IRelation } from '$lib/interfaces/interfaces';
 
 import { CharacterFormatter } from '$lib/class/formattters/CharacterFormatter';
-import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
+import { RelationshipFormatter } from '$lib/class/formattters/RelationshipFormatter';
 import { EMPTY } from '$lib/constants';
 import CharacterRepository from '$lib/server/repositories/CharacterRepository';
 import { RelationRepository } from '$lib/server/repositories/RelationRepository';
@@ -25,7 +25,7 @@ export async function load() {
 
 	// Convert the instances of Characters and Relations to plain objects
 	const serializedCharacters: ICharacter[] = CharacterFormatter.toPOJOs(characters.charactersArray);
-	const serializedRelations: IRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
+	const serializedRelations: IRelation[] = RelationshipFormatter.toPOJOs(relations.relationsArray);
 
 	// Return the serialized data
 	return {

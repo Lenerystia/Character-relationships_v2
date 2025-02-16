@@ -1,7 +1,7 @@
 import type { Relationships } from '$lib/class/Relationships';
 import type { IRelation } from '$lib/interfaces/interfaces';
 
-import { RelationFormatter } from '$lib/class/formattters/RelationFormatter';
+import { RelationshipFormatter } from '$lib/class/formattters/RelationshipFormatter';
 import { EMPTY } from '$lib/constants';
 import { RelationRepository } from '$lib/server/repositories/RelationRepository';
 import { error } from '@sveltejs/kit';
@@ -13,7 +13,7 @@ export const load = async () => {
 	if (relations.relationsArray.length === EMPTY) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Relations not found' });
 	}
-	const serializedRelations: IRelation[] = RelationFormatter.toPOJOs(relations.relationsArray);
+	const serializedRelations: IRelation[] = RelationshipFormatter.toPOJOs(relations.relationsArray);
 	return {
 		relations: serializedRelations,
 	};

@@ -8,4 +8,3 @@ export async function navigateBetweenPages(eventClickButtonByUser: Readonly<Mous
     const pageName = target.name;
     await goto(pageName);
 }
-
