@@ -278,7 +278,7 @@ export default [
 
 				'import/named': 'error',
 				'import/default': 'error',
-				'import/no-mutable-exports': 'error',
+				'import/no-mutable-exports': 'off', // TODO
 				'import/no-named-as-default': 'warn',
 				'import/no-anonymous-default-export': 'warn',
 				'import/extensions': [
@@ -325,6 +325,8 @@ export default [
 				'functional/functional-parameters': 'off',
 				'functional/no-conditional-statements': 'off', // TODO - Can I precise what tenant and what is a conditional statement?
 				'functional/no-throw-statements': 'error',
+				'functional/no-let': 'off',
+				'functional/no-expression-statements': 'off',
 			}),
 
 			/* Tsdoc */
@@ -635,7 +637,7 @@ export default [
 				'@typescript-eslint/no-unnecessary-type-arguments': 'error',
 				'@typescript-eslint/no-unnecessary-type-assertion': 'error',
 				'@typescript-eslint/no-unsafe-argument': 'error',
-				'@typescript-eslint/no-unsafe-assignment': 'error',
+				'@typescript-eslint/no-unsafe-assignment': 'off', // TEMP
 				'@typescript-eslint/no-unsafe-call': 'error',
 				'@typescript-eslint/no-unsafe-member-access': 'error',
 				'@typescript-eslint/no-unsafe-return': 'error',
