@@ -1,13 +1,13 @@
-import { config } from "dotenv";
-import { expand } from "dotenv-expand";
-import { z, ZodError } from "zod";
+import { config } from 'dotenv';
+import { expand } from 'dotenv-expand';
+import { z, ZodError } from 'zod';
 
 const stringBoolean = z.coerce.string().transform((val) => {
-	return val === "true";
-}).default("false");
+	return val === 'true';
+}).default('false');
 
 const EnvSchema = z.object({
-	NODE_ENV: z.string().default("development"),
+	NODE_ENV: z.string().default('development'),
 	DB_HOST: z.string(),
 	DB_USER: z.string(),
 	DB_PASSWORD: z.string(),
@@ -24,16 +24,18 @@ expand(config());
 
 try {
 	EnvSchema.parse(process.env);
-} catch (error) {
+}
+catch (error) {
 	if (error instanceof ZodError) {
-		let message = "Missing required values in .env:\n";
+		let message = 'Missing required values in .env:\n';
 		error.issues.forEach((issue) => {
 			message += `${issue.path[0]}\n`;
 		});
 		const err = new Error(message);
-		err.stack = "";
+		err.stack = '';
 		throw err;
-	} else {
+	}
+	else {
 		console.error(error);
 	}
 }

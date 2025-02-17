@@ -25,7 +25,8 @@
 
 		if (response.ok) {
 			await goto('/characters', { replaceState: true });
-		} else {
+		}
+		else {
 			console.error('Error adding character. Please try again.');
 		}
 	};

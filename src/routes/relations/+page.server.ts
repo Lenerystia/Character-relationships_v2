@@ -1,3 +1,4 @@
+
 import type { Relationships } from '$lib/class/Relationships';
 import type { IRelation } from '$lib/interfaces/interfaces';
 
@@ -5,8 +6,8 @@ import { RelationshipFormatter } from '$lib/class/formattters/RelationshipFormat
 import { EMPTY } from '$lib/constants';
 import { RelationRepository } from '$lib/server/repositories/RelationRepository';
 import { error } from '@sveltejs/kit';
+// TODO: check what error should I use
 import { StatusCodes } from 'http-status-codes';
-
 
 export const load = async () => {
 	const relations: Relationships = await RelationRepository.getRelations();

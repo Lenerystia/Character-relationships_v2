@@ -13,13 +13,13 @@
 			const response = await fetch('/characters', {
 				method: 'DELETE',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ id })
+				body: JSON.stringify({ id }),
 			});
 			if (response.ok) {
 				await goto('/characters', { replaceState: true });
-				window.location.reload();
+				globalThis.location.reload();
 			} else {
 				interface ErrorResponse {
 					message: string;
@@ -27,7 +27,7 @@
 
 				// TODO: Add better error handling
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-				const errorData = await response.json() as ErrorResponse;
+				const errorData = (await response.json()) as ErrorResponse;
 				alert(`Failed to delete character: ${errorData.message}`);
 			}
 		}
@@ -51,7 +51,16 @@
 					<td>{character.id}</td>
 					<td>{character.firstName}</td>
 					<td>{character.lastName}</td>
-					<td><button type="button" on:click={async () => { await deleteCharacter(character.id); }}>Delete</button></td>
+					<td>
+						<button
+							type="button"
+							on:click={async () => {
+								await deleteCharacter(character.id);
+							}}
+						>
+							p Delete</button
+						>
+					</td>
 				</tr>
 			{/each}
 		</tbody>

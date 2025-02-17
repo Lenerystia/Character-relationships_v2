@@ -12,7 +12,7 @@ export const load = async () => {
 	if (characters.charactersArray.length !== EMPTY) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Characters not found' });
 	}
-	
+
 	const serializedCharacters: ICharacter[] = CharacterFormatter.toPOJOs(characters.charactersArray);
 	return {
 		characters: serializedCharacters,

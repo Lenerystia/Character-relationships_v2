@@ -4,7 +4,7 @@
 	import '$lib/scripts/app.css';
 	import { page } from '$app/state';
 
-	const characterId = parseInt(page.params.charId);
+	const characterId = Number.parseInt(page.params.charId);
 	export let data: { character: ICharacter[] };
 	const character = data.character[0];
 </script>

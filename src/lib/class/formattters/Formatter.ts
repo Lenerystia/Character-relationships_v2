@@ -6,11 +6,11 @@ export class Formatter {
 		public readonly characters: readonly Character[],
 		public readonly Relation: readonly Relationship[],
 	) {}
-	//TODO - odpowiedzialna za jedną rzecz, za to robi to dobrze
-	// wróć się do celu - dlaczego stworzyłeś te klasę? Sklejanie łańcucha do graphviza
-	// więc czemu tu getujesz?
-	// Osobna klasa na te wyciąganie informacji do tego? - Yes
-	// A może nie trzeba formattera i wystarczy w widoku - już tak było
+	// TODO - responsible for one thing, and does it well
+	// return to the goal - why did you create this class? Glueing strings for graphviz
+	// so why are you getting here?
+	// Separate class for extracting information for this? - Yes
+	// Or maybe you don't need a formatter and it's enough in the view - it already was like that
 
 	// function getRelationsForCharacter(characterId: number): TRelation[] {
 	// 	return relations.filter((rel: TRelation) => rel.idChar1 === characterId);

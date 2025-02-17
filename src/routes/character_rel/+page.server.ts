@@ -30,6 +30,6 @@ export async function load() {
 	// Return the serialized data
 	return {
 		characters: serializedCharacters,
-		relations: serializedRelations
+		relations: serializedRelations,
 	};
 }

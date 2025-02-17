@@ -5,7 +5,7 @@ export class CharacterFormatter {
 		return {
 			id: character.id,
 			firstName: character.firstName,
-			lastName: character.lastName
+			lastName: character.lastName,
 		};
 	}
 

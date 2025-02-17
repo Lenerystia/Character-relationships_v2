@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import '$lib/scripts/app.css';
 	import { StatusCodes } from 'http-status-codes';
-	//TODO: Error - when you haven't got relations between your characters
-	//TODO: Error - when you haven't got characters - so you can't have any relations?
+	import '$lib/scripts/app.css';
+	// TODO: Error - when you haven't got relations between your characters
+	// TODO: Error - when you haven't got characters - so you can't have any relations?
 </script>
 
 {#if String(page.status) === String(StatusCodes.NOT_FOUND)}

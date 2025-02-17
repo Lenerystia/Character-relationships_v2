@@ -10,13 +10,13 @@ export const POST: RequestHandler = async ({ request }: { request: Request }) =>
 	const lastName = formData.get('lastName');
 
 	if (typeof firstName !== 'string' || typeof lastName !== 'string') {
-		throw new Error('Invalid form data');
+		throw new TypeError('Invalid form data');
 	}
 
 	if (!firstName || !lastName) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Missing character name' });
 	}
-	//TODO: One any properties is required - whatever which one
+	// TODO: One any properties is required - whatever which one
 
 	await db.insert(characters).values({
 		firstName,

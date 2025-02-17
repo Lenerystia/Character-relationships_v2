@@ -13,12 +13,10 @@ export const relations = pgTable('relations', {
 	about: text('about').notNull(),
 });
 
-
-
 // import { sql } from 'drizzle-orm';
 // import { boolean, pgTable, text, uuid, varchar } from 'drizzle-orm/pg-core';
 //
-// // ======= Tabela Postaci =======
+// // ======= Table of Characters =======
 // export const characters = pgTable('characters', {
 // 	id: uuid('id').defaultRandom().primaryKey(),
 // 	firstName: varchar('first_name', { length: 100 }).notNull(),
@@ -29,16 +27,16 @@ export const relations = pgTable('relations', {
 // 		.default(sql`'{}'::text[]`),
 // });
 //
-// // ======= Tabela Uniwersów =======
+// // ======= Table of Universes =======
 // export const universes = pgTable('universes', {
 // 	id: uuid('id').defaultRandom().primaryKey(),
 // 	name: varchar('name', { length: 255 }).notNull(),
 // 	description: text('description'),
 // });
 //
-// // TODO: ======= Powiązanie Postaci z Uniwersami (Many-to-Many) =======
+// // TODO: ======= Connecting Characters with Universes (Many-to-Many) =======
 //
-// // ======= Tabela Relacji =======
+// // ======= Table of Relationships =======
 // export const relationships = pgTable('relationships', {
 // 	id: uuid('id').defaultRandom().primaryKey(),
 // 	sourceId: uuid('source_id')
@@ -51,7 +49,7 @@ export const relations = pgTable('relations', {
 // 	isBidirectional: boolean('is_bidirectional').default(false),
 // });
 //
-// // ======= Tabela Opowiadań =======
+// // ======= Table of Stories =======
 // export const stories = pgTable('stories', {
 // 	id: uuid('id').defaultRandom().primaryKey(),
 // 	title: varchar('title', { length: 255 }).notNull(),

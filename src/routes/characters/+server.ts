@@ -9,7 +9,7 @@ export const DELETE: RequestHandler = async ({ request }): Promise<Response> => 
 		throw error(StatusCodes.BAD_REQUEST, { message: 'Invalid request body' });
 	}
 
-	const { id } = rawData as { id: unknown }; // Rzutujemy tylko na znany klucz
+	const { id } = rawData as { id: unknown };
 
 	if (typeof id !== 'number') {
 		throw error(StatusCodes.BAD_REQUEST, { message: 'Invalid or missing character ID' });
@@ -20,6 +20,6 @@ export const DELETE: RequestHandler = async ({ request }): Promise<Response> => 
 		return response;
 		// throw error(500, { message: 'Error deleting character' });
 	}
-	//return json({ message: 'Character deleted successfully' });
+	// return json({ message: 'Character deleted successfully' });
 	return new Response('Character deleted successfully', { status: 200 });
 };

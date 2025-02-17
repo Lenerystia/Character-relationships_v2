@@ -1,14 +1,13 @@
 import type { Character } from '$lib/class/Character';
 import type { Relationship } from '$lib/class/Relationship';
 
-import { graphviz } from 'd3-graphviz';
-
 import { RelationshipFormatter } from '$lib/class/formattters/RelationshipFormatter';
-import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/queries';
+import { fetchCharacters, fetchRelations } from '@routes/sandbox/server/queries';
+import { graphviz } from 'd3-graphviz';
 
 // function getCharacterName(characterId: number, characters: Character[]): string {
 // 	const character = characters.find((char) => char.id === characterId);
-// 	//TODO Dlaczego on się tu wydziera o undefined?
+// 	//TODO Why is it yelling here about undefined?
 // 	return character
 // 		? `${character.firstName} ${character.lastName}`
 // 		: 'Unknown';
@@ -17,12 +16,12 @@ import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/que
 // export function drawGraph(relations: TRelation[], characters: TCharacter[]): void {
 // 	let diag = '';
 // 	for (const relation of relations) {
-// 		//TODO: Czy tu obiekty nie poprawią jakości kodu
+// 		//TODO: Wouldn't objects improve the quality of the code here?
 // 		const firstCharName = getCharacterName(relation.idChar1, characters);
 // 		const secondCharName = getCharacterName(relation.idChar2, characters);
-// 		// Rozdzieliłam sztucznie informacje o osobie od relacji - według promotora
-// 		// id od firstName i od relacji - to wszystko oddzielone
-// 		// Jak kuźwa, to co mam walnąć jedna tabelę, gdzie będą wszystkie informacje? Kuchnia mać no jak niby miałam to łączyć?
+// 		// I artificially divided the information about a person from the relationship - according to the promoter
+// 		// id from firstName and from relationships - all this is separated
+// 		// How come, don't I have to hit one table where all the information will be? Kitchen has no idea how I was supposed to combine this?
 // 		const relShip = relation.about;
 // 		diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
 // 	}
@@ -41,7 +40,7 @@ import { fetchCharacters, fetchRelations } from '../../routes/sandbox/server/que
 
 export function drawGraph(relations: readonly Relationship[]): void {
 	// diag += `"${firstCharName}"->"${secondCharName}" [label="${relShip}"];`;
-	//relation.first + relation.char + relation.name
+	// relation.first + relation.char + relation.name
 	// relation = relations.getRelationOf(id)
 	const diag = relations.map(relationShip => RelationshipFormatter.toString(relationShip)).join(' ');
 
