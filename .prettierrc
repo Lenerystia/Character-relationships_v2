@@ -5,7 +5,7 @@
 	"printWidth": 100,
 	"semi": true,
 	"bracketSpacing": true,
-	"bracketSameLine": false,
+	"bracketSameLine": true,
 	"arrowParens": "avoid",
 	"plugins": [
 		"prettier-plugin-svelte",

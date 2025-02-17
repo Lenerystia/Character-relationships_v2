@@ -4,3 +4,7 @@ stylelintrc
 sonarjs
 pandacss
 curlies
+digraph
+graphviz
+Glueing
+onnotice

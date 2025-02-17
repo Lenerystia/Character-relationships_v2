@@ -26,29 +26,29 @@ import unicorn from 'eslint-plugin-unicorn';
 import svelteParser from 'svelte-eslint-parser';
 
 // Toggles for enabling/disabling rule groups
-const aliasFlag = false;
-const cspellFlag = false;
-const drizzleFlag = true;
-const esEsFlag = true;
-const esImportFlag = false;
+const aliasFlag = true; // TODO check
+const cspellFlag = true; // Checked
+const drizzleFlag = true; // Checked
+const esEsFlag = true; // TODO check
+const esImportFlag = true; // TODO check
 const functionalFlag = false;
-const htmlFlag = true;
-const jsFlag = true;
-const jsonFlag = true;
-const nodeFlag = false;
+const htmlFlag = true; // Checked
+const jsFlag = false;
+const jsonFlag = true; // Checked
+const nodeFlag = true; // Checked?
 const pandacssFlag = false;
-const perfectionistFlag = false;
-const prettierFlag = false;
-const promiseFlag = false;
-const securityFlag = false;
+const perfectionistFlag = true; // TODO check
+const prettierFlag = true; // TODO check
+const promiseFlag = true; // Checked
+const securityFlag = true; // Checked
 const sonarjsFlag = false;
-const stylisticFlag = false;
-const svelteFlag = false;
+const stylisticFlag = true; // TODO check
+const svelteFlag = true; // TODO check
 const tailwindFlag = false;
-const tsDocFlag = false;
-const typescriptFlag = true;
-const unicornFlag = false;
-const vitestFlag = true;
+const tsDocFlag = true; // Checked
+const typescriptFlag = true; // TODO check
+const unicornFlag = true; // TODO check
+const vitestFlag = true; // TODO check
 //TODO search regex eslint plugin
 //TODO: Have js sense when I use typescript?
 
@@ -59,6 +59,7 @@ export default [
 		files: ['**/*.{ts,tsx,js,jsx,cjs,mjs,svelte}'],
 		ignores: [
 			'node_modules',
+			'node_modules/**',
 			'build',
 			'.svelte-kit/**',
 			'svelte.config.js',
@@ -178,7 +179,7 @@ export default [
 				// Stylistic issues in svelte
 				'svelte/derived-has-same-inputs-outputs': 'error',
 				'svelte/first-attribute-linebreak': 'error',
-				'svelte/html-closing-bracket-new-line': 'error',
+				'svelte/html-closing-bracket-new-line': 'off',
 				'svelte/html-closing-bracket-spacing': 'error',
 				'svelte/html-quotes': 'error',
 				'svelte/html-self-closing': 'error',
@@ -249,9 +250,11 @@ export default [
 				'alias/import-alias': [
 					'error',
 					{
-						relativeDepth: 0,
+						"relativeDepth": 1,
+						"rootDir": import.meta.dirname,
 						aliases: [
 							{ alias: '@src', matcher: '^src' }, // src/modules/app/test -> @src/modules/app/test
+							{ alias: '@routes', matcher: '^src/routes' }, // src/routes/modules/app/test -> @routes/modules/app/test
 							{ alias: '@test', matcher: '^test/unit' }, // test/unit/modules/app -> @test/modules/app
 							{ alias: '@testRoot', matcher: '^(test)/e2e' }, // test/e2e/modules/app -> @testRoot/e2e/modules/app
 						],
@@ -276,49 +279,51 @@ export default [
 
 			/* import rules */
 			...(esImportFlag && {
-				'import/no-unresolved': 'error',
-
+				'import/no-unresolved': 'off',
 				'import/named': 'error',
 				'import/default': 'error',
 				'import/no-mutable-exports': 'off', // TODO
 				'import/no-named-as-default': 'warn',
 				'import/no-anonymous-default-export': 'warn',
-				'import/extensions': [
-					'warn',
-					'ignorePackages',
-					{
-						ts: 'never',
-						tsx: 'never',
-						js: 'never',
-						jsx: 'never',
-					},
-				],
+				'import/extensions': 'off',
+				// [
+				// 	'warn',
+				// 	'ignorePackages',
+				// 	{
+				// 		ts: 'never',
+				// 		tsx: 'never',
+				// 		js: 'never',
+				// 		jsx: 'never',
+				// 		svelte: 'always'
+				// 	},
+				// ],
 				'import/no-restricted-paths': 'off',
-				'import/order': [
-					'warn',
-					{
-						groups: [['builtin', 'external'], ['internal'], ['parent', 'sibling', 'index']],
-						pathGroups: [
-							{
-								pattern: '@/**',
-								group: 'internal',
-								position: 'after',
-							},
-						],
-						alphabetize: { order: 'asc', caseInsensitive: true },
-						'newlines-between': 'always',
-					},
-				],
-
+				'import/order': 'off',
+				// 	[
+				// 	'warn',
+				// 	{
+				// 		groups: [['builtin', 'external'], ['internal'], ['parent', 'sibling', 'index']],
+				// 		pathGroups: [
+				// 			{
+				// 				pattern: '@/**',
+				// 				group: 'internal',
+				// 				position: 'after',
+				// 			},
+				// 		],
+				// 		alphabetize: { order: 'asc', caseInsensitive: true },
+				// 		'newlines-between': 'always',
+				// 	},
+				// ],
 				'import/no-duplicates': 'warn',
 				'import/no-absolute-path': 'error',
 				'import/no-useless-path-segments': ['warn', { noUselessIndex: true }],
-				'import/no-extraneous-dependencies': [
-					'error',
-					{
-						devDependencies: ['**/*.test.ts', '**/scripts/**'],
-					},
-				],
+				'import/no-extraneous-dependencies': 'off',
+				// 	[
+				// 	'error',
+				// 	{
+				// 		devDependencies: ['**/*.test.ts', '**/scripts/**'],
+				// 	},
+				// ],
 			}),
 			/* functional rules */
 			...(functionalFlag && {
@@ -555,10 +560,16 @@ export default [
 				// ...unicorn.configs.recommended.rules,
 				'unicorn/better-regex': 'error',
 				'unicorn/prefer-query-selector': 'error',
+				'unicorn/filename-case': 'off', // TODO
+				'unicorn/no-array-for-each': 'off', // TODO
+				'unicorn/prevent-abbreviations': 'off', // TODO - TEMP
+				'unicorn/no-null': 'off', // TODO - TEMP
+				'unicorn/no-empty-file': 'off', // TODO - TEMP
 			}),
 
 			...(stylisticFlag && {
 				...stylistic.configs['recommended-extends'].rules,
+				'@stylistic/member-delimiter-style': 'error',
 				'@stylistic/array-bracket-newline': ['error', 'consistent'],
 				'@stylistic/array-bracket-spacing': [
 					'error',
@@ -570,6 +581,7 @@ export default [
 					// },
 				],
 				'@stylistic/array-element-newline': ['error', 'consistent'],
+				'@stylistic/brace-style': 'off', // TODO
 				// 'stylistic/brace-stylistic': ['error', '1tbs', { allowSingleLine: true }],
 				'@stylistic/comma-spacing': [
 					'error',
