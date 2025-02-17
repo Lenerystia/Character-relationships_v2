@@ -10,6 +10,14 @@
 		"sourceMap": true,
 		"strict": true,
 		"noImplicitReturns": true,
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"baseUrl": ".",
+		"paths": {
+			"$lib/*": ["src/lib/*"],
+			"@src/*": ["src/*"],
+			"@routes/*": ["src/routes/*"],
+			"@test/*": ["test/unit/*"],
+			"@testRoot/*": ["test/e2e/*"]
+		}
 	}
 }
