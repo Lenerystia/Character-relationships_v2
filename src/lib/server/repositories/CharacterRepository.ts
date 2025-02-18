@@ -22,7 +22,7 @@ class CharacterRepository {
 		const characterRecord = await db.query.characters.findFirst({
 			where: eq(characters.id, id),
 		});
-		if (characterRecord === null) {
+		if (characterRecord == null) {
 			throw new Error('Character not found');
 		}
 		return characterRecord;

@@ -2,9 +2,10 @@ import { config } from 'dotenv';
 import { expand } from 'dotenv-expand';
 import { z, ZodError } from 'zod';
 
-const stringBoolean = z.coerce.string().transform((val) => {
-	return val === 'true';
-}).default('false');
+const stringBoolean = z.coerce
+	.string()
+	.transform(val => val === 'true')
+	.default('false');
 
 const EnvSchema = z.object({
 	NODE_ENV: z.string().default('development'),
@@ -18,14 +19,13 @@ const EnvSchema = z.object({
 	DB_SEEDING: stringBoolean,
 });
 
-export type EnvSchema = z.infer<typeof EnvSchema>;
+// export type EnvSchema = z.infer<typeof EnvSchema>;
 
 expand(config());
 
 try {
 	EnvSchema.parse(process.env);
-}
-catch (error) {
+} catch (error) {
 	if (error instanceof ZodError) {
 		let message = 'Missing required values in .env:\n';
 		error.issues.forEach((issue) => {
@@ -34,8 +34,7 @@ catch (error) {
 		const err = new Error(message);
 		err.stack = '';
 		throw err;
-	}
-	else {
+	} else {
 		console.error(error);
 	}
 }

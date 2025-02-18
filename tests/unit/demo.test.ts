@@ -30,10 +30,10 @@ describe('Database Connection', () => {
 describe('fetchCharacter', () => {
 	it('should return the character data', async () => {
 		expect.assertions(1);
-		// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 		const asyncMock = vi.fn().mockResolvedValue(42);
 
-		await asyncMock(); // 42
+		const result = await asyncMock();
+		expect(result).toBe(42);
 	});
 });
 

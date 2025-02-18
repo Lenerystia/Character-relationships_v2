@@ -31,9 +31,10 @@ const cspellFlag = true; // Checked
 const drizzleFlag = true; // Checked
 const esEsFlag = true; // TODO check
 const esImportFlag = true; // TODO check
+// Recommend when you only use functional programming, or you have separate space for functional code in project
 const functionalFlag = false;
 const htmlFlag = true; // Checked
-const jsFlag = false;
+const jsFlag = true;
 const jsonFlag = true; // Checked
 const nodeFlag = true; // Checked?
 const pandacssFlag = false;
@@ -41,7 +42,7 @@ const perfectionistFlag = true; // TODO check
 const prettierFlag = true; // TODO check
 const promiseFlag = true; // Checked
 const securityFlag = true; // Checked
-const sonarjsFlag = false;
+const sonarjsFlag = true; // TODO check
 const stylisticFlag = true; // TODO check
 const svelteFlag = true; // TODO check
 const tailwindFlag = false;
@@ -250,8 +251,8 @@ export default [
 				'alias/import-alias': [
 					'error',
 					{
-						"relativeDepth": 1,
-						"rootDir": import.meta.dirname,
+						relativeDepth: 1,
+						rootDir: import.meta.dirname,
 						aliases: [
 							{ alias: '@src', matcher: '^src' }, // src/modules/app/test -> @src/modules/app/test
 							{ alias: '@routes', matcher: '^src/routes' }, // src/routes/modules/app/test -> @routes/modules/app/test
@@ -264,8 +265,13 @@ export default [
 			/* sonarjs rules */
 			...(sonarjsFlag && {
 				...sonarjs.configs.recommended.rules,
-				'sonarjs/deprecation': 'off',
-				'sonarjs/no-implicit-dependencies': 'error',
+				'sonarjs/no-empty-test-file': 'off', // TEMP
+				'sonarjs/deprecation': 'off', // Rule doesn't work correctly
+				'sonarjs/no-implicit-dependencies': 'off',
+				'sonarjs/no-return-type-any': 'error',
+				'sonarjs/todo-tag': 'off', // TEMP
+				'sonarjs/no-commented-code': 'off', // TEMP
+
 			}),
 			/* security rules */
 			...(securityFlag && {
@@ -327,13 +333,16 @@ export default [
 			}),
 			/* functional rules */
 			...(functionalFlag && {
+				// ...functional.configs.recommended.rules,
 				...functional.configs.all.rules,
-				'functional/prefer-immutable-types': 'off',
-				'functional/functional-parameters': 'off',
-				'functional/no-conditional-statements': 'off', // TODO - Can I precise what tenant and what is a conditional statement?
-				'functional/no-throw-statements': 'error',
-				'functional/no-let': 'off',
-				'functional/no-expression-statements': 'off',
+				// 'functional/no-throw-statements': 'off',
+				// 'functional/no-classes': 'off',
+				// 'functional/no-return-void': 'off',
+				// 'functional/prefer-immutable-types': 'off',
+				// 'functional/functional-parameters': 'off',
+				// 'functional/no-conditional-statements': 'off', // TODO - Can I precise what tenant and what is a conditional statement?
+				// 'functional/no-let': 'off',
+				// 'functional/no-expression-statements': 'off',
 			}),
 
 			/* Tsdoc */
@@ -350,19 +359,29 @@ export default [
 			...(jsFlag && {
 				...js.configs.all.rules,
 				// ...js.configs.recommended.rules,
+				'func-style': 'off',
+				'no-ternary': 'off',
+				'no-eq-null': 'off',
+				'eqeqeq': 'off',
+				'no-console': 'off', // TEMP
+				'no-alert': 'off',
+				'no-undef': 'off',
+				'sort-keys': 'off',
+				'no-inline-comments': 'off',
 				'no-duplicate-imports': 'off',
 				'max-statements': 'off',
-				'capitalized-comments': 'off',
-				'no-warning-comments': 'off', // TEMP
+				'capitalized-comments': 'off', // what when I have commented code?
+				'no-warning-comments': 'off', // off, because sonarjs have
 				'no-undefined': 'off',
 				'require-unicode-regexp': 'off',
 				'sort-imports': 'off', // Disabled due to a conflict with a rule from eslint-plugin-import
-				'array-callback-return': [
-					'error',
-					{
-						checkForEach: true,
-					},
-				],
+				'array-callback-return': 'off',
+				// 	[
+				// 	'error',
+				// 	{
+				// 		checkForEach: true,
+				// 	},
+				// ],
 				'constructor-super': 'error',
 				'for-direction': 'error',
 				'getter-return': 'error',
@@ -408,7 +427,6 @@ export default [
 				'no-sparse-arrays': 'error',
 				'no-template-curly-in-string': 'error',
 				'no-this-before-super': 'error',
-				'no-undef': 'error',
 				'no-unexpected-multiline': 'error',
 				'no-unmodified-loop-condition': 'error',
 				'no-unreachable': 'warn',
@@ -450,9 +468,7 @@ export default [
 				'consistent-return': 'error',
 				curly: 'warn',
 				'default-param-last': 'error',
-				eqeqeq: 'error',
 				'func-names': ['warn', 'never'],
-				'func-style': ['warn', 'expression'],
 				'no-array-constructor': 'error',
 				'no-bitwise': 'error',
 				'no-case-declarations': 'error',
@@ -549,6 +565,7 @@ export default [
 			/* Perfectionist rules */
 			...(perfectionistFlag && {
 				...perfectionist.configs['recommended-natural'].rules,
+				'perfectionist/sort-interfaces': 'off',
 				'perfectionist/sort-objects': 'off',
 				'perfectionist/sort-classes': 'off',
 				'perfectionist/sort-object-types': 'off',
@@ -878,6 +895,9 @@ export default [
 		files: ['tests/**'],
 		rules: {
 			// Enter the rules you want to match separately for the tests.
+			...(typescriptFlag && {
+				'@typescript-eslint/no-magic-numbers': 'off', // vitest/prefer-expect-assertions
+			}),
 			...(vitestFlag && {
 				...vitest.configs.recommended.rules,
 				'vitest/no-done-callback': 'off', //deprecated

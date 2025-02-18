@@ -23,6 +23,6 @@ export const db = drizzle(connection, {
 	logger: true,
 });
 
-export type db = typeof db;
+// export type db = typeof db;
 
 export default db;

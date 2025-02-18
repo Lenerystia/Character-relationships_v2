@@ -23,7 +23,7 @@ export class Formatter {
 
 	public getFullNameInitiatorCharacter(relation: Relationship): null | string {
 		const initiator = this.characters.find(char => char.id === relation.idChar1);
-		if (initiator !== null) {
+		if (initiator != null) {
 			return `${initiator.firstName} ${initiator.lastName}`;
 		}
 		return null;
