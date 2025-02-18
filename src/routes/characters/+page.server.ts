@@ -9,7 +9,7 @@ import { StatusCodes } from 'http-status-codes';
 
 export const load = async () => {
 	const characters: Characters = await CharacterRepository.getCharacters();
-	if (characters.charactersArray.length !== EMPTY) {
+	if (characters.charactersArray.length == EMPTY) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Characters not found' });
 	}
 

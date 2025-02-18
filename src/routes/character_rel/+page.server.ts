@@ -16,10 +16,10 @@ export async function load() {
 	const relations: Relationships = await RelationRepository.getRelations();
 
 	// Check if the data is empty and throw an error if so
-	if (characters.charactersArray.length !== EMPTY) {
+	if (characters.charactersArray.length == EMPTY) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Are you sure you have characters?' });
 	}
-	if (relations.relationsArray.length !== EMPTY) {
+	if (relations.relationsArray.length == EMPTY) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Relations not found' });
 	}
 
