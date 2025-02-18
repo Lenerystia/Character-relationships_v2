@@ -271,7 +271,6 @@ export default [
 				'sonarjs/no-return-type-any': 'error',
 				'sonarjs/todo-tag': 'off', // TEMP
 				'sonarjs/no-commented-code': 'off', // TEMP
-
 			}),
 			/* security rules */
 			...(securityFlag && {
@@ -362,7 +361,7 @@ export default [
 				'func-style': 'off',
 				'no-ternary': 'off',
 				'no-eq-null': 'off',
-				'eqeqeq': 'off',
+				eqeqeq: 'off',
 				'no-console': 'off', // TEMP
 				'no-alert': 'off',
 				'no-undef': 'off',
@@ -585,7 +584,7 @@ export default [
 			}),
 
 			...(stylisticFlag && {
-				...stylistic.configs['recommended-extends'].rules,
+				...stylistic.configs.recommended.rules,
 				'@stylistic/member-delimiter-style': 'error',
 				'@stylistic/array-bracket-newline': ['error', 'consistent'],
 				'@stylistic/array-bracket-spacing': [
@@ -900,6 +899,8 @@ export default [
 			}),
 			...(vitestFlag && {
 				...vitest.configs.recommended.rules,
+				'vitest/prefer-strict-boolean-matchers': 'error',
+				'vitest/no-conditional-in-test': 'error',
 				'vitest/no-done-callback': 'off', //deprecated
 				'vitest/consistent-test-filename': ['error', { pattern: '.*\\.(spec|test)\\.[jt]s$' }],
 				'vitest/consistent-test-it': 'error',
