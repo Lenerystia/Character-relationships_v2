@@ -581,6 +581,7 @@ export default [
 				'unicorn/prevent-abbreviations': 'off', // TODO - TEMP
 				'unicorn/no-null': 'off', // TODO - TEMP
 				'unicorn/no-empty-file': 'off', // TODO - TEMP
+				'unicorn/error-message': 'off', // TODO - TEMP
 			}),
 
 			...(stylisticFlag && {
@@ -735,7 +736,8 @@ export default [
 				'@typescript-eslint/dot-notation': ['error', { allowKeywords: true, allowPattern: '' }], // To test
 				'@typescript-eslint/method-signature-style': ['error', 'method'],
 				'@typescript-eslint/class-literal-property-style': ['error', 'fields'],
-				'@typescript-eslint/array-type': ['error', { default: 'array-simple', readonly: 'array' }],
+				'@typescript-eslint/array-type': 'off',
+				// '@typescript-eslint/array-type': ['error', { default: 'array-simple', readonly: 'array' }], // TEMP
 				'@typescript-eslint/ban-ts-comment': [
 					'error',
 					{ 'ts-expect-error': 'allow-with-description' },

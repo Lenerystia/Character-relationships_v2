@@ -2,8 +2,8 @@
 import type { Relationships } from '$lib/class/Relationships';
 import type { IRelation } from '$lib/interfaces/interfaces';
 
-import { RelationshipFormatter } from '$lib/class/formattters/RelationshipFormatter';
 import { EMPTY } from '$lib/constants';
+import { RelationshipFormatter } from '$lib/formattters/RelationshipFormatter';
 import { RelationRepository } from '$lib/server/repositories/RelationRepository';
 import { error } from '@sveltejs/kit';
 // TODO: check what error should I use

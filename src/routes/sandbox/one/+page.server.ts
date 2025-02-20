@@ -1,7 +1,7 @@
 import type { Relationship } from '$lib/class/Relationship';
 
 import { Character } from '$lib/class/Character';
-import { Formatter } from '$lib/class/formattters/Formatter';
+import { Formatter } from '$lib/formattters/Formatter';
 
 import { fetchCharacters, fetchRelations } from '../server/queries';
 

@@ -2,9 +2,9 @@ import type { Characters } from '$lib/class/Characters';
 import type { Relationships } from '$lib/class/Relationships';
 import type { ICharacter, IRelation } from '$lib/interfaces/interfaces';
 
-import { CharacterFormatter } from '$lib/class/formattters/CharacterFormatter';
-import { RelationshipFormatter } from '$lib/class/formattters/RelationshipFormatter';
 import { EMPTY } from '$lib/constants';
+import { CharacterFormatter } from '$lib/formattters/CharacterFormatter';
+import { RelationshipFormatter } from '$lib/formattters/RelationshipFormatter';
 import CharacterRepository from '$lib/server/repositories/CharacterRepository';
 import { RelationRepository } from '$lib/server/repositories/RelationRepository';
 import { error } from '@sveltejs/kit';

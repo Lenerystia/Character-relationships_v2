@@ -1,8 +1,11 @@
-import type { Character } from '../Character';
+import type { Character } from '../class/Character';
 
 export class CharacterFormatter {
 	public static toPOJO(character: Character) {
 		return {
+			// V2 - doesn't work correct
+			// character: structuredClone(character),
+			// V1
 			id: character.id,
 			firstName: character.firstName,
 			lastName: character.lastName,

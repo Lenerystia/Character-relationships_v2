@@ -1,7 +1,7 @@
 import type { Character } from '$lib/class/Character';
 import type { Relationship } from '$lib/class/Relationship';
 
-import { RelationshipFormatter } from '$lib/class/formattters/RelationshipFormatter';
+import { RelationshipFormatter } from '$lib/formattters/RelationshipFormatter';
 import { fetchCharacters, fetchRelations } from '@routes/sandbox/server/queries';
 import { graphviz } from 'd3-graphviz';
 

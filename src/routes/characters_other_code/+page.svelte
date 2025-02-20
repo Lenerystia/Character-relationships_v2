@@ -1,13 +1,19 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
+	// export let data: { characters: ICharacter[] };
+	// const characters = data.characters;
 
-	import type { ICharacter } from '$lib/interfaces/interfaces';
+	import type { PageData } from './$types';
+
+	// Svelte 5
+	// let { data }: { data: PageData } = $props();
+	const { data }: { data: PageData } = $props();
+	const characters = data.characters;
 
 	import { goto } from '$app/navigation';
 
-	// In Svelte 4:
-	export let data: { characters: ICharacter[] };
-	const characters = data.characters;
+	// DEBUG
+	console.log('Received characters in Svelte:', data.characters);
 
 	export async function deleteCharacter(id: number) {
 		if (confirm('Are you sure you want to delete this character?')) {
@@ -54,10 +60,10 @@
 					<td>{character.lastName}</td>
 					<td>
 						<button
-							type="button"
-							on:click={async () => {
+							onclick={async () => {
 								await deleteCharacter(character.id);
-							}}>
+							}}
+							type="button">
 							Delete</button>
 					</td>
 				</tr>
