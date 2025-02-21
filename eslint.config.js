@@ -38,7 +38,7 @@ const functionalFlag = false;
 const htmlFlag = true; // Checked
 const jsFlag = true;
 const jsonFlag = true; // Checked
-const nodeFlag = true; // Checked?
+const nodeFlag = true; // TODO check
 const pandacssFlag = false;
 const perfectionistFlag = true; // TODO check
 const prettierFlag = true; // TODO check
@@ -53,7 +53,6 @@ const typescriptFlag = true; // TODO check
 const unicornFlag = true; // Checked
 const vitestFlag = true; // TODO check
 //TODO search regex eslint plugin
-//TODO: Have js sense when I use typescript?
 
 export default [
 	prettier,
