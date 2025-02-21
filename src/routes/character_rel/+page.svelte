@@ -3,11 +3,12 @@
 
 	import type { ICharacter, IRelation } from '$lib/interfaces/interfaces';
 
-	export let data: {
-		characters: ICharacter[];
-		relations: IRelation[];
-	};
+	import { renderGraph } from '$lib/scripts/graphUtilities';
+	import { onMount } from 'svelte';
 
+	import type { PageData } from './$types';
+
+	const { data }: { data: PageData } = $props();
 	const characters = data.characters;
 	const relations = data.relations;
 
@@ -20,9 +21,9 @@
 		return characters.filter((char: Readonly<ICharacter>) => char.id === relatedCharacterId);
 	}
 
-	// onMount(() => {
-	// 	drawGraph(relations, characters);
-	// });
+	onMount(() => {
+		renderGraph(relations);
+	});
 </script>
 
 <main>
@@ -63,3 +64,11 @@
 		<svg id="graph" height="1000px" width="1050px" />
 	</div>
 </main>
+
+<style lang="css">
+    #svg {
+        display: block;
+        margin-left: auto;
+        width: fit-content;
+    }
+</style>
