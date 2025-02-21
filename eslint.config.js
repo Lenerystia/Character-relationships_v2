@@ -25,6 +25,8 @@ import tsDoc from 'eslint-plugin-tsdoc';
 import unicorn from 'eslint-plugin-unicorn';
 import svelteParser from 'svelte-eslint-parser';
 
+// IMPORTANT! If you want see what rules is in use, just run in terminal: npx @eslint/config-inspector
+
 // Toggles for enabling/disabling rule groups
 const aliasFlag = true; // TODO check
 const cspellFlag = true; // Checked
@@ -48,7 +50,7 @@ const svelteFlag = true; // TODO check
 const tailwindFlag = false;
 const tsDocFlag = true; // Checked
 const typescriptFlag = true; // TODO check
-const unicornFlag = true; // TODO check
+const unicornFlag = true; // Checked
 const vitestFlag = true; // TODO check
 //TODO search regex eslint plugin
 //TODO: Have js sense when I use typescript?
@@ -216,7 +218,7 @@ export default [
 				'svelte/no-reactive-literals': 'error',
 				'svelte/no-svelte-internal': 'error',
 				'svelte/no-unused-class-name': 'error',
-				'svelte/block-lang': ['error', { script: ['ts'], style: 'scss' }],
+				'svelte/block-lang': ['error', { script: ['ts'], style: 'css' }],
 				'svelte/button-has-type': 'error',
 			}),
 
@@ -358,6 +360,8 @@ export default [
 			...(jsFlag && {
 				...js.configs.all.rules,
 				// ...js.configs.recommended.rules,
+				// Disabled: TypeScript has `private`, ORMs use `_id`, and some APIs use `__typename`.
+				'no-underscore-dangle': 'off',
 				'func-style': 'off',
 				'no-ternary': 'off',
 				'no-eq-null': 'off',
@@ -574,18 +578,31 @@ export default [
 			...(unicornFlag && {
 				...unicorn.configs.all.rules,
 				// ...unicorn.configs.recommended.rules,
-				'unicorn/better-regex': 'error',
-				'unicorn/prefer-query-selector': 'error',
-				'unicorn/filename-case': 'off', // TODO
-				'unicorn/no-array-for-each': 'off', // TODO
-				'unicorn/prevent-abbreviations': 'off', // TODO - TEMP
-				'unicorn/no-null': 'off', // TODO - TEMP
-				'unicorn/no-empty-file': 'off', // TODO - TEMP
-				'unicorn/error-message': 'off', // TODO - TEMP
+				'unicorn/filename-case': [
+					'error',
+					{
+						cases: {
+							camelCase: true,
+							kebabCase: true,
+							pascalCase: true,
+						},
+						ignore: ['README.md'],
+					},
+				],
+				'unicorn/no-array-for-each': 'error',
+				'unicorn/prevent-abbreviations': [
+					'error',
+					{ allowList: { req: true, res: true, db: true, rel: true, char: true, env: true } },
+				],
+				// Disabled: `null` is standard in databases, APIs, and explicit absence of value is clearer than `undefined`.
+				'unicorn/no-null': 'off',
+				'unicorn/no-empty-file': 'error',
+				'unicorn/error-message': 'error',
 			}),
 
 			...(stylisticFlag && {
 				...stylistic.configs.recommended.rules,
+				'@stylistic/max-statements-per-line': 'off',
 				'@stylistic/member-delimiter-style': 'error',
 				'@stylistic/array-bracket-newline': ['error', 'consistent'],
 				'@stylistic/array-bracket-spacing': [
