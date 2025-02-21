@@ -4,10 +4,10 @@ import { z, ZodError } from 'zod';
 
 const stringBoolean = z.coerce
 	.string()
-	.transform(val => val === 'true')
+	.transform(value => value === 'true')
 	.default('false');
 
-const EnvSchema = z.object({
+const EnvironmentSchema = z.object({
 	NODE_ENV: z.string().default('development'),
 	DB_HOST: z.string(),
 	DB_USER: z.string(),
@@ -24,19 +24,19 @@ const EnvSchema = z.object({
 expand(config());
 
 try {
-	EnvSchema.parse(process.env);
+	EnvironmentSchema.parse(process.env);
 } catch (error) {
 	if (error instanceof ZodError) {
 		let message = 'Missing required values in .env:\n';
-		error.issues.forEach((issue) => {
+		for (const issue of error.issues) {
 			message += `${issue.path[0]}\n`;
-		});
-		const err = new Error(message);
-		err.stack = '';
-		throw err;
+		}
+		const error_ = new Error(message);
+		error_.stack = '';
+		throw error_;
 	} else {
 		console.error(error);
 	}
 }
 
-export default EnvSchema.parse(process.env);
+export default EnvironmentSchema.parse(process.env);

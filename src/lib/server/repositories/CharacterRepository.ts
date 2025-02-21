@@ -23,7 +23,7 @@ class CharacterRepository {
 			where: eq(characters.id, id),
 		});
 		if (characterRecord == null) {
-			throw new Error('Character not found');
+			throw new Error(`Character with ID ${id} not found`);
 		}
 		return characterRecord;
 	}

@@ -22,7 +22,7 @@ export class RelationRepository {
 		const relationRecord = await db.query.relations.findFirst({
 			where: eq(relations.id, relationId),
 		});
-		if (relationRecord == undefined) {
+		if (relationRecord == null) {
 			throw new Error('Relation not found');
 		}
 		return relationRecord;
