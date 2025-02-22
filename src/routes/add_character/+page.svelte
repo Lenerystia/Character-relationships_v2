@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	let firstName = '';
 	let lastName = '';
@@ -24,7 +25,7 @@
 		});
 
 		if (response.ok) {
-			await goto('/characters', { replaceState: true });
+			await goto(`${base}/characters`, { replaceState: true });
 		}
 		else {
 			console.error('Error adding character. Please try again.');

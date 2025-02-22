@@ -11,6 +11,7 @@
 	const characters = data.characters;
 
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	// DEBUG
 	console.log('Received characters in Svelte:', data.characters);
@@ -25,7 +26,7 @@
 				body: JSON.stringify({ id }),
 			});
 			if (response.ok) {
-				await goto('/characters', { replaceState: true });
+				await goto(`${base}/characters`, { replaceState: true });
 				globalThis.location.reload();
 			} else {
 				interface ErrorResponse {

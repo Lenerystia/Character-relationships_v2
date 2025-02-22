@@ -4,6 +4,7 @@
 	import type { ICharacter } from '$lib/interfaces/interfaces';
 
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	// In Svelte 4:
 	export let data: { characters: ICharacter[] };
@@ -19,7 +20,7 @@
 				body: JSON.stringify({ id }),
 			});
 			if (response.ok) {
-				await goto('/characters', { replaceState: true });
+				await goto(`${base}/characters`, { replaceState: true });
 				globalThis.location.reload();
 			} else {
 				interface ErrorResponse {

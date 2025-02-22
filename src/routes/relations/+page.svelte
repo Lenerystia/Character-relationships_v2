@@ -25,9 +25,9 @@
 					<td>{relation.idChar1}</td>
 					<td>{relation.idChar2}</td>
 					<td>{relation.about}</td>
-					<!--{#each Object.values(relation) as cell}-->
-					<!--	<td>{cell}</td>-->
-					<!--{/each}-->
+					<!-- {#each Object.values(relation) as cell} -->
+					<!--	<td>{cell}</td> -->
+					<!-- {/each} -->
 				</tr>
 			{/each}
 		</tbody>
