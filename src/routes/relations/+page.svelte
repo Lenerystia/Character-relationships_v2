@@ -3,7 +3,7 @@
 	import type { IRelation } from '$lib/interfaces/interfaces';
 
 	export let data: { relations: IRelation[] };
-	const relations = data.relations;
+	const {relations} = data;
 </script>
 
 <h1>Relationship List</h1>

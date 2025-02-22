@@ -9,7 +9,7 @@ import { error } from '@sveltejs/kit';
 // TODO: check what error should I use
 import { StatusCodes } from 'http-status-codes';
 
-export const load = async () => {
+export const load = async (): Promise<{ relations: IRelation[] }> => {
 	const relations: Relationships = await RelationRepository.getRelations();
 	if (relations.relationsArray.length === EMPTY) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Relations not found' });

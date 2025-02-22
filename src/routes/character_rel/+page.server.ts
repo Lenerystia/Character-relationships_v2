@@ -10,7 +10,7 @@ import { RelationRepository } from '$lib/server/repositories/RelationRepository'
 import { error } from '@sveltejs/kit';
 import { StatusCodes } from 'http-status-codes';
 
-export async function load() {
+export async function load(): Promise<{ characters: ICharacter[]; relations: IRelation[] }> {
 	// Fetch data from the database
 	const characters: Characters = await CharacterRepository.getCharacters();
 	const relations: Relationships = await RelationRepository.getRelations();

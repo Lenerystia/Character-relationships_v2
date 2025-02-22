@@ -8,7 +8,7 @@
 	// Svelte 5
 	// let { data }: { data: PageData } = $props();
 	const { data }: { data: PageData } = $props();
-	const characters = data.characters;
+	const {characters} = data;
 
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
@@ -16,7 +16,7 @@
 	// DEBUG
 	console.log('Received characters in Svelte:', data.characters);
 
-	export async function deleteCharacter(id: number) {
+	export async function deleteCharacter(id: number): Promise<void> {
 		if (confirm('Are you sure you want to delete this character?')) {
 			const response = await fetch('/characters', {
 				method: 'DELETE',

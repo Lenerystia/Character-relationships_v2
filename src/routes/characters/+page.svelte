@@ -8,9 +8,9 @@
 
 	// In Svelte 4:
 	export let data: { characters: ICharacter[] };
-	const characters = data.characters;
+	const {characters} = data;
 
-	export async function deleteCharacter(id: number) {
+	export async function deleteCharacter(id: number): Promise<void> {
 		if (confirm('Are you sure you want to delete this character?')) {
 			const response = await fetch('/characters', {
 				method: 'DELETE',

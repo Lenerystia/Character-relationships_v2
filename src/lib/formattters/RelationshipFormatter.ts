@@ -1,7 +1,12 @@
 import type { Relationship } from '../class/Relationship';
 
 export class RelationshipFormatter {
-	public static toPOJO(relation: Relationship) {
+	public static toPOJO(relation: Relationship): {
+		id: number;
+		idChar1: number;
+		idChar2: number;
+		about: string;
+	} {
 		return {
 			id: relation.id,
 			idChar1: relation.idChar1,
@@ -10,7 +15,9 @@ export class RelationshipFormatter {
 		};
 	}
 
-	public static toPOJOs(relations: readonly Relationship[]) {
+	public static toPOJOs(
+		relations: readonly Relationship[],
+	): Array<{ id: number; idChar1: number; idChar2: number; about: string }> {
 		return relations.map(relation => this.toPOJO(relation));
 	}
 

@@ -9,7 +9,7 @@ import { error } from '@sveltejs/kit';
 import { StatusCodes } from 'http-status-codes';
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-export async function load({ params }: LoadEvent) {
+export async function load({ params }: LoadEvent): Promise<{ character: ICharacter[] }> {
 	if (params.charId === '' || params.charId === undefined) {
 		throw error(StatusCodes.BAD_REQUEST, {
 			message: 'Missing character ID!',

@@ -9,8 +9,8 @@
 	import type { PageData } from './$types';
 
 	const { data }: { data: PageData } = $props();
-	const characters = data.characters;
-	const relations = data.relations;
+	const {characters} = data;
+	const {relations} = data;
 
 	// Helper functions
 	function getRelationsForCharacter(characterId: number): IRelation[] {
