@@ -324,7 +324,7 @@ export default [
 				'sonarjs/arrow-function-convention': 'off', // TypeScript formatuje to automatycznie (Prettier/ESLint ma lepszą kontrolę nad tym).
 				'sonarjs/class-prototype': 'off', // In TypeScript and Svelte prototype is rarely used – if someone uses it, it is done consciously
 				'sonarjs/no-reference-error': 'off', // Possible problem when use 'console' od 'process'
-				'sonarjs/shorthand-property-grouping': 'error', // TODO Ask
+				'sonarjs/shorthand-property-grouping': 'error',
 			}),
 			/* security rules */
 			...(securityFlag && {
@@ -350,7 +350,7 @@ export default [
 				'import/extensions': 'off',
 				'import/no-restricted-paths': 'off',
 				'import/order': 'off',
-				'import/no-mutable-exports': 'off', // TODO
+				'import/no-mutable-exports': 'off',
 				'import/no-unresolved': 'off', //"If you're using a module bundler other than Node or Webpack, you may end up with a lot of false positive reports of missing dependencies."
 				'import/no-extraneous-dependencies': 'off',
 			}),
@@ -631,7 +631,7 @@ export default [
 				'@stylistic/array-bracket-newline': ['error', 'consistent'],
 				'@stylistic/array-bracket-spacing': ['error', 'never'],
 				'@stylistic/array-element-newline': ['error', 'consistent'],
-				'@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }], // TODO
+				'@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
 				'@stylistic/comma-spacing': [
 					'error',
 					{
@@ -688,7 +688,7 @@ export default [
 				'@stylistic/semi-style': ['error', 'last'],
 				'@stylistic/linebreak-style': ['error', 'unix'], // Can be problematic
 				// '@stylistic/linebreak-style': 'off',
-				'@stylistic/max-len': ['error', { code: 120, ignoreUrls: true }], // TODO Ask
+				'@stylistic/max-len': ['error', { code: 120, ignoreUrls: true }], // TODO Ask about opinion
 				// '@stylistic/max-len': 'off',
 
 				// Disabled because Prettier/impractical
@@ -769,7 +769,7 @@ export default [
 				'@typescript-eslint/prefer-function-type': 'error',
 				'@typescript-eslint/prefer-regexp-exec': 'error',
 				'@typescript-eslint/prefer-includes': 'error',
-				'@typescript-eslint/prefer-for-of': 'error', // To test
+				'@typescript-eslint/prefer-for-of': 'error',
 				'@typescript-eslint/prefer-enum-initializers': 'error',
 				'@typescript-eslint/no-import-type-side-effects': 'error',
 				'no-implied-eval': 'off',
@@ -782,9 +782,10 @@ export default [
 				'@typescript-eslint/prefer-return-this-type': 'off',
 
 				/* Configurable */
+				'@typescript-eslint/no-extraneous-class': ['error', { allowStaticOnly: true }],
+				'@typescript-eslint/no-misused-spread': 'error',
 				'@typescript-eslint/explicit-module-boundary-types': 'off',
 				'@typescript-eslint/consistent-generic-constructors': ['error', 'constructor'],
-				'@typescript-eslint/typedef': 'off', // To test
 				'@typescript-eslint/switch-exhaustiveness-check': 'error',
 				'@typescript-eslint/promise-function-async': ['error', { allowAny: false }],
 				'@typescript-eslint/prefer-string-starts-ends-with': [
@@ -800,11 +801,10 @@ export default [
 					},
 				],
 				'dot-notation': 'off',
-				'@typescript-eslint/dot-notation': ['error', { allowKeywords: true, allowPattern: '' }], // To test
+				'@typescript-eslint/dot-notation': ['error', { allowKeywords: true, allowPattern: '' }],
 				'@typescript-eslint/method-signature-style': ['error', 'method'],
 				'@typescript-eslint/class-literal-property-style': ['error', 'fields'],
-				'@typescript-eslint/array-type': 'off',
-				// '@typescript-eslint/array-type': ['error', { default: 'array-simple', readonly: 'array' }], // TEMP
+				'@typescript-eslint/array-type': ['error', { default: 'array-simple', readonly: 'array' }],
 				'@typescript-eslint/ban-ts-comment': [
 					'error',
 					{ 'ts-expect-error': 'allow-with-description' },
@@ -842,7 +842,6 @@ export default [
 				'no-shadow': 'off',
 				'@typescript-eslint/no-shadow': 'error',
 				'@typescript-eslint/no-misused-promises': 'error',
-
 				'@typescript-eslint/no-confusing-void-expression': 'error',
 				'@typescript-eslint/no-duplicate-type-constituents': 'error',
 				'no-empty-function': 'off',
@@ -887,7 +886,15 @@ export default [
 				],
 				'require-await': 'off',
 				'@typescript-eslint/require-await': 'error',
-				'@typescript-eslint/explicit-function-return-type': 'off', // TODO
+				'@typescript-eslint/explicit-function-return-type': [
+					'error',
+					{
+						allowExpressions: true,
+						allowTypedFunctionExpressions: true,
+						allowHigherOrderFunctions: true,
+						allowIIFEs: true,
+					},
+				],
 				'@typescript-eslint/unified-signatures': [
 					'error',
 					{ ignoreDifferentlyNamedParameters: false },
@@ -917,28 +924,56 @@ export default [
 				],
 				'max-params': 'off',
 				'@typescript-eslint/max-params': ['error', { max: 4 }],
+				'@typescript-eslint/parameter-properties': [
+					'error',
+					{ allow: ['public readonly'], prefer: 'parameter-property' },
+				],
+				'prefer-destructuring': 'off',
+				'@typescript-eslint/prefer-destructuring': [
+					'error',
+					{
+						object: true,
+						array: false,
+					},
+					{
+						enforceForRenamedProperties: false,
+						enforceForDeclarationWithTypeAnnotation: false,
+					},
+				],
+				'@typescript-eslint/restrict-template-expressions': [
+					'error',
+					{
+						allowNumber: true,
+						allowBoolean: true,
+						allowNullish: true,
+						allowAny: false,
+						allowArray: false,
+						allowRegExp: false,
+					},
+				],
+				'@typescript-eslint/prefer-readonly': ['error', { onlyInlineLambdas: true }],
+
+				// Disabled for some reason
+				'@typescript-eslint/typedef': 'off', // If you use strict: true, you don't need this rule!
 				'init-declarations': 'off',
 				'@typescript-eslint/init-declarations': 'off', // TODO
-
-				'@typescript-eslint/member-ordering': 'off',
+				'@typescript-eslint/member-ordering': 'off', // perfectionist
 				'@typescript-eslint/naming-convention': 'off',
 				'@typescript-eslint/no-restricted-types': 'off',
 				'no-restricted-imports': 'off',
 				'@typescript-eslint/no-restricted-imports': 'off',
-				'@typescript-eslint/prefer-readonly': 'off',
+				// The code problem checked by this ESLint rule is automatically checked by the TypeScript compiler.
+				// Thus, it is not recommended to turn on this rule in new TypeScript projects.
 				'@typescript-eslint/no-redeclare': 'off',
-				'@typescript-eslint/restrict-template-expressions': 'off',
-				'prefer-destructuring': 'off',
-				'@typescript-eslint/prefer-destructuring': 'off',
-				'@typescript-eslint/parameter-properties': 'off',
 				'@typescript-eslint/require-array-sort-compare': 'off',
+				// If possible, it is recommended to use tsconfig's noImplicitReturns option rather than this rule.
 				'consistent-return': 'off',
 				'@typescript-eslint/consistent-return': 'off',
+				// The code problem checked by this ESLint rule is automatically checked by the TypeScript compiler.
+				// Thus, it is not recommended to turn on this rule in new TypeScript projects.
+				// You only need to enable this rule if you prefer the ESLint error messages over the TypeScript compiler error messages.
 				'no-dupe-class-members': 'off',
 				'@typescript-eslint/no-dupe-class-members': 'off',
-				/* TS done in theory - to check in practice */
-
-				'@typescript-eslint/no-extraneous-class': ['error', { allowStaticOnly: true }],
 
 				/* tailwind rules */
 				...(tailwindFlag && {
