@@ -26,33 +26,34 @@ import unicorn from 'eslint-plugin-unicorn';
 import svelteParser from 'svelte-eslint-parser';
 
 // IMPORTANT! If you want see what rules is in use, just run in terminal: npx @eslint/config-inspector
+// For most plugins you can check their docs via this tool
 
 // Toggles for enabling/disabling rule groups
 const aliasFlag = true; // TODO check
-const cspellFlag = true; // Checked
-const drizzleFlag = true; // Checked
+const cspellFlag = false; // Checked
+const drizzleFlag = false; // Checked
 const esEsFlag = true; // TODO check
 const esImportFlag = true; // TODO check
 // Recommend when you only use functional programming, or you have separate space for functional code in project
 const functionalFlag = false;
-const htmlFlag = true; // Checked
-const jsFlag = true;
-const jsonFlag = true; // Checked
+const htmlFlag = false; // Checked
+const jsFlag = true; // TODO check
+const jsonFlag = false; // Checked
 const nodeFlag = true; // TODO check
 const pandacssFlag = false;
 const perfectionistFlag = true; // TODO check
-const prettierFlag = true; // TODO check
-const promiseFlag = true; // Checked
-const securityFlag = true; // Checked
-const sonarjsFlag = true; // TODO check
-const stylisticFlag = true; // TODO check
+// "Turns off all rules that are unnecessary or might conflict with Prettier." (most from stylistic)
+const prettierFlag = false; // Checked
+const promiseFlag = false; // Checked
+const securityFlag = false; // Checked
+const sonarjsFlag = false; // Checked
+const stylisticFlag = false; // Checked almost
 const svelteFlag = true; // TODO check
 const tailwindFlag = false;
-const tsDocFlag = true; // Checked
+const tsDocFlag = false; // Checked
 const typescriptFlag = true; // TODO check
-const unicornFlag = true; // Checked
+const unicornFlag = false; // Checked
 const vitestFlag = true; // TODO check
-//TODO search regex eslint plugin
 
 export default [
 	prettier,
@@ -266,12 +267,62 @@ export default [
 			/* sonarjs rules */
 			...(sonarjsFlag && {
 				...sonarjs.configs.recommended.rules,
-				'sonarjs/no-empty-test-file': 'off', // TEMP
-				'sonarjs/deprecation': 'off', // Rule doesn't work correctly
-				'sonarjs/no-implicit-dependencies': 'off',
+				'sonarjs/no-empty-test-file': 'error',
+				'sonarjs/todo-tag': 'error',
+				'sonarjs/no-commented-code': 'error',
 				'sonarjs/no-return-type-any': 'error',
-				'sonarjs/todo-tag': 'off', // TEMP
-				'sonarjs/no-commented-code': 'off', // TEMP
+				'sonarjs/no-collapsible-if': 'error',
+				'sonarjs/prefer-immediate-return': 'error',
+				'sonarjs/no-duplicate-string': 'error',
+				'sonarjs/nested-control-flow': 'error', // default: 3
+				'sonarjs/elseif-without-else': 'error',
+				'sonarjs/cyclomatic-complexity': 'error',
+				'sonarjs/expression-complexity': 'error',
+				'sonarjs/no-unused-function-argument': 'error',
+				'sonarjs/operation-returning-nan': 'error',
+				'sonarjs/non-number-in-arithmetic-expression': 'error',
+				'sonarjs/no-require-or-define': 'error',
+				'sonarjs/prefer-object-literal': 'error',
+				'sonarjs/destructuring-assignment-syntax': 'error',
+				'sonarjs/strings-comparison': 'error',
+				'sonarjs/no-inconsistent-returns': 'error',
+				'sonarjs/max-union-size': 'error',
+				'sonarjs/bool-param-default': 'error',
+				'sonarjs/values-not-convertible-to-numbers': 'error',
+				'sonarjs/no-nested-incdec': 'error',
+				'sonarjs/no-built-in-override': 'error',
+				'sonarjs/no-incorrect-string-concat': 'error',
+				'sonarjs/unicode-aware-regex': 'error',
+				'sonarjs/no-nested-switch': 'error', // It may be necessary, then disable it
+				'sonarjs/no-wildcard-import': 'error',
+				'sonarjs/no-variable-usage-before-declaration': 'error',
+
+				/* off rules */
+				'sonarjs/file-name-differ-from-class': 'off',
+				'sonarjs/comment-regex': 'off',
+				'sonarjs/no-sonar-comments': 'off',
+				'sonarjs/aws-iam-all-resources-accessible': 'off',
+				'sonarjs/function-name': 'off',
+				'sonarjs/variable-name': 'off',
+				'sonarjs/max-lines': 'off',
+				'sonarjs/max-lines-per-function': 'off',
+				'sonarjs/file-header': 'off',
+				'sonarjs/deprecation': 'off', // Rule doesn't work correctly
+				'sonarjs/no-implicit-dependencies': 'off', // Disabled because SvelteKit aliases (e.g., `$lib`) and monorepos can cause false positives.
+				'sonarjs/too-many-break-or-continue-in-loop': 'off', // Should not contain a break or continuation at all
+				'sonarjs/for-in': 'off', // In Typescript more use 'for of' and we have rule for this
+				'sonarjs/no-for-in-iterable': 'off', // In Typescript more use 'for of' and we have rule for this
+				'sonarjs/array-constructor': 'off', // Is similar rule for one for TS
+				'sonarjs/declarations-in-global-scope': 'off', // Useless for typescript, because typescript have scopes instead of javascript
+
+				// possible problems
+				'sonarjs/no-function-declaration-in-block': 'off', // In Svelte we often define functions in onMount or inside effects ($: ...).
+				'sonarjs/no-undefined-assignment': 'off', // In TypeScript let x: string | undefined is correct and useful.
+				'sonarjs/arguments-usage': 'off', // In TypeScript, you use rest parameters (...args), but arguments are sometimes needed.
+				'sonarjs/arrow-function-convention': 'off', // TypeScript formatuje to automatycznie (Prettier/ESLint ma lepszą kontrolę nad tym).
+				'sonarjs/class-prototype': 'off', // In TypeScript and Svelte prototype is rarely used – if someone uses it, it is done consciously
+				'sonarjs/no-reference-error': 'off', // Possible problem when use 'console' od 'process'
+				'sonarjs/shorthand-property-grouping': 'error', // TODO Ask
 			}),
 			/* security rules */
 			...(securityFlag && {
@@ -360,6 +411,7 @@ export default [
 				...js.configs.all.rules,
 				// ...js.configs.recommended.rules,
 				// Disabled: TypeScript has `private`, ORMs use `_id`, and some APIs use `__typename`.
+				'no-lonely-if': 'off',
 				'no-underscore-dangle': 'off',
 				'func-style': 'off',
 				'no-ternary': 'off',
@@ -593,29 +645,21 @@ export default [
 					'error',
 					{ allowList: { req: true, res: true, db: true, rel: true, char: true, env: true } },
 				],
-				// Disabled: `null` is standard in databases, APIs, and explicit absence of value is clearer than `undefined`.
-				'unicorn/no-null': 'off',
 				'unicorn/no-empty-file': 'error',
 				'unicorn/error-message': 'error',
+				// Disabled: `null` is standard in databases, APIs, and explicit absence of value is clearer than `undefined`.
+				'unicorn/no-null': 'off',
 			}),
 
 			...(stylisticFlag && {
 				...stylistic.configs.recommended.rules,
-				'@stylistic/max-statements-per-line': 'off',
+				'@stylistic/curly-newline': 'error',
+				'@stylistic/max-statements-per-line': ['warn', { max: 1 }],
 				'@stylistic/member-delimiter-style': 'error',
 				'@stylistic/array-bracket-newline': ['error', 'consistent'],
-				'@stylistic/array-bracket-spacing': [
-					'error',
-					'never',
-					// {
-					// 	arraysInArrays: true,
-					// 	objectsInArrays: false,
-					// 	singleValue: true,
-					// },
-				],
+				'@stylistic/array-bracket-spacing': ['error', 'never'],
 				'@stylistic/array-element-newline': ['error', 'consistent'],
-				'@stylistic/brace-style': 'off', // TODO
-				// 'stylistic/brace-stylistic': ['error', '1tbs', { allowSingleLine: true }],
+				'@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }], // TODO
 				'@stylistic/comma-spacing': [
 					'error',
 					{
@@ -631,7 +675,6 @@ export default [
 						before: true,
 					},
 				],
-				// @stylistic/linebreak-stylistic: ['error', 'unix' | 'windows' | 'off']
 				'@stylistic/multiline-comment-stylistic': 'off',
 				'@stylistic/no-multiple-empty-lines': [
 					'error',
@@ -640,7 +683,7 @@ export default [
 						maxEOF: 1,
 					},
 				],
-				'@stylistic/no-tabs': 'off',
+
 				'@stylistic/no-trailing-spaces': [
 					'error',
 					{
@@ -657,14 +700,50 @@ export default [
 					{ allowTemplateLiterals: true, avoidEscape: true },
 				],
 				'@stylistic/semi': ['error', 'always'],
+				'@stylistic/function-call-spacing': ['error', 'never'],
+				'@stylistic/function-call-argument-newline': ['error', 'consistent'],
+				'@stylistic/jsx-self-closing-comp': 'error',
+				'@stylistic/jsx-props-no-multi-spaces': 'error',
+				'@stylistic/newline-per-chained-call': ['error', { ignoreChainWithDepth: 2 }],
+				'@stylistic/object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
+				'@stylistic/switch-colon-spacing': ['error', { after: true, before: false }],
+				'@stylistic/function-paren-newline': ['error', 'consistent'],
+				'@stylistic/object-curly-newline': ['error', { multiline: true, consistent: true }],
+				'@stylistic/padding-line-between-statements': [
+					'error',
+					{ blankLine: 'always', prev: '*', next: 'return' },
+				],
+				'@stylistic/semi-style': ['error', 'last'],
+				'@stylistic/linebreak-style': ['error', 'unix'], // Can be problematic
+				// '@stylistic/linebreak-style': 'off',
+				'@stylistic/max-len': ['error', { code: 120, ignoreUrls: true }], // TODO Ask
+				// '@stylistic/max-len': 'off',
+
+				// Disabled because Prettier/impractical
+				'@stylistic/func-call-spacing': 'off', // same as `@stylistic/function-call-spacing`
+				'@stylistic/no-extra-semi': 'off',
+				'@stylistic/multiline-ternary': 'off',
+				'@stylistic/one-var-declaration-per-line': 'off',
+				'@stylistic/no-tabs': 'off',
+				'@stylistic/jsx-child-element-spacing': 'off',
+				'@stylistic/implicit-arrow-linebreak': 'off',
+				'@stylistic/generator-star-spacing': 'off',
+				'@stylistic/jsx-newline': 'off',
+				'@stylistic/jsx-sort-props': 'off',
+				'@stylistic/jsx-pascal-case': 'off',
+				'@stylistic/line-comment-position': 'off',
+				'@stylistic/multiline-comment-style': 'off',
+				'@stylistic/lines-around-comment': 'off',
+				'@stylistic/no-confusing-arrow': 'off',
+				'@stylistic/wrap-regex': 'off',
+				'@stylistic/nonblock-statement-body-position': 'off',
+				// '@stylistic/padding-line-between-statements': 'off',
 			}),
 
-			// TypeScript-specific rules
 			...(typescriptFlag && {
 				/* TypeScript rules */
 				// ...ts.configs.recommended.rules,
 				...ts.configs.strict.rules,
-				// ...ts.configs.recommendedTypeChecked.rules, //sorry, but in for this config - it doesn't work
 
 				/* Not configurable */
 				'@typescript-eslint/prefer-optional-chain': 'error',
