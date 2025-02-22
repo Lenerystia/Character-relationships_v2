@@ -29,31 +29,31 @@ import svelteParser from 'svelte-eslint-parser';
 // For most plugins you can check their docs via this tool
 
 // Toggles for enabling/disabling rule groups
-const aliasFlag = true; // TODO check
+const aliasFlag = false; // Checked
 const cspellFlag = false; // Checked
 const drizzleFlag = false; // Checked
-const esEsFlag = true; // TODO check
-const esImportFlag = true; // TODO check
+const esEsFlag = false; // Checked
+const esImportFlag = true; // Checked
 // Recommend when you only use functional programming, or you have separate space for functional code in project
 const functionalFlag = false;
 const htmlFlag = false; // Checked
 const jsFlag = true; // TODO check
 const jsonFlag = false; // Checked
-const nodeFlag = true; // TODO check
+const nodeFlag = false; // Checked
 const pandacssFlag = false;
-const perfectionistFlag = true; // TODO check
+const perfectionistFlag = false; // Checked
 // "Turns off all rules that are unnecessary or might conflict with Prettier." (most from stylistic)
 const prettierFlag = false; // Checked
 const promiseFlag = false; // Checked
 const securityFlag = false; // Checked
 const sonarjsFlag = false; // Checked
 const stylisticFlag = false; // Checked almost
-const svelteFlag = true; // TODO check
+const svelteFlag = false; // Checked
 const tailwindFlag = false;
 const tsDocFlag = false; // Checked
 const typescriptFlag = true; // TODO check
 const unicornFlag = false; // Checked
-const vitestFlag = true; // TODO check
+const vitestFlag = false; // Checked (almost, I check it when I write tests, I promise)
 
 export default [
 	prettier,
@@ -119,7 +119,6 @@ export default [
 			...(nodeFlag && {
 				'node/callback-return': 'error',
 				'node/exports-style': ['error', 'exports'],
-				'node/file-extension-in-import': 'off',
 				'node/global-require': 'error',
 				'node/handle-callback-err': 'error',
 				'node/hashbang': 'error',
@@ -128,23 +127,16 @@ export default [
 				'node/no-exports-assign': 'error',
 				'node/no-extraneous-import': 'error',
 				'node/no-extraneous-require': 'error',
-				'node/no-hide-core-modules': 'off',
-				'node/no-missing-import': 'off', // TODO
 				'node/no-missing-require': 'error',
 				'node/no-mixed-requires': 'error',
 				'node/no-new-require': 'error',
 				'node/no-path-concat': 'error',
-				'node/no-process-env': 'off',
-				'node/no-process-exit': 'off',
-				'node/no-restricted-import': 'off',
-				'node/no-restricted-require': 'off',
 				'node/no-sync': 'warn',
 				'node/no-unpublished-bin': 'error',
 				'node/no-unpublished-import': 'error',
 				'node/no-unpublished-require': 'error',
 				'node/no-unsupported-features/es-builtins': 'error',
 				'node/no-unsupported-features/es-syntax': 'error',
-				'node/no-unsupported-features/node-builtins': 'off', // TODO
 				'node/prefer-global/buffer': ['error', 'always'],
 				'node/prefer-global/console': ['error', 'always'],
 				'node/prefer-global/process': ['error', 'always'],
@@ -156,16 +148,23 @@ export default [
 				'node/prefer-promises/dns': 'error',
 				'node/prefer-promises/fs': 'error',
 				'node/process-exit-as-throw': 'error',
+
+				// Possible useless
+				'node/no-unsupported-features/node-builtins': 'off',
+				'node/no-restricted-import': 'off',
+				'node/no-restricted-require': 'off',
+				'node/no-missing-import': 'off',
+				'node/no-hide-core-modules': 'off', // deprecated
+				'node/no-process-env': 'off',
+				'node/no-process-exit': 'off',
+				'node/file-extension-in-import': 'off',
 			}),
 			/* Svelte rules */
 			...(svelteFlag && {
 				...svelte.configs.recommended.rules,
 				...svelte.configs.prettier.rules,
-				// 'svelte/no-navigation-without-base': 'error', // TODO
-
 				// Possible Errors
 				'svelte/infinite-reactive-loop': 'error',
-				// "svelte/no-deprecated-raw-special-elements": "error", // TODO
 				'svelte/no-dom-manipulating': 'error',
 				'svelte/no-dupe-on-directives': 'error',
 				'svelte/no-dupe-use-directives': 'error',
@@ -175,6 +174,7 @@ export default [
 				'svelte/require-store-callbacks-use-set-param': 'error',
 				'svelte/require-store-reactive-access': 'error',
 				'svelte/valid-prop-names-in-kit-pages': 'error',
+				'svelte/no-goto-without-base': 'error',
 
 				// Security
 				'svelte/no-target-blank': 'error',
@@ -182,29 +182,23 @@ export default [
 				// Stylistic issues in svelte
 				'svelte/derived-has-same-inputs-outputs': 'error',
 				'svelte/first-attribute-linebreak': 'error',
-				'svelte/html-closing-bracket-new-line': 'off',
 				'svelte/html-closing-bracket-spacing': 'error',
 				'svelte/html-quotes': 'error',
 				'svelte/html-self-closing': 'error',
-				'svelte/indent': 'off',
-				'svelte/no-trailing-spaces': 'off',
-				'svelte/max-attributes-per-line': 'off',
 				'svelte/mustache-spacing': 'error',
 				'svelte/no-extra-reactive-curlies': 'error',
-				// "svelte/no-restricted-html-elements": "error",
 				'svelte/no-spaces-around-equal-signs-in-attribute': 'error',
 				'svelte/prefer-class-directive': 'error',
 				'svelte/prefer-style-directive': 'error',
 				'svelte/shorthand-attribute': 'error',
 				'svelte/shorthand-directive': 'error',
 				'svelte/sort-attributes': 'error',
-				'svelte/spaced-html-comment': 'off',
+				'svelte/spaced-html-comment': 'error',
+				'svelte/no-trailing-spaces': 'error',
 
 				// Best Practices
-				// "svelte/no-useless-children-snippet": "error", // TODO
 				'svelte/no-useless-mustaches': 'error',
-				// "svelte/prefer-const": "error",
-				'svelte/prefer-destructured-store-props': 'off', // TODO
+				'svelte/prefer-destructured-store-props': 'error',
 				'svelte/require-each-key': 'error',
 				'svelte/require-event-dispatcher-types': 'error',
 				'svelte/require-optimized-style-attribute': 'error',
@@ -212,7 +206,6 @@ export default [
 				'svelte/valid-each-key': 'error',
 				'svelte/no-ignored-unsubscribe': 'error',
 				'svelte/no-immutable-reactive-statements': 'error',
-				'svelte/no-inline-styles': 'off',
 				'svelte/no-inspect': 'error',
 				'svelte/no-reactive-functions': 'error',
 				'svelte/no-reactive-literals': 'error',
@@ -220,6 +213,15 @@ export default [
 				'svelte/no-unused-class-name': 'error',
 				'svelte/block-lang': ['error', { script: ['ts'], style: 'css' }],
 				'svelte/button-has-type': 'error',
+
+				// Off
+				'svelte/no-inline-styles': 'off',
+				'svelte/indent': 'off',
+				'svelte/max-attributes-per-line': 'off',
+				'svelte/html-closing-bracket-new-line': 'off', // Collision with prettier
+				'svelte/no-restricted-html-elements': 'off',
+				// 'svelte/experimental-require-slot-types': 'error', // TODO
+				// 'svelte/experimental-require-strict-events': 'off', // TODO
 			}),
 
 			/* promise rules */
@@ -336,51 +338,21 @@ export default [
 
 			/* import rules */
 			...(esImportFlag && {
-				'import/no-unresolved': 'off',
 				'import/named': 'error',
 				'import/default': 'error',
-				'import/no-mutable-exports': 'off', // TODO
-				'import/no-named-as-default': 'warn',
-				'import/no-anonymous-default-export': 'warn',
+				'import/no-named-as-default': 'error',
+				'import/no-anonymous-default-export': 'error',
+				'import/no-duplicates': 'error',
+				'import/no-absolute-path': 'error',
+				'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
+
+				// Useless
 				'import/extensions': 'off',
-				// [
-				// 	'warn',
-				// 	'ignorePackages',
-				// 	{
-				// 		ts: 'never',
-				// 		tsx: 'never',
-				// 		js: 'never',
-				// 		jsx: 'never',
-				// 		svelte: 'always'
-				// 	},
-				// ],
 				'import/no-restricted-paths': 'off',
 				'import/order': 'off',
-				// 	[
-				// 	'warn',
-				// 	{
-				// 		groups: [['builtin', 'external'], ['internal'], ['parent', 'sibling', 'index']],
-				// 		pathGroups: [
-				// 			{
-				// 				pattern: '@/**',
-				// 				group: 'internal',
-				// 				position: 'after',
-				// 			},
-				// 		],
-				// 		alphabetize: { order: 'asc', caseInsensitive: true },
-				// 		'newlines-between': 'always',
-				// 	},
-				// ],
-				'import/no-duplicates': 'warn',
-				'import/no-absolute-path': 'error',
-				'import/no-useless-path-segments': ['warn', { noUselessIndex: true }],
+				'import/no-mutable-exports': 'off', // TODO
+				'import/no-unresolved': 'off', //"If you're using a module bundler other than Node or Webpack, you may end up with a lot of false positive reports of missing dependencies."
 				'import/no-extraneous-dependencies': 'off',
-				// 	[
-				// 	'error',
-				// 	{
-				// 		devDependencies: ['**/*.test.ts', '**/scripts/**'],
-				// 	},
-				// ],
 			}),
 			/* functional rules */
 			...(functionalFlag && {
@@ -391,7 +363,7 @@ export default [
 				// 'functional/no-return-void': 'off',
 				// 'functional/prefer-immutable-types': 'off',
 				// 'functional/functional-parameters': 'off',
-				// 'functional/no-conditional-statements': 'off', // TODO - Can I precise what tenant and what is a conditional statement?
+				// 'functional/no-conditional-statements': 'off',
 				// 'functional/no-let': 'off',
 				// 'functional/no-expression-statements': 'off',
 			}),
