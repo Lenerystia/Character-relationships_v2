@@ -37,17 +37,17 @@ const esImportFlag = false; // Checked
 // Recommend when you only use functional programming, or you have separate space for functional code in project
 const functionalFlag = false;
 const htmlFlag = false; // Checked
-const jsFlag = true; // TODO check
+const jsFlag = true; // Checked
 const jsonFlag = false; // Checked
 const nodeFlag = false; // Checked
 const pandacssFlag = false;
 const perfectionistFlag = false; // Checked
 // "Turns off all rules that are unnecessary or might conflict with Prettier." (most from stylistic)
-const prettierFlag = false; // Checked
+const prettierFlag = true; // Checked
 const promiseFlag = false; // Checked
 const securityFlag = false; // Checked
 const sonarjsFlag = false; // Checked
-const stylisticFlag = false; // Checked almost
+const stylisticFlag = false; // Checked
 const svelteFlag = false; // Checked
 const tailwindFlag = false;
 const tsDocFlag = false; // Checked
@@ -391,13 +391,12 @@ export default [
 				'no-compare-neg-zero': 'error',
 				'no-cond-assign': ['error', 'always'],
 				'no-const-assign': 'error',
-				'no-constant-binary-expression': 'warn',
+				'no-constant-binary-expression': 'error',
 				'no-constant-condition': 'error',
 				'no-constructor-return': 'error',
 				'no-control-regex': 'error',
-				'no-debugger': 'warn',
+				'no-debugger': 'error',
 				'no-dupe-args': 'error',
-				'no-dupe-class-members': 'error',
 				'no-dupe-else-if': 'error',
 				'no-dupe-keys': 'error',
 				'no-duplicate-case': 'error',
@@ -422,15 +421,14 @@ export default [
 				'no-new-native-nonconstructor': 'error',
 				'no-obj-calls': 'error',
 				'no-prototype-builtins': 'error',
-				'no-self-assign': 'warn',
-				'no-self-compare': 'warn',
+				'no-self-assign': 'error',
+				'no-self-compare': 'error',
 				'no-setter-return': 'error',
 				'no-sparse-arrays': 'error',
 				'no-template-curly-in-string': 'error',
 				'no-this-before-super': 'error',
-				'no-unexpected-multiline': 'error',
 				'no-unmodified-loop-condition': 'error',
-				'no-unreachable': 'warn',
+				'no-unreachable': 'error',
 				'no-unsafe-finally': 'error',
 				'no-unsafe-negation': [
 					'error',
@@ -444,45 +442,22 @@ export default [
 						disallowArithmeticOperators: true,
 					},
 				],
-				'no-unused-private-class-members': 'warn',
-				'no-unused-vars': [
-					'warn',
-					{
-						varsIgnorePattern: '^_',
-						argsIgnorePattern: '^_',
-						reportUsedIgnorePattern: true,
-					},
-				],
-				'no-use-before-define': [
-					'warn',
-					{
-						functions: false,
-						classes: false,
-						variables: true,
-						allowNamedExports: false,
-					},
-				],
+				'no-unused-private-class-members': 'error',
 				'no-useless-backreference': 'error',
 				'use-isnan': 'error',
 				'valid-typeof': 'error',
-				// Suggestions - https://eslint.org/docs/latest/rules/#suggestions
-				'consistent-return': 'error',
-				curly: 'warn',
-				'default-param-last': 'error',
-				'func-names': ['warn', 'never'],
-				'no-array-constructor': 'error',
+				'func-names': ['error', 'never'],
 				'no-bitwise': 'error',
 				'no-case-declarations': 'error',
 				'no-delete-var': 'error',
-				'no-else-return': 'warn',
-				'no-empty': 'warn',
-				'no-empty-function': 'warn',
-				'no-empty-static-block': 'warn',
+				'no-else-return': 'error',
+				'no-empty': 'error',
+				'no-empty-static-block': 'error',
 				'no-eval': 'error',
 				'no-extend-native': 'error',
 				'no-extra-bind': 'error',
 				'no-extra-boolean-cast': [
-					'warn',
+					'error',
 					{
 						enforceForLogicalOperands: true,
 					},
@@ -490,7 +465,6 @@ export default [
 				'no-global-assign': 'error',
 				'no-implicit-coercion': 'error',
 				'no-implicit-globals': 'error',
-				'no-implied-eval': 'error',
 				'no-invalid-this': [
 					'error',
 					{
@@ -499,7 +473,7 @@ export default [
 				],
 				'no-labels': 'error',
 				'no-lone-blocks': 'error',
-				'no-multi-assign': 'warn',
+				'no-multi-assign': 'error',
 				'no-new': 'error',
 				'no-new-func': 'error',
 				'no-new-wrappers': 'error',
@@ -509,86 +483,144 @@ export default [
 				'no-octal-escape': 'error',
 				'no-proto': 'error',
 				'no-redeclare': 'error',
-				'no-regex-spaces': 'warn',
-				// "no-restricted-imports": ["warn", baseRestrictedImports],
-				'no-restricted-syntax': 'off',
-				'no-return-assign': ['warn', 'always'],
+				'no-regex-spaces': 'error',
+				'no-return-assign': ['error', 'always'],
 				'no-script-url': 'error',
 				'no-sequences': [
-					'warn',
+					'error',
 					{
 						allowInParentheses: false,
 					},
 				],
-				'no-shadow': [
-					'error',
-					{
-						ignoreOnInitialization: true,
-					},
-				],
 				'no-shadow-restricted-names': 'error',
-				'no-throw-literal': 'error',
-				'no-unused-expressions': [
-					'warn',
-					{
-						enforceForJSX: true,
-					},
-				],
 				'no-useless-call': 'error',
-				'no-useless-catch': 'warn',
+				'no-useless-catch': 'error',
 				'no-useless-computed-key': [
-					'warn',
+					'error',
 					{
 						enforceForClassMembers: true,
 					},
 				],
 				'no-useless-concat': 'error',
-				'no-useless-escape': 'warn',
-				'no-useless-rename': 'warn',
-				'no-useless-return': 'warn',
+				'no-useless-escape': 'error',
+				'no-useless-rename': 'error',
+				'no-useless-return': 'error',
 				'no-var': 'error',
 				'no-with': 'error',
-				'one-var': ['warn', 'never'],
-				'operator-assignment': 'warn',
-				'prefer-arrow-callback': 'warn',
-				'prefer-const': 'warn',
-				'prefer-numeric-literals': 'warn',
-				'prefer-object-spread': 'warn',
-				'prefer-promise-reject-errors': 'error',
-				'prefer-rest-params': 'warn',
-				'prefer-spread': 'warn',
-				'prefer-template': 'warn',
-				radix: 'off',
-				'require-await': 'error',
+				'one-var': ['error', 'never'],
+				'operator-assignment': 'error',
+				'prefer-arrow-callback': 'error',
+				'prefer-const': 'error',
+				'prefer-numeric-literals': 'error',
+				'prefer-object-spread': 'error',
+				'prefer-rest-params': 'error',
+				'prefer-spread': 'error',
+				'prefer-template': 'error',
 				'require-yield': 'error',
+				'no-console': 'error',
+				'func-name-matching': 'error',
+				'accessor-pairs': 'error',
+				'grouped-accessor-pairs': 'error',
+				'prefer-exponentiation-operator': 'error',
+				'no-unneeded-ternary': 'error',
+				'default-case': 'error',
+				'default-case-last': 'error',
+				'array-callback-return': 'error',
+				'block-scoped-var': 'error',
+				'guard-for-in': 'error',
+				'no-unreachable-loop': 'error',
+				'no-useless-assignment': 'error',
+				'object-shorthand': 'error',
+				curly: 'error',
+				'no-unexpected-multiline': 'error',
+				'no-await-in-loop': 'error',
+				'prefer-regex-literals': 'error',
+				'no-param-reassign': 'error',
+				'no-restricted-syntax': ['error', 'WithStatement'],
+				'max-depth': ['error', 4],
+				'no-negated-condition': 'error',
+				'new-cap': 'error',
+				'prefer-object-has-own': 'error',
+				radix: ['error', 'as-needed'],
 
 				// Disable for some reason
-				// Disabled: TypeScript has `private`, ORMs use `_id`, and some APIs use `__typename`.
-				'no-lonely-if': 'off',
-				'no-underscore-dangle': 'off',
+				'no-continue': 'off',
+				'max-nested-callbacks': 'off',
+				'prefer-named-capture-group': 'off',
+				yoda: 'off',
+				'no-div-regex': 'off',
+				'consistent-this': 'off', // TS check this better than eslint (supposedly)
+				'no-extra-label': 'off',
+				'no-label-var': 'off',
+				'no-promise-executor-return': 'off',
+				'no-restricted-exports': 'off',
+				'no-restricted-globals': 'off',
+				'no-restricted-properties': 'off',
+				'sort-vars': 'off',
+				'unicode-bom': 'off',
+				'max-lines': 'off',
+				'no-unused-labels': 'off', // In TypeScript? Where?
+				'max-lines-per-function': 'off',
+				'max-statements': 'off', // Irritating
+				complexity: 'off', // Have in sonarjs
 				'func-style': 'off',
-				'no-ternary': 'off',
+				'require-atomic-updates': 'off', // TypeScript already warns about incorrect use of await.
+				'no-void': 'off', // That's not error
+				'no-undef-init': 'off',
+				'no-multi-str': 'off', // TypeScript supports template literals – prohibiting \ makes no sense.
+				'no-caller': 'off', // Old construct in JavaScript
+				'no-iterator': 'off', // Old construct in JavaScript
+				'symbol-description': 'off',
+				'logical-assignment-operators': 'off',
+				'id-denylist': 'off', // Useless
+				'id-length': 'off',
+				'id-match': 'off',
+				eqeqeq: 'off', // For elastic equals like != null, disable null and undefined - for short code
 				'no-eq-null': 'off',
-				eqeqeq: 'off',
-				'no-console': 'off', // TEMP
-				'no-alert': 'off',
-				'no-undef': 'off',
-				'sort-keys': 'off',
-				'no-inline-comments': 'off',
-				'no-duplicate-imports': 'off',
-				'max-statements': 'off',
-				'capitalized-comments': 'off', // what when I have commented code?
+				'no-duplicate-imports': 'off', // I allow to duplicate imports for separate import types and other parts
+				'sort-keys': 'off', // Can be frustrating
+				camelcase: 'off', // It may be disturbing
+				'no-alert': 'off', // I use it (yet)
+				'no-lonely-if': 'off', // I use it
+				'no-ternary': 'off', // ternary is useful
+				'no-nested-ternary': 'off', // Sometimes ternary within ternary is useful – a matter of style.
+				'require-unicode-regexp': 'off', // not always use Unicode in regex
+				'vars-on-top': 'off', // TS prefer let or const
+				'arrow-body-style': 'off', // It's not always worth forcing {} in arrow functions.
+				strict: 'off', // TS already use strict
+				'no-inline-comments': 'off', // useless
+				'no-plusplus': 'off', // Safe in TypeScript
+				'max-classes-per-file': 'off', //TypeScript supports multiple classes in one file
+				'no-undefined': 'off', // undefined is usefull in TypeScript
+				'no-undef': 'off', // TS already check undef variables
+				'no-underscore-dangle': 'off', // Disabled: TypeScript has `private`, ORMs use `_id`, and some APIs use `__typename`.
+				'capitalized-comments': 'off', // useless when I have commented code
 				'no-warning-comments': 'off', // off, because sonarjs have
-				'no-undefined': 'off',
-				'require-unicode-regexp': 'off',
 				'sort-imports': 'off', // Disabled due to a conflict with a rule from eslint-plugin-import
-				'array-callback-return': 'off',
-				// 	[
-				// 	'error',
-				// 	{
-				// 		checkForEach: true,
-				// 	},
-				// ],
+
+				// Off because typescript
+				'class-methods-use-this': 'off',
+				'consistent-return': 'off',
+				'default-param-last': 'off',
+				'dot-notation': 'off',
+				'init-declarations': 'off',
+				'max-params': 'off',
+				'no-array-constructor': 'off',
+				'no-dupe-class-members': 'off',
+				'no-empty-function': 'off',
+				'no-implied-eval': 'off',
+				'no-loop-func': 'off',
+				'no-magic-numbers': 'off',
+				'no-restricted-imports': 'off',
+				'no-shadow': 'off',
+				'no-throw-literal': 'off',
+				'no-unused-expressions': 'off',
+				'no-unused-vars': 'off',
+				'no-use-before-define': 'off',
+				'no-useless-constructor': 'off',
+				'prefer-destructuring': 'off',
+				'prefer-promise-reject-errors': 'off',
+				'require-await': 'off',
 			}),
 
 			/* Perfectionist rules */
@@ -783,17 +815,23 @@ export default [
 				'@typescript-eslint/no-unsafe-assignment': 'error',
 
 				/* Configurable */
-				'@typescript-eslint/no-inferrable-types': ['error', {
-					ignoreParameters: true,
-					ignoreProperties: true,
-				}], // Disable when you want explicit types
+				'@typescript-eslint/no-inferrable-types': [
+					'error',
+					{
+						ignoreParameters: true,
+						ignoreProperties: true,
+					},
+				], // Disable when you want explicit types
 				'@typescript-eslint/no-extraneous-class': ['error', { allowStaticOnly: true }],
 				'@typescript-eslint/no-misused-spread': 'error',
-				'@typescript-eslint/explicit-module-boundary-types': ['error', {
-					allowHigherOrderFunctions: true,
-					allowTypedFunctionExpressions: true,
-					allowedNames: ['setup'],
-				}],
+				'@typescript-eslint/explicit-module-boundary-types': [
+					'error',
+					{
+						allowHigherOrderFunctions: true,
+						allowTypedFunctionExpressions: true,
+						allowedNames: ['setup'],
+					},
+				],
 				'@typescript-eslint/consistent-generic-constructors': ['error', 'constructor'],
 				'@typescript-eslint/switch-exhaustiveness-check': 'error',
 				'@typescript-eslint/promise-function-async': ['error', { allowAny: false }],
