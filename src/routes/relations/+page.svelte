@@ -1,9 +1,9 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
-	import type { TRelation } from '$lib/types/types';
+	import type { IRelation } from '$lib/interfaces/interfaces';
 
-	export let data: { relations: TRelation[] };
-	let relations = data.relations;
+	export let data: { relations: IRelation[] };
+	const { relations } = data;
 </script>
 
 <h1>Relationship List</h1>
@@ -25,9 +25,9 @@
 					<td>{relation.idChar1}</td>
 					<td>{relation.idChar2}</td>
 					<td>{relation.about}</td>
-					<!--{#each Object.values(relation) as cell}-->
-					<!--	<td>{cell}</td>-->
-					<!--{/each}-->
+					<!-- {#each Object.values(relation) as cell} -->
+					<!--	<td>{cell}</td> -->
+					<!-- {/each} -->
 				</tr>
 			{/each}
 		</tbody>

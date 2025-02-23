@@ -1,14 +1,20 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
+	// export let data: { characters: ICharacter[] };
+	// const characters = data.characters;
 
-	import type { ICharacter } from '$lib/interfaces/interfaces';
+	import type { PageData } from './$types';
+
+	// Svelte 5
+	// let { data }: { data: PageData } = $props();
+	const { data }: { data: PageData } = $props();
+	const { characters } = data;
 
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 
-	// In Svelte 4:
-	export let data: { characters: ICharacter[] };
-	const { characters } = data;
+	// DEBUG
+	console.log('Received characters in Svelte:', characters);
 
 	export async function deleteCharacter(id: number): Promise<void> {
 		if (confirm('Are you sure you want to delete this character?')) {
@@ -28,7 +34,6 @@
 				}
 
 				// TODO: Add better error handling
-
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 				const errorData = (await response.json()) as ErrorResponse;
 				alert(`Failed to delete character: ${errorData.message}`);
@@ -56,10 +61,10 @@
 					<td>{character.lastName}</td>
 					<td>
 						<button
-							type="button"
-							on:click={async () => {
+							onclick={async () => {
 								await deleteCharacter(character.id);
-							}}>
+							}}
+							type="button">
 							Delete</button>
 					</td>
 				</tr>

@@ -1,7 +1,6 @@
 import type { Characters } from '$lib/class/Characters';
 
 import { EMPTY } from '$lib/constants';
-import { CharacterFormatter } from '$lib/formattters/CharacterFormatter';
 import CharacterRepository from '$lib/server/repositories/CharacterRepository';
 import { error } from '@sveltejs/kit';
 import { StatusCodes } from 'http-status-codes';
@@ -14,9 +13,7 @@ export const load: PageServerLoad = async () => {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Characters not found' });
 	}
 
-	const serializedCharacters = CharacterFormatter.toPOJOs(characters.charactersArray);
-
 	return {
-		characters: serializedCharacters,
+		characters: structuredClone(characters.charactersArray),
 	};
 };

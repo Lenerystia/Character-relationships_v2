@@ -1,6 +1,5 @@
-// import { db } from '$lib/server/db';
 // import { characters } from '$lib/server/db/schema';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 // vi.mock('$lib/server/db/index', () => ({
 //     db: {
@@ -14,36 +13,32 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 //     },
 // }));
 
-// Reset modules and apply mocks before each test
-beforeEach(() => {
-	vi.resetModules();
-	vi.mock('$env/dynamic/private', () => ({
-		env: { DATABASE_URL: 'postgres://test' } // Mock DATABASE_URL here
-	}));
-});
-
 describe('Database Connection', () => {
 	it('should instantiate the database object', async () => {
+		expect.assertions(1);
 		const { db } = await import('$lib/server/db'); // Import after mock
 		expect(db).toBeDefined();
 	});
 
 	it('should throw an error if DATABASE_URL is not set', async () => {
+		expect.assertions(1);
 		vi.mock('$env/dynamic/private', () => ({ env: {} })); // Mock missing DATABASE_URL
-		await expect(() => import('$lib/server/db')).rejects.toThrowError('DATABASE_URL is not set');
+		await expect(async () => import('$lib/server/db')).rejects.toThrow('DATABASE_URL is not set');
 	});
 });
 
 describe('fetchCharacter', () => {
-	it('should return the character data', async () => {
-		const asyncMock = vi.fn().mockResolvedValue(42);
+	it('should return the character data', () => {
+		expect.assertions(1);
+		const asyncMock = vi.fn((): number => 42);
 
-		await asyncMock(); // 42
+		const result = asyncMock();
+		expect(result).toBe(42);
 	});
 });
 
-//TODO: test - co kiedy user poda nieistniejące id
-//no powinno ładnie wywalić, że nie ma takiej postaci
+// TODO: what if user will give non existing id
+// should throw an error, that character not exist
 // it('character id not exist - show message/error', () => {
 //     expect(db).
 // })
@@ -59,7 +54,7 @@ describe('fetchCharacter', () => {
 //     const result = await db.select().from(characters);
 //     expect(result).toBeDefined();
 // });
-// //TODO: sprawdzić czy jak więcej danych zamockuje czy test się wyłoży
+// //TODO: check if more data is mocked or the test will break
 // it('should fetch data from the database', async () => {
 //     const result = await db.select().from(characters).limit(1);
 //     expect(result).toEqual([{ id: 1, firstName: 'Test', lastName: 'Test' }]);

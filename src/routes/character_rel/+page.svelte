@@ -1,30 +1,29 @@
 <script lang="ts">
-  import '$lib/scripts/app.css';
+	import '$lib/scripts/app.css';
 
-  import type { TCharacter, TRelation } from '$lib/types/types';
+	import type { ICharacter, IRelation } from '$lib/interfaces/interfaces';
 
-  import { onMount } from 'svelte';
+	import { renderGraph } from '$lib/scripts/graphUtilities';
+	import { onMount } from 'svelte';
 
-  export let data: {
-    characters: TCharacter[];
-    relations: TRelation[];
-  };
+	import type { PageData } from './$types';
 
-  let characters = data.characters;
-  let relations = data.relations;
+	const { data }: { data: PageData } = $props();
+	const { characters } = data;
+	const { relations } = data;
 
-  // Helper functions
-  function getRelationsForCharacter(characterId: number): TRelation[] {
-    return relations.filter((rel: TRelation) => rel.idChar1 === characterId);
-  }
+	// Helper functions
+	function getRelationsForCharacter(characterId: number): IRelation[] {
+		return relations.filter((rel: Readonly<IRelation>) => rel.idChar1 === characterId);
+	}
 
-  function getRelatedCharacter(relatedCharacterId: number): TCharacter[] {
-    return characters.filter((char: TCharacter) => char.id === relatedCharacterId);
-  }
+	function getRelatedCharacter(relatedCharacterId: number): ICharacter[] {
+		return characters.filter((char: Readonly<ICharacter>) => char.id === relatedCharacterId);
+	}
 
-	// onMount(() => {
-	// 	drawGraph(relations, characters);
-	// });
+	onMount(() => {
+		renderGraph(relations);
+	});
 </script>
 
 <main>
@@ -33,30 +32,30 @@
 		<div>
 			<table>
 				<thead>
-				<tr>
-					<th>Character Name</th>
-					<th>Related Character</th>
-					<th>About Relationship</th>
-				</tr>
+					<tr>
+						<th>Character Name</th>
+						<th>Related Character</th>
+						<th>About Relationship</th>
+					</tr>
 				</thead>
 				<tbody>
-				{#each characters as character (character.id)}
-					{#each getRelationsForCharacter(character.id) as relation (relation.id)}
-						<tr>
-							<td>
-								{#if character.firstName}{character.firstName}{:else}Unknown{/if}
-								{#if character.lastName}{character.lastName}{:else}Unknown{/if}
-							</td>
-							<td>
-								{#each getRelatedCharacter(relation.idChar2) as relatedCharacter (relatedCharacter.id)}
-									{#if relatedCharacter.firstName}{relatedCharacter.firstName}{:else}Unknown{/if}
-									{#if relatedCharacter.lastName}{relatedCharacter.lastName}{:else}Unknown{/if}
-								{/each}
-							</td>
-							<td>{relation.about}</td>
-						</tr>
+					{#each characters as character (character.id)}
+						{#each getRelationsForCharacter(character.id) as relation (relation.id)}
+							<tr>
+								<td>
+									{#if character.firstName}{character.firstName}{:else}Unknown{/if}
+									{#if character.lastName}{character.lastName}{:else}Unknown{/if}
+								</td>
+								<td>
+									{#each getRelatedCharacter(relation.idChar2) as relatedCharacter (relatedCharacter.id)}
+										{#if relatedCharacter.firstName}{relatedCharacter.firstName}{:else}Unknown{/if}
+										{#if relatedCharacter.lastName}{relatedCharacter.lastName}{:else}Unknown{/if}
+									{/each}
+								</td>
+								<td>{relation.about}</td>
+							</tr>
+						{/each}
 					{/each}
-				{/each}
 				</tbody>
 			</table>
 		</div>
@@ -66,3 +65,10 @@
 	</div>
 </main>
 
+<style lang="css">
+	#svg {
+		display: block;
+		margin-left: auto;
+		width: fit-content;
+	}
+</style>

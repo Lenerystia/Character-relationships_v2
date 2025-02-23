@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
-	import type { TCharacter } from '$lib/types/types';
+	import type { ICharacter } from '$lib/interfaces/interfaces';
 
-	export let data: { result: TCharacter[] };
+	export let data: { result: ICharacter[] };
 	let AllCharacters = data.result;
 </script>
 

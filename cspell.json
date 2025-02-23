@@ -9,5 +9,12 @@
     "cacheLocation": "./node_modules/.cache/cspell/.cspell"
   },
   "language": "en",
-  "dictionaries": ["html", "typescript", "css", "en-gb", "fonts", "npm"]
+  "dictionaries": ["html", "typescript", "css", "en-gb", "fonts", "npm", "custom-words"],
+  "dictionaryDefinitions": [
+    {
+      "name": "custom-words",
+      "path": "./.cspell/custom-words.txt",
+      "addWords": true
+    }
+  ]
 }

@@ -1,9 +1,14 @@
-import { goto } from "$app/navigation";
+import { goto } from '$app/navigation';
+import { base } from '$app/paths';
 
-export function navigateBetweenPages(eventClickButtonByUser: MouseEvent){
-    const target = eventClickButtonByUser.target as HTMLButtonElement
-    const pageName = target.name;
-    goto(pageName);
+export async function navigateBetweenPages(
+	// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+	eventClickButtonByUser: Readonly<MouseEvent>,
+): Promise<void> {
+	const { target } = eventClickButtonByUser;
+	if (!(target instanceof HTMLButtonElement)) {
+		return;
+	}
+	const pageName = target.name;
+	await goto(`${base}/${pageName}`);
 }
-
-    

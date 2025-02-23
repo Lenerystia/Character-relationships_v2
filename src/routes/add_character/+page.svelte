@@ -1,16 +1,19 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	let firstName = '';
 	let lastName = '';
 	let errorMessage = '';
 
-	const handleSubmit = async (event: Event) => {
+	// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+	const handleSubmit = async (event: Event): Promise<void> => {
 		event.preventDefault();
 
 		if (!firstName || !lastName) {
 			errorMessage = 'Both fields are required.';
+
 			return;
 		}
 
@@ -23,7 +26,7 @@
 		});
 
 		if (response.ok) {
-			goto('/characters', { replaceState: true });
+			await goto(`${base}/characters`, { replaceState: true });
 		} else {
 			console.error('Error adding character. Please try again.');
 		}

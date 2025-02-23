@@ -5,56 +5,38 @@ import { characters } from '$lib/server/db/schema/schema';
 import { eq } from 'drizzle-orm';
 
 class CharacterRepository {
-	/**
-	 * Retrieves all characters in the database and returns them as an array of Character objects.
-	 * The characters are ordered by their IDs in ascending order.
-	 * @returns A promise that resolves to an array of Character objects.
-	 */
-	static async getListCharacters(): Promise<Character[]> {
-		return await db.select().from(characters).orderBy(characters.id);
+	public static async getListCharacters(): Promise<Character[]> {
+		return db.select().from(characters).orderBy(characters.id);
 	}
 
-	/**
-	 * Retrieves all characters and returns them as an instance of the Characters class.
-	 * This is useful when you need to access the methods of the Characters class.
-	 * @returns {Promise<Characters>} A promise that resolves to the Characters instance.
-	 */
-	static async getCharacters(): Promise<Characters> {
+	public static async getCharacters(): Promise<Characters> {
 		const characterRecords = await db.select().from(characters).orderBy(characters.id);
-		//mapper
+		// mapper
 		const charactersArray = characterRecords.map(
-			(char): Character => new Character(char.id, char.firstName, char.lastName)
+			(char): Character => new Character(char.id, char.firstName, char.lastName),
 		);
+
 		return new Characters(charactersArray);
 	}
 
-	/**
-	 * Retrieves a character by their ID
-	 * @param id The ID of the character to retrieve
-	 * @returns A single Character object
-	 */
-	static async getCharacterById(id: number): Promise<Character> {
-		let characterRecord = await db.query.characters.findFirst({
-			where: eq(characters.id, id)
+	public static async getCharacterById(id: number): Promise<Character> {
+		const characterRecord = await db.query.characters.findFirst({
+			where: eq(characters.id, id),
 		});
-		if (!characterRecord) {
-			throw new Error('Character not found');
+		if (characterRecord == null) {
+			throw new Error(`Character with ID ${id} not found`);
 		}
+
 		return characterRecord;
 	}
 
-	/**
-	 * Deletes a character from the database by their ID.
-	 * @param id The ID of the character to delete
-	 * @returns A promise that resolves to a Response object with a status code of 200 if successful, or a status code of 500 if an error occurs.
-	 */
-	// TODO - take framework to resposes status codes or finally
-	static async deleteCharacterById(id: number): Promise<Response> {
+	// TODO - take framework to responses status codes or finally
+	public static async deleteCharacterById(id: number): Promise<Response> {
 		try {
 			await db.delete(characters).where(eq(characters.id, id));
+
 			return new Response('Character deleted successfully', { status: 200 });
-		} catch (error) {
-			console.error('Error deleting character:', error);
+		} catch {
 			return new Response('Error deleting character!', { status: 500 });
 		}
 	}
