@@ -28,11 +28,11 @@ describe('Database Connection', () => {
 });
 
 describe('fetchCharacter', () => {
-	it('should return the character data', async () => {
+	it('should return the character data', () => {
 		expect.assertions(1);
-		const asyncMock = vi.fn().mockResolvedValue(42);
+		const asyncMock = vi.fn((): number => 42);
 
-		const result = await asyncMock();
+		const result = asyncMock();
 		expect(result).toBe(42);
 	});
 });

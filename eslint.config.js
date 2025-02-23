@@ -29,31 +29,31 @@ import svelteParser from 'svelte-eslint-parser';
 // For most plugins you can check their docs via this tool
 
 // Toggles for enabling/disabling rule groups
-const aliasFlag = false; // Checked
-const cspellFlag = false; // Checked
-const drizzleFlag = false; // Checked
-const esEsFlag = false; // Checked
-const esImportFlag = false; // Checked
+const aliasFlag = true; // Checked
+const cspellFlag = true; // Checked
+const drizzleFlag = true; // Checked
+const esEsFlag = true; // Checked
+const esImportFlag = true; // Checked
 // Recommend when you only use functional programming, or you have separate space for functional code in project
 const functionalFlag = false;
-const htmlFlag = false; // Checked
+const htmlFlag = true; // Checked
 const jsFlag = true; // Checked
-const jsonFlag = false; // Checked
-const nodeFlag = false; // Checked
+const jsonFlag = true; // Checked
+const nodeFlag = true; // Checked
 const pandacssFlag = false;
-const perfectionistFlag = false; // Checked
+const perfectionistFlag = true; // Checked
 // "Turns off all rules that are unnecessary or might conflict with Prettier." (most from stylistic)
 const prettierFlag = true; // Checked
-const promiseFlag = false; // Checked
-const securityFlag = false; // Checked
-const sonarjsFlag = false; // Checked
-const stylisticFlag = false; // Checked
-const svelteFlag = false; // Checked
+const promiseFlag = true; // Checked
+const securityFlag = true; // Checked
+const sonarjsFlag = true; // Checked
+const stylisticFlag = true; // Checked
+const svelteFlag = true; // Checked
 const tailwindFlag = false;
-const tsDocFlag = false; // Checked
-const typescriptFlag = false; // Checked
-const unicornFlag = false; // Checked
-const vitestFlag = false; // Checked (almost, I check it when I write tests, I promise)
+const tsDocFlag = true; // Checked
+const typescriptFlag = true; // Checked
+const unicornFlag = true; // Checked
+const vitestFlag = true; // Checked (almost, I check it when I write tests, I promise)
 
 export default [
 	prettier,
@@ -194,7 +194,7 @@ export default [
 				'svelte/shorthand-directive': 'error',
 				'svelte/sort-attributes': 'error',
 				'svelte/spaced-html-comment': 'error',
-				'svelte/no-trailing-spaces': 'error',
+				'svelte/no-trailing-spaces': 'off', // Stylistic have same rule
 
 				// Best Practices
 				'svelte/no-useless-mustaches': 'error',
@@ -269,9 +269,9 @@ export default [
 			/* sonarjs rules */
 			...(sonarjsFlag && {
 				...sonarjs.configs.recommended.rules,
-				'sonarjs/no-empty-test-file': 'error',
-				'sonarjs/todo-tag': 'error',
-				'sonarjs/no-commented-code': 'error',
+				'sonarjs/no-empty-test-file': 'off', // TEMP
+				'sonarjs/todo-tag': 'off', // TEMP
+				'sonarjs/no-commented-code': 'off', // TEMP
 				'sonarjs/no-return-type-any': 'error',
 				'sonarjs/no-collapsible-if': 'error',
 				'sonarjs/prefer-immediate-return': 'error',
@@ -517,7 +517,7 @@ export default [
 				'prefer-spread': 'error',
 				'prefer-template': 'error',
 				'require-yield': 'error',
-				'no-console': 'error',
+				'no-console': 'off', // TEMP
 				'func-name-matching': 'error',
 				'accessor-pairs': 'error',
 				'grouped-accessor-pairs': 'error',
@@ -652,7 +652,7 @@ export default [
 					'error',
 					{ allowList: { req: true, res: true, db: true, rel: true, char: true, env: true } },
 				],
-				'unicorn/no-empty-file': 'error',
+				'unicorn/no-empty-file': 'off', // TEMP
 				'unicorn/error-message': 'error',
 				// Disabled: `null` is standard in databases, APIs, and explicit absence of value is clearer than `undefined`.
 				'unicorn/no-null': 'off',
@@ -711,7 +711,8 @@ export default [
 				'@stylistic/function-call-argument-newline': ['error', 'consistent'],
 				'@stylistic/jsx-self-closing-comp': 'error',
 				'@stylistic/jsx-props-no-multi-spaces': 'error',
-				'@stylistic/newline-per-chained-call': ['error', { ignoreChainWithDepth: 2 }],
+				'@stylistic/newline-per-chained-call': 'off',
+				// '@stylistic/newline-per-chained-call': ['error', { ignoreChainWithDepth: 2 }],
 				'@stylistic/object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
 				'@stylistic/switch-colon-spacing': ['error', { after: true, before: false }],
 				'@stylistic/function-paren-newline': ['error', 'consistent'],
@@ -721,9 +722,9 @@ export default [
 					{ blankLine: 'always', prev: '*', next: 'return' },
 				],
 				'@stylistic/semi-style': ['error', 'last'],
-				'@stylistic/linebreak-style': ['error', 'unix'], // Can be problematic
-				// '@stylistic/linebreak-style': 'off',
-				'@stylistic/max-len': ['error', { code: 120, ignoreUrls: true }],
+				// '@stylistic/linebreak-style': ['error', 'unix'], // Can be problematic
+				'@stylistic/linebreak-style': 'off',
+				'@stylistic/max-len': ['error', { code: 130, ignoreUrls: true }],
 				// '@stylistic/max-len': 'off',
 
 				// Disabled because Prettier/impractical

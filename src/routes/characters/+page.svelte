@@ -8,7 +8,7 @@
 
 	// In Svelte 4:
 	export let data: { characters: ICharacter[] };
-	const {characters} = data;
+	const { characters } = data;
 
 	export async function deleteCharacter(id: number): Promise<void> {
 		if (confirm('Are you sure you want to delete this character?')) {
@@ -28,6 +28,7 @@
 				}
 
 				// TODO: Add better error handling
+
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 				const errorData = (await response.json()) as ErrorResponse;
 				alert(`Failed to delete character: ${errorData.message}`);

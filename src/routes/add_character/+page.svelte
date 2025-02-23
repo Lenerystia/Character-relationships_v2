@@ -13,6 +13,7 @@
 
 		if (!firstName || !lastName) {
 			errorMessage = 'Both fields are required.';
+
 			return;
 		}
 

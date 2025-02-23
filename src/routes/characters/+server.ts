@@ -21,5 +21,6 @@ export const DELETE: RequestHandler = async ({ request }): Promise<Response> => 
 		// throw error(500, { message: 'Error deleting character' });
 	}
 	// return json({ message: 'Character deleted successfully' });
+
 	return new Response('Character deleted successfully', { status: 200 });
 };

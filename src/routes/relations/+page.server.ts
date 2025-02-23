@@ -1,4 +1,3 @@
-
 import type { Relationships } from '$lib/class/Relationships';
 import type { IRelation } from '$lib/interfaces/interfaces';
 
@@ -15,6 +14,7 @@ export const load = async (): Promise<{ relations: IRelation[] }> => {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Relations not found' });
 	}
 	const serializedRelations: IRelation[] = RelationshipFormatter.toPOJOs(relations.relationsArray);
+
 	return {
 		relations: serializedRelations,
 	};

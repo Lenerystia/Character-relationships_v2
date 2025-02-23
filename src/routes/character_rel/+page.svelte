@@ -9,8 +9,8 @@
 	import type { PageData } from './$types';
 
 	const { data }: { data: PageData } = $props();
-	const {characters} = data;
-	const {relations} = data;
+	const { characters } = data;
+	const { relations } = data;
 
 	// Helper functions
 	function getRelationsForCharacter(characterId: number): IRelation[] {
@@ -66,9 +66,9 @@
 </main>
 
 <style lang="css">
-    #svg {
-        display: block;
-        margin-left: auto;
-        width: fit-content;
-    }
+	#svg {
+		display: block;
+		margin-left: auto;
+		width: fit-content;
+	}
 </style>

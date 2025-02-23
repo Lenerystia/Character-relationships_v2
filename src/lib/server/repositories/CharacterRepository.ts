@@ -15,6 +15,7 @@ class CharacterRepository {
 		const charactersArray = characterRecords.map(
 			(char): Character => new Character(char.id, char.firstName, char.lastName),
 		);
+
 		return new Characters(charactersArray);
 	}
 
@@ -25,6 +26,7 @@ class CharacterRepository {
 		if (characterRecord == null) {
 			throw new Error(`Character with ID ${id} not found`);
 		}
+
 		return characterRecord;
 	}
 
@@ -32,9 +34,9 @@ class CharacterRepository {
 	public static async deleteCharacterById(id: number): Promise<Response> {
 		try {
 			await db.delete(characters).where(eq(characters.id, id));
+
 			return new Response('Character deleted successfully', { status: 200 });
-		}
-		catch {
+		} catch {
 			return new Response('Error deleting character!', { status: 500 });
 		}
 	}

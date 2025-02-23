@@ -37,6 +37,7 @@ export async function load({ params }: LoadEvent): Promise<{ character: ICharact
 	if (character.length === EMPTY) {
 		throw error(StatusCodes.NOT_FOUND, { message: 'Character not found' });
 	}
+
 	return {
 		character,
 	};

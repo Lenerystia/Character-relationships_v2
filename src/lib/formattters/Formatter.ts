@@ -26,6 +26,7 @@ export class Formatter {
 		if (initiator != null) {
 			return `${initiator.firstName} ${initiator.lastName}`;
 		}
+
 		return null;
 	}
 
@@ -35,9 +36,11 @@ export class Formatter {
 	// }
 
 	// getFormattedRelationOneSided(characters: Character[], relations: Relation[]): string {
-	// 	return `"${this.getFullName	InitiatorCharacter(characters, relations)}" -> "${this.getFullNameRelatedCharacter}" [label="${relations.about}"];`;
+	// 	return `"${this.getFullName	InitiatorCharacter(characters, relations)}" ->
+	// 	"${this.getFullNameRelatedCharacter}" [label="${relations.about}"];`;
 	// }
 	// getFormattedRelationDoubleSided(relation: Relation): string {
-	// 	return `"${relation.getFullNameInitiatorCharacter}" <-> "${relation.getFullNameRelatedCharacter}" [label="${relation.about}"];`;
+	// 	return `"${relation.getFullNameInitiatorCharacter}" <->
+	// 	"${relation.getFullNameRelatedCharacter}" [label="${relation.about}"];`;
 	// }
 }

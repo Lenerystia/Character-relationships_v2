@@ -15,6 +15,7 @@ export const load: PageServerLoad = async () => {
 	}
 
 	const serializedCharacters = CharacterFormatter.toPOJOs(characters.charactersArray);
+
 	return {
 		characters: serializedCharacters,
 	};

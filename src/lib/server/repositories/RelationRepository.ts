@@ -11,6 +11,7 @@ export class RelationRepository {
 
 	public static async getRelations(): Promise<Relationships> {
 		const relationRecords = await db.select().from(relations).orderBy(relations.id);
+
 		return new Relationships(
 			relationRecords.map(
 				(rel): Relationship => new Relationship(rel.id, rel.idChar1, rel.idChar2, rel.about),
@@ -25,6 +26,7 @@ export class RelationRepository {
 		if (relationRecord == null) {
 			throw new Error('Relation not found');
 		}
+
 		return relationRecord;
 	}
 }

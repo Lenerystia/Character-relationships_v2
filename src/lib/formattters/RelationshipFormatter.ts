@@ -15,9 +15,12 @@ export class RelationshipFormatter {
 		};
 	}
 
-	public static toPOJOs(
-		relations: readonly Relationship[],
-	): Array<{ id: number; idChar1: number; idChar2: number; about: string }> {
+	public static toPOJOs(relations: readonly Relationship[]): Array<{
+		id: number;
+		idChar1: number;
+		idChar2: number;
+		about: string;
+	}> {
 		return relations.map(relation => this.toPOJO(relation));
 	}
 
