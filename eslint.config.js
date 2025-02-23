@@ -33,7 +33,7 @@ const aliasFlag = false; // Checked
 const cspellFlag = false; // Checked
 const drizzleFlag = false; // Checked
 const esEsFlag = false; // Checked
-const esImportFlag = true; // Checked
+const esImportFlag = false; // Checked
 // Recommend when you only use functional programming, or you have separate space for functional code in project
 const functionalFlag = false;
 const htmlFlag = false; // Checked
@@ -51,7 +51,7 @@ const stylisticFlag = false; // Checked almost
 const svelteFlag = false; // Checked
 const tailwindFlag = false;
 const tsDocFlag = false; // Checked
-const typescriptFlag = true; // TODO check
+const typescriptFlag = false; // Checked
 const unicornFlag = false; // Checked
 const vitestFlag = false; // Checked (almost, I check it when I write tests, I promise)
 
@@ -220,8 +220,8 @@ export default [
 				'svelte/max-attributes-per-line': 'off',
 				'svelte/html-closing-bracket-new-line': 'off', // Collision with prettier
 				'svelte/no-restricted-html-elements': 'off',
-				// 'svelte/experimental-require-slot-types': 'error', // TODO
-				// 'svelte/experimental-require-strict-events': 'off', // TODO
+				// 'svelte/experimental-require-slot-types': 'error',
+				// 'svelte/experimental-require-strict-events': 'off',
 			}),
 
 			/* promise rules */
@@ -380,34 +380,9 @@ export default [
 
 			/* js rules */
 			...(jsFlag && {
-				...js.configs.all.rules,
+				// ...js.configs.all.rules,
 				// ...js.configs.recommended.rules,
-				// Disabled: TypeScript has `private`, ORMs use `_id`, and some APIs use `__typename`.
-				'no-lonely-if': 'off',
-				'no-underscore-dangle': 'off',
-				'func-style': 'off',
-				'no-ternary': 'off',
-				'no-eq-null': 'off',
-				eqeqeq: 'off',
-				'no-console': 'off', // TEMP
-				'no-alert': 'off',
-				'no-undef': 'off',
-				'sort-keys': 'off',
-				'no-inline-comments': 'off',
-				'no-duplicate-imports': 'off',
-				'max-statements': 'off',
-				'capitalized-comments': 'off', // what when I have commented code?
-				'no-warning-comments': 'off', // off, because sonarjs have
-				'no-undefined': 'off',
-				'require-unicode-regexp': 'off',
-				'sort-imports': 'off', // Disabled due to a conflict with a rule from eslint-plugin-import
-				'array-callback-return': 'off',
-				// 	[
-				// 	'error',
-				// 	{
-				// 		checkForEach: true,
-				// 	},
-				// ],
+
 				'constructor-super': 'error',
 				'for-direction': 'error',
 				'getter-return': 'error',
@@ -586,6 +561,34 @@ export default [
 				radix: 'off',
 				'require-await': 'error',
 				'require-yield': 'error',
+
+				// Disable for some reason
+				// Disabled: TypeScript has `private`, ORMs use `_id`, and some APIs use `__typename`.
+				'no-lonely-if': 'off',
+				'no-underscore-dangle': 'off',
+				'func-style': 'off',
+				'no-ternary': 'off',
+				'no-eq-null': 'off',
+				eqeqeq: 'off',
+				'no-console': 'off', // TEMP
+				'no-alert': 'off',
+				'no-undef': 'off',
+				'sort-keys': 'off',
+				'no-inline-comments': 'off',
+				'no-duplicate-imports': 'off',
+				'max-statements': 'off',
+				'capitalized-comments': 'off', // what when I have commented code?
+				'no-warning-comments': 'off', // off, because sonarjs have
+				'no-undefined': 'off',
+				'require-unicode-regexp': 'off',
+				'sort-imports': 'off', // Disabled due to a conflict with a rule from eslint-plugin-import
+				'array-callback-return': 'off',
+				// 	[
+				// 	'error',
+				// 	{
+				// 		checkForEach: true,
+				// 	},
+				// ],
 			}),
 
 			/* Perfectionist rules */
@@ -688,7 +691,7 @@ export default [
 				'@stylistic/semi-style': ['error', 'last'],
 				'@stylistic/linebreak-style': ['error', 'unix'], // Can be problematic
 				// '@stylistic/linebreak-style': 'off',
-				'@stylistic/max-len': ['error', { code: 120, ignoreUrls: true }], // TODO Ask about opinion
+				'@stylistic/max-len': ['error', { code: 120, ignoreUrls: true }],
 				// '@stylistic/max-len': 'off',
 
 				// Disabled because Prettier/impractical
@@ -709,7 +712,6 @@ export default [
 				'@stylistic/no-confusing-arrow': 'off',
 				'@stylistic/wrap-regex': 'off',
 				'@stylistic/nonblock-statement-body-position': 'off',
-				// '@stylistic/padding-line-between-statements': 'off',
 			}),
 
 			...(typescriptFlag && {
@@ -741,7 +743,6 @@ export default [
 				'@typescript-eslint/no-unnecessary-type-arguments': 'error',
 				'@typescript-eslint/no-unnecessary-type-assertion': 'error',
 				'@typescript-eslint/no-unsafe-argument': 'error',
-				'@typescript-eslint/no-unsafe-assignment': 'off', // TEMP
 				'@typescript-eslint/no-unsafe-call': 'error',
 				'@typescript-eslint/no-unsafe-member-access': 'error',
 				'@typescript-eslint/no-unsafe-return': 'error',
@@ -775,16 +776,24 @@ export default [
 				'no-implied-eval': 'off',
 				'@typescript-eslint/no-implied-eval': 'error',
 				'no-array-constructor': 'off',
-				'@typescript-eslint/no-array-constructor': 'off',
-				'@typescript-eslint/no-inferrable-types': 'off',
-				'@typescript-eslint/prefer-as-const': 'off',
-				'@typescript-eslint/related-getter-setter-pairs': 'off',
-				'@typescript-eslint/prefer-return-this-type': 'off',
+				'@typescript-eslint/no-array-constructor': 'error',
+				'@typescript-eslint/prefer-as-const': 'error',
+				'@typescript-eslint/related-getter-setter-pairs': 'error',
+				'@typescript-eslint/prefer-return-this-type': 'error',
+				'@typescript-eslint/no-unsafe-assignment': 'error',
 
 				/* Configurable */
+				'@typescript-eslint/no-inferrable-types': ['error', {
+					ignoreParameters: true,
+					ignoreProperties: true,
+				}], // Disable when you want explicit types
 				'@typescript-eslint/no-extraneous-class': ['error', { allowStaticOnly: true }],
 				'@typescript-eslint/no-misused-spread': 'error',
-				'@typescript-eslint/explicit-module-boundary-types': 'off',
+				'@typescript-eslint/explicit-module-boundary-types': ['error', {
+					allowHigherOrderFunctions: true,
+					allowTypedFunctionExpressions: true,
+					allowedNames: ['setup'],
+				}],
 				'@typescript-eslint/consistent-generic-constructors': ['error', 'constructor'],
 				'@typescript-eslint/switch-exhaustiveness-check': 'error',
 				'@typescript-eslint/promise-function-async': ['error', { allowAny: false }],
@@ -811,8 +820,6 @@ export default [
 				],
 				'prefer-promise-reject-errors': 'off',
 				'@typescript-eslint/prefer-promise-reject-errors': 'error',
-				'no-throw-literal': 'off',
-				'@typescript-eslint/only-throw-error': 'off',
 				'@typescript-eslint/no-base-to-string': 'error',
 				'@typescript-eslint/no-explicit-any': ['error', { fixToUnknown: false }],
 				'no-unused-vars': 'off',
@@ -954,24 +961,26 @@ export default [
 				'@typescript-eslint/prefer-readonly': ['error', { onlyInlineLambdas: true }],
 
 				// Disabled for some reason
+				'no-throw-literal': 'off',
+				'@typescript-eslint/only-throw-error': 'off', // Because detect sveltekit errors as bad
 				'@typescript-eslint/typedef': 'off', // If you use strict: true, you don't need this rule!
 				'init-declarations': 'off',
-				'@typescript-eslint/init-declarations': 'off', // TODO
+				'@typescript-eslint/init-declarations': 'off',
 				'@typescript-eslint/member-ordering': 'off', // perfectionist
 				'@typescript-eslint/naming-convention': 'off',
 				'@typescript-eslint/no-restricted-types': 'off',
 				'no-restricted-imports': 'off',
 				'@typescript-eslint/no-restricted-imports': 'off',
-				// The code problem checked by this ESLint rule is automatically checked by the TypeScript compiler.
-				// Thus, it is not recommended to turn on this rule in new TypeScript projects.
+				// "The code problem checked by this ESLint rule is automatically checked by the TypeScript compiler.
+				// Thus, it is not recommended to turn on this rule in new TypeScript projects."
 				'@typescript-eslint/no-redeclare': 'off',
 				'@typescript-eslint/require-array-sort-compare': 'off',
-				// If possible, it is recommended to use tsconfig's noImplicitReturns option rather than this rule.
+				// "If possible, it is recommended to use tsconfig's noImplicitReturns option rather than this rule."
 				'consistent-return': 'off',
 				'@typescript-eslint/consistent-return': 'off',
-				// The code problem checked by this ESLint rule is automatically checked by the TypeScript compiler.
+				// "The code problem checked by this ESLint rule is automatically checked by the TypeScript compiler.
 				// Thus, it is not recommended to turn on this rule in new TypeScript projects.
-				// You only need to enable this rule if you prefer the ESLint error messages over the TypeScript compiler error messages.
+				// You only need to enable this rule if you prefer the ESLint error messages over the TypeScript compiler error messages."
 				'no-dupe-class-members': 'off',
 				'@typescript-eslint/no-dupe-class-members': 'off',
 
