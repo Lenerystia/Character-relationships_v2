@@ -1,4 +1,5 @@
 # Character_relationships
+
 ## How to run
 
 ### Developing
@@ -30,14 +31,17 @@ You can preview the production build with `npm run preview`.
 db:start - to start the docker container
 db:migrate
 ```
+
 OR
 
 Go to package.json and right click on script and run script.
 
-#### Linux 
+#### Linux
+
 When you use Linux and IDE like Code or WebStorm - like above - run script from IDE.
 
 #### ENV
+
 .env - use .env.example - and change or leave default login credentials.
 
 ## About app
