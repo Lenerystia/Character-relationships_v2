@@ -24,6 +24,7 @@ import tailwind from 'eslint-plugin-tailwindcss';
 import tsDoc from 'eslint-plugin-tsdoc';
 import unicorn from 'eslint-plugin-unicorn';
 import svelteParser from 'svelte-eslint-parser';
+import markdown from "@eslint/markdown";
 
 // IMPORTANT! If you want see what rules is in use, just run in terminal: npx @eslint/config-inspector
 // For most plugins you can check their docs via this tool
@@ -39,6 +40,7 @@ const functionalFlag = false;
 const htmlFlag = true; // Checked
 const jsFlag = true; // Checked
 const jsonFlag = true; // Checked
+const markdownFlag = false; // Checked
 const nodeFlag = true; // Checked
 const pandacssFlag = false;
 const perfectionistFlag = true; // Checked
@@ -74,6 +76,7 @@ export default [
 			'src/routes/sandbox/**',
 			'src/routes/debug/**',
 			'tsconfig.json',
+			'docs/**',
 		],
 		languageOptions: {
 			parser: svelteParser,
@@ -1185,7 +1188,7 @@ export default [
 	{
 		name: 'HTML',
 		files: ['**/*.html'],
-		ignores: ['.svelte-kit/**', '**/fixtures', 'node_modules', 'build'],
+		ignores: ['.svelte-kit/**', '**/fixtures', 'node_modules', 'build', 'docs/**',],
 		languageOptions: {
 			parser: htmlParser,
 		},
@@ -1218,7 +1221,7 @@ export default [
 	{
 		name: 'JSON',
 		files: ['**/*.json'],
-		ignores: ['package-lock.json'],
+		ignores: ['package-lock.json', 'docs/**',],
 		language: 'json/json',
 		plugins: {
 			json: json,
@@ -1229,4 +1232,23 @@ export default [
 			}),
 		},
 	},
+	{
+		name: 'Markdown',
+		files: ['**/*.md'],
+		language: "markdown/commonmark",
+		plugins: {
+			markdown
+		},
+		rules: {
+			...(markdownFlag && {
+				'markdown/fenced-code-language': 'error',
+				'markdown/heading-increment': 'error',
+				'markdown/no-duplicate-headings': 'error',
+				'markdown/no-empty-links': 'error',
+				'markdown/no-html': 'error',
+				'markdown/no-invalid-label-refs': 'error',
+				'markdown/no-missing-label-refs': 'error',
+			})
+		}
+	}
 ];
