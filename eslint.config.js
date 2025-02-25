@@ -40,7 +40,7 @@ const functionalFlag = false;
 const htmlFlag = true; // Checked
 const jsFlag = true; // Checked
 const jsonFlag = true; // Checked
-const markdownFlag = false; // Checked
+const markdownFlag = true; // Checked
 const nodeFlag = true; // Checked
 const pandacssFlag = false;
 const perfectionistFlag = true; // Checked
@@ -272,9 +272,9 @@ export default [
 			/* sonarjs rules */
 			...(sonarjsFlag && {
 				...sonarjs.configs.recommended.rules,
-				'sonarjs/no-empty-test-file': 'off', // TEMP
-				'sonarjs/todo-tag': 'off', // TEMP
-				'sonarjs/no-commented-code': 'off', // TEMP
+				'sonarjs/no-empty-test-file': 'off', // TODO TEMP
+				'sonarjs/todo-tag': 'off', // TODO TEMP
+				'sonarjs/no-commented-code': 'off', // TODO TEMP
 				'sonarjs/no-return-type-any': 'error',
 				'sonarjs/no-collapsible-if': 'error',
 				'sonarjs/prefer-immediate-return': 'error',
@@ -520,7 +520,7 @@ export default [
 				'prefer-spread': 'error',
 				'prefer-template': 'error',
 				'require-yield': 'error',
-				'no-console': 'off', // TEMP
+				'no-console': 'off', // TODO TEMP
 				'func-name-matching': 'error',
 				'accessor-pairs': 'error',
 				'grouped-accessor-pairs': 'error',
@@ -655,7 +655,7 @@ export default [
 					'error',
 					{ allowList: { req: true, res: true, db: true, rel: true, char: true, env: true } },
 				],
-				'unicorn/no-empty-file': 'off', // TEMP
+				'unicorn/no-empty-file': 'off', // TODO TEMP
 				'unicorn/error-message': 'error',
 				// Disabled: `null` is standard in databases, APIs, and explicit absence of value is clearer than `undefined`.
 				'unicorn/no-null': 'off',
