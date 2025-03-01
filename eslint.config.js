@@ -24,6 +24,7 @@ import tailwind from 'eslint-plugin-tailwindcss';
 import tsDoc from 'eslint-plugin-tsdoc';
 import unicorn from 'eslint-plugin-unicorn';
 import svelteParser from 'svelte-eslint-parser';
+import markdown from "@eslint/markdown";
 
 // IMPORTANT! If you want see what rules is in use, just run in terminal: npx @eslint/config-inspector
 // For most plugins you can check their docs via this tool
@@ -39,6 +40,7 @@ const functionalFlag = false;
 const htmlFlag = true; // Checked
 const jsFlag = true; // Checked
 const jsonFlag = true; // Checked
+const markdownFlag = true; // Checked
 const nodeFlag = true; // Checked
 const pandacssFlag = false;
 const perfectionistFlag = true; // Checked
@@ -74,6 +76,7 @@ export default [
 			'src/routes/sandbox/**',
 			'src/routes/debug/**',
 			'tsconfig.json',
+			'docs/**',
 		],
 		languageOptions: {
 			parser: svelteParser,
@@ -194,7 +197,7 @@ export default [
 				'svelte/shorthand-directive': 'error',
 				'svelte/sort-attributes': 'error',
 				'svelte/spaced-html-comment': 'error',
-				'svelte/no-trailing-spaces': 'off', // Stylistic have same rule
+				'svelte/no-trailing-spaces': 'off', // Stylistic has same rule
 
 				// Best Practices
 				'svelte/no-useless-mustaches': 'error',
@@ -269,9 +272,9 @@ export default [
 			/* sonarjs rules */
 			...(sonarjsFlag && {
 				...sonarjs.configs.recommended.rules,
-				'sonarjs/no-empty-test-file': 'off', // TEMP
-				'sonarjs/todo-tag': 'off', // TEMP
-				'sonarjs/no-commented-code': 'off', // TEMP
+				'sonarjs/no-empty-test-file': 'off', // TODO TEMP
+				'sonarjs/todo-tag': 'off', // TODO TEMP
+				'sonarjs/no-commented-code': 'off', // TODO TEMP
 				'sonarjs/no-return-type-any': 'error',
 				'sonarjs/no-collapsible-if': 'error',
 				'sonarjs/prefer-immediate-return': 'error',
@@ -517,7 +520,7 @@ export default [
 				'prefer-spread': 'error',
 				'prefer-template': 'error',
 				'require-yield': 'error',
-				'no-console': 'off', // TEMP
+				'no-console': 'off', // TODO TEMP
 				'func-name-matching': 'error',
 				'accessor-pairs': 'error',
 				'grouped-accessor-pairs': 'error',
@@ -652,7 +655,7 @@ export default [
 					'error',
 					{ allowList: { req: true, res: true, db: true, rel: true, char: true, env: true } },
 				],
-				'unicorn/no-empty-file': 'off', // TEMP
+				'unicorn/no-empty-file': 'off', // TODO TEMP
 				'unicorn/error-message': 'error',
 				// Disabled: `null` is standard in databases, APIs, and explicit absence of value is clearer than `undefined`.
 				'unicorn/no-null': 'off',
@@ -1011,14 +1014,17 @@ export default [
 				'@typescript-eslint/no-restricted-imports': 'off',
 				// "The code problem checked by this ESLint rule is automatically checked by the TypeScript compiler.
 				// Thus, it is not recommended to turn on this rule in new TypeScript projects."
+				// https://typescript-eslint.io/rules/no-redeclare/
 				'@typescript-eslint/no-redeclare': 'off',
 				'@typescript-eslint/require-array-sort-compare': 'off',
 				// "If possible, it is recommended to use tsconfig's noImplicitReturns option rather than this rule."
+				// https://typescript-eslint.io/rules/consistent-return/
 				'consistent-return': 'off',
 				'@typescript-eslint/consistent-return': 'off',
 				// "The code problem checked by this ESLint rule is automatically checked by the TypeScript compiler.
 				// Thus, it is not recommended to turn on this rule in new TypeScript projects.
 				// You only need to enable this rule if you prefer the ESLint error messages over the TypeScript compiler error messages."
+				// https://typescript-eslint.io/rules/no-dupe-class-members/
 				'no-dupe-class-members': 'off',
 				'@typescript-eslint/no-dupe-class-members': 'off',
 
@@ -1185,7 +1191,7 @@ export default [
 	{
 		name: 'HTML',
 		files: ['**/*.html'],
-		ignores: ['.svelte-kit/**', '**/fixtures', 'node_modules', 'build'],
+		ignores: ['.svelte-kit/**', '**/fixtures', 'node_modules', 'build', 'docs/**',],
 		languageOptions: {
 			parser: htmlParser,
 		},
@@ -1218,7 +1224,7 @@ export default [
 	{
 		name: 'JSON',
 		files: ['**/*.json'],
-		ignores: ['package-lock.json'],
+		ignores: ['package-lock.json', 'docs/**',],
 		language: 'json/json',
 		plugins: {
 			json: json,
@@ -1229,4 +1235,23 @@ export default [
 			}),
 		},
 	},
+	{
+		name: 'Markdown',
+		files: ['**/*.md'],
+		language: "markdown/commonmark",
+		plugins: {
+			markdown
+		},
+		rules: {
+			...(markdownFlag && {
+				'markdown/fenced-code-language': 'error',
+				'markdown/heading-increment': 'error',
+				'markdown/no-duplicate-headings': 'error',
+				'markdown/no-empty-links': 'error',
+				'markdown/no-html': 'error',
+				'markdown/no-invalid-label-refs': 'error',
+				'markdown/no-missing-label-refs': 'error',
+			})
+		}
+	}
 ];
