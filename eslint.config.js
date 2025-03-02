@@ -18,13 +18,15 @@ import alias from 'eslint-plugin-import-alias';
 import node from 'eslint-plugin-n';
 import perfectionist from 'eslint-plugin-perfectionist';
 import promise from 'eslint-plugin-promise';
-// import regex from 'eslint-plugin-regexp';
+import regex from 'eslint-plugin-regexp';
 import security from 'eslint-plugin-security';
 import sonarjs from 'eslint-plugin-sonarjs';
 import svelte from 'eslint-plugin-svelte';
 import tailwind from 'eslint-plugin-tailwindcss';
 import tsDoc from 'eslint-plugin-tsdoc';
 import unicorn from 'eslint-plugin-unicorn';
+import yml from 'eslint-plugin-yml';
+import parseYAML from "yaml-eslint-parser";
 import svelteParser from 'svelte-eslint-parser'; // Just on version 0.43.0 - above doesn't work
 
 // IMPORTANT! If you want see what rules is in use, just run in terminal: npx @eslint/config-inspector
@@ -35,12 +37,12 @@ const aliasFlag = true; // Checked
 const cspellFlag = true; // Checked
 const drizzleFlag = true; // Checked
 const esEsFlag = true; // Checked
-const esImportFlag = true; // Checked
+const esImportFlag = false; // Checked
 // Recommend when you only use functional programming, or you have separate space for functional code in project
 const functionalFlag = false;
 const htmlFlag = true; // Checked
 const jsFlag = true; // Checked
-const jsonFlag = true; // Checked
+const jsonFlag = false; // Checked
 const markdownFlag = true; // Checked
 const nodeFlag = true; // Checked
 const pandacssFlag = false;
@@ -48,6 +50,7 @@ const perfectionistFlag = true; // Checked
 // "Turns off all rules that are unnecessary or might conflict with Prettier." (most from stylistic)
 const prettierFlag = true; // Checked
 const promiseFlag = true; // Checked
+const regexFlag = true;
 const securityFlag = true; // Checked
 const sonarjsFlag = true; // Checked
 const stylisticFlag = true; // Checked
@@ -55,8 +58,9 @@ const svelteFlag = true; // Checked
 const tailwindFlag = false;
 const tsDocFlag = true; // Checked
 const typescriptFlag = true; // Checked
-const unicornFlag = true; // Checked
-const vitestFlag = true; // Checked (almost, I check it when I write tests, I promise)
+const unicornFlag = true; // TODO
+const vitestFlag = false; // Checked (almost, I check it when I write tests, I promise)
+const yamlFlag = true; // TODO
 
 const aliasRules = {
 	'alias/import-alias': [
@@ -114,11 +118,49 @@ const esEsRules = {
 	'esEs/test-case-shorthand-strings': 'error',
 };
 const esImportRules = {
+	// To check
+	'import/no-namespace': 'error',
+	'import/no-internal-modules': 'error',
+	'import/group-exports': 'error',
+	'import/no-relative-packages': 'error',
+	'import/no-relative-parent-imports': 'error',
+	'import/consistent-type-specifier-style': 'error',
+	'import/no-self-import': 'error',
+	'import/no-cycle': 'error',
+	'import/no-named-default': 'error',
+	'import/no-unused-modules': 'error',
+	'import/no-commonjs': 'error',
+	'import/no-amd': 'error',
+	'import/first': 'error',
+	'import/max-dependencies': 'error',
+	'import/no-nodejs-modules': 'error',
+	'import/no-webpack-loader-syntax': 'error',
+	'import/newline-after-import': 'error',
+	'import/prefer-default-export': 'error',
+	'import/no-default-export': 'error',
+	'import/no-named-export': 'error',
+	'import/no-dynamic-require': 'error',
+	'import/unambiguous': 'error',
+	'import/no-unassigned-import': 'error',
+	'import/dynamic-import-chunkname': 'error',
+	'import/no-import-module-exports': 'error',
+	'import/no-empty-named-blocks': 'error',
+	'import/exports-last': 'error',
+	'import/no-deprecated': 'error',
+
+	// Recomended
 	'import/named': 'error',
 	'import/default': 'error',
+	'import/namespace': 'error',
+	'import/export': 'error',
 	'import/no-named-as-default': 'error',
-	'import/no-anonymous-default-export': 'error',
+	'import/no-named-as-default-member': 'error',
 	'import/no-duplicates': 'error',
+	//"If you're using a module bundler other than Node or Webpack, you may end up with a lot of false positive reports of missing dependencies."
+	//https://github.com/import-js/eslint-plugin-import/blob/v2.31.0/docs/rules/no-unresolved.md
+	'import/no-unresolved': 'off',
+
+	'import/no-anonymous-default-export': 'error',
 	'import/no-absolute-path': 'error',
 	'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
 
@@ -127,24 +169,49 @@ const esImportRules = {
 	'import/no-restricted-paths': 'off',
 	'import/order': 'off',
 	'import/no-mutable-exports': 'off',
-	'import/no-unresolved': 'off', //"If you're using a module bundler other than Node or Webpack, you may end up with a lot of false positive reports of missing dependencies."
 	'import/no-extraneous-dependencies': 'off',
 };
 const functionalRules = {
-	'functional/no-throw-statements': 'error',
-	'functional/no-classes': 'error',
-	'functional/no-return-void': 'error',
-	'functional/prefer-immutable-types': 'error',
+	// Recommended
 	'functional/functional-parameters': 'error',
+	'functional/immutable-data': 'error',
+	'functional/no-classes': 'error',
+	'functional/no-class-inheritance': 'error',
 	'functional/no-conditional-statements': 'error',
-	'functional/no-let': 'error',
 	'functional/no-expression-statements': 'error',
+	'functional/no-let': 'error',
+	'functional/no-loop-statements': 'error',
+	'functional/no-mixed-types': 'error',
+	'functional/no-return-void': 'error',
+	'functional/no-this-expressions': 'error',
+	'functional/no-throw-statements': 'error',
+	'functional/no-try-statements': 'error',
+	'functional/prefer-immutable-types': 'error',
+	'functional/type-declaration-immutability': 'error',
+	// Other
+	'functional/no-promise-reject': 'error',
+	'functional/prefer-property-signatures': 'error',
+	'functional/prefer-tacit': 'error',
+	'functional/readonly-type': 'error',
 };
 const htmlRules = {
-	...html.configs.recommended.rules,
+	// Recommended
+	'@html-eslint/require-lang': 'error',
+	'@html-eslint/require-img-alt': 'error',
+	'@html-eslint/require-doctype': 'error',
+	'@html-eslint/require-title': 'error',
+	'@html-eslint/no-duplicate-id': 'error',
+	'@html-eslint/no-multiple-h1': 'error',
+	'@html-eslint/attrs-newline': 'error',
+	'@html-eslint/element-newline': 'error',
+	'@html-eslint/require-li-container': 'error',
 	'@html-eslint/indent': ['error', 'tab'],
-	'@html-eslint/no-extra-spacing-attrs': 'off',
+	'@html-eslint/quotes': 'error',
+	'@html-eslint/no-obsolete-tags': 'error',
 	'@html-eslint/require-closing-tags': ['error', { selfClosing: 'always' }],
+	'@html-eslint/no-duplicate-attrs': 'error',
+	'@html-eslint/no-extra-spacing-attrs': 'off',
+	// Other
 	'@html-eslint/require-meta-charset': 'error',
 	'@html-eslint/lowercase': 'error',
 	'@html-eslint/require-input-label': 'error',
@@ -159,6 +226,24 @@ const htmlRules = {
 	'@html-eslint/no-heading-inside-button': 'error',
 	'@html-eslint/require-form-method': 'error',
 	'@html-eslint/sort-attrs': 'error',
+	'@html-eslint/no-inline-styles': 'error',
+	'@html-eslint/no-skip-heading-levels': 'error',
+	'@html-eslint/id-naming-convention': 'error',
+	'@html-eslint/require-attrs': 'error',
+	'@html-eslint/no-positive-tabindex': 'error',
+	'@html-eslint/require-meta-viewport': 'error',
+	'@html-eslint/no-abstract-roles': 'error',
+	'@html-eslint/no-aria-hidden-body': 'error',
+	'@html-eslint/no-multiple-empty-lines': 'error',
+	'@html-eslint/no-accesskey-attrs': 'error',
+	'@html-eslint/no-restricted-attrs': 'error',
+	'@html-eslint/no-restricted-attr-values': 'error',
+	'@html-eslint/no-script-style-type': 'error',
+	'@html-eslint/no-invalid-role': 'error',
+	'@html-eslint/no-nested-interactive': 'error',
+	'@html-eslint/require-open-graph-protocol': 'error',
+	'@html-eslint/prefer-https': 'error',
+	'@html-eslint/max-element-depth': 'error',
 };
 const jsRules = {
 	'constructor-super': 'error',
@@ -401,7 +486,14 @@ const jsRules = {
 	'require-await': 'off',
 };
 const jsonRules = {
-	...json.configs.recommended.rules,
+	// Recommended
+	'json/no-duplicate-keys': 'error',
+	'json/no-empty-keys': 'error',
+	'json/no-unsafe-values': 'error',
+	'json/no-unnormalized-keys': 'error',
+	// Other
+	'json/sort-keys': 'error',
+	'json/top-level-interop': 'error',
 };
 const markdownRules = {
 	'markdown/fenced-code-language': 'error',
@@ -455,13 +547,144 @@ const nodeRules = {
 	'node/no-process-exit': 'off',
 	'node/file-extension-in-import': 'off',
 };
-const pandacssRules = {};
+const pandacssRules = {
+	'@pandacss/file-not-included': 'error',
+	'@pandacss/no-config-function-in-source': 'error',
+	'@pandacss/no-debug': 'error',
+	'@pandacss/no-dynamic-styling': 'error',
+	'@pandacss/no-escape-hatch': 'error',
+	'@pandacss/no-hardcoded-color': 'error',
+	'@pandacss/no-important': 'error',
+	'@pandacss/no-invalid-token-paths': 'error',
+	'@pandacss/no-invalid-nesting': 'error',
+	'@pandacss/no-margin-properties': 'error',
+	'@pandacss/no-physical-properties': 'error',
+	'@pandacss/no-property-renaming': 'error',
+	'@pandacss/no-unsafe-token-fn-usage': 'error',
+	'@pandacss/prefer-longhand-properties': 'error',
+	'@pandacss/prefer-shorthand-properties': 'error',
+	'@pandacss/prefer-atomic-properties': 'error',
+	'@pandacss/prefer-composite-properties': 'error',
+	'@pandacss/prefer-unified-property-style': 'error',
+};
 const perfectionistRules = {
-	...perfectionist.configs['recommended-natural'].rules,
+	// Recommended-natural
+	'perfectionist/sort-variable-declarations': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-intersection-types': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-heritage-clauses': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-array-includes': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-named-imports': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-named-exports': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-union-types': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-switch-case': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-decorators': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-jsx-props': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-modules': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-exports': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-enums': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-sets': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-maps': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-imports': [
+		'error',
+		{
+			type: 'natural',
+			order: 'asc',
+		},
+	],
+	'perfectionist/sort-object-types': 'off',
 	'perfectionist/sort-interfaces': 'off',
 	'perfectionist/sort-objects': 'off',
 	'perfectionist/sort-classes': 'off',
-	'perfectionist/sort-object-types': 'off',
 };
 const prettierRules = { ...prettier.rules };
 const promiseRules = {
@@ -483,16 +706,311 @@ const promiseRules = {
 	'promise/prefer-catch': 'error',
 	'promise/spec-only': 'error',
 };
+const regexRules = {
+	'regex/optimal-quantifier-concatenation': 'error',
+	'regex/prefer-range': 'error',
+	'regex/prefer-result-array-groups': 'error',
+	'regex/prefer-set-operation': 'error',
+	'regex/prefer-star-quantifier': 'error',
+	'regex/prefer-unicode-codepoint-escapes': 'error',
+	'regex/prefer-w': 'error',
+	'regex/match-any': 'error',
+	'regex/no-useless-set-operand': 'error',
+	'regex/no-useless-string-literal': 'error',
+	'regex/no-useless-two-nums-quantifier': 'error',
+	'regex/no-zero-quantifier': 'error',
+	'regex/optimal-lookaround-quantifier': 'error',
+	'regex/prefer-character-class': 'error',
+	'regex/prefer-d': 'error',
+	'regex/prefer-escape-replacement-dollar-char': 'error',
+	'regex/prefer-lookaround': 'error',
+	'regex/prefer-named-backreference': 'error',
+	'regex/prefer-named-capture-group': 'error',
+	'regex/prefer-named-replacement': 'error',
+	'regex/prefer-plus-quantifier': 'error',
+	'regex/prefer-predefined-assertion': 'error',
+	'regex/prefer-quantifier': 'error',
+	'regex/prefer-question-quantifier': 'error',
+	'regex/prefer-regexp-exec': 'error',
+	'regex/prefer-regexp-test': 'error',
+	'regex/confusing-quantifier': 'error',
+	'regex/control-character-escape': 'error',
+	'regex/grapheme-string-literal': 'error',
+	'regex/hexadecimal-escape': 'error',
+	'regex/letter-case': 'error',
+	'regex/negation': 'error',
+	'regex/no-contradiction-with-assertion': 'error',
+	'regex/no-control-character': 'error',
+	'regex/no-dupe-characters-character-class': 'error',
+	'regex/no-dupe-disjunctions': 'error',
+	'regex/no-empty-alternative': 'error',
+	'regex/no-empty-capturing-group': 'error',
+	'regex/no-empty-character-class': 'error',
+	'regex/no-empty-group': 'error',
+	'regex/no-empty-lookarounds-assertion': 'error',
+	'regex/no-empty-string-literal': 'error',
+	'regex/no-escape-backspace': 'error',
+	'regex/no-extra-lookaround-assertions': 'error',
+	'regex/no-invalid-regexp': 'error',
+	'regex/no-invisible-character': 'error',
+	'regex/no-lazy-ends': 'error',
+	'regex/no-legacy-features': 'error',
+	'regex/no-misleading-capturing-group': 'error',
+	'regex/no-misleading-unicode-character': 'error',
+	'regex/no-missing-g-flag': 'error',
+	'regex/no-non-standard-flag': 'error',
+	'regex/no-obscure-range': 'error',
+	'regex/no-octal': 'error',
+	'regex/no-optional-assertion': 'error',
+	'regex/no-potentially-useless-backreference': 'error',
+	'regex/no-standalone-backslash': 'error',
+	'regex/no-super-linear-backtracking': 'error',
+	'regex/no-super-linear-move': 'error',
+	'regex/no-trivially-nested-assertion': 'error',
+	'regex/no-trivially-nested-quantifier': 'error',
+	'regex/no-unused-capturing-group': 'error',
+	'regex/no-useless-assertions': 'error',
+	'regex/no-useless-backreference': 'error',
+	'regex/no-useless-character-class': 'error',
+	'regex/no-useless-dollar-replacements': 'error',
+	'regex/no-useless-escape': 'error',
+	'regex/no-useless-flag': 'error',
+	'regex/no-useless-lazy': 'error',
+	'regex/no-useless-non-capturing-group': 'error',
+	'regex/no-useless-quantifier': 'error',
+	'regex/no-useless-range': 'error',
+	'regex/require-unicode-regexp': 'error',
+	'regex/require-unicode-sets-regexp': 'error',
+	'regex/simplify-set-operations': 'error',
+	'regex/sort-alternatives': 'error',
+	'regex/sort-character-class-elements': 'error',
+	'regex/sort-flags': 'error',
+	'regex/strict': 'error',
+	'regex/unicode-escape': 'error',
+	'regex/unicode-property': 'error',
+	'regex/use-ignore-case': 'error',
+};
 const securityRules = {
-	// 'security/detect-object-injection': 'error',
-	...security.configs.recommended.rules,
+	// Recommended
 	'security/detect-unsafe-regex': 'error',
 	'security/detect-non-literal-regexp': 'error',
 	'security/detect-non-literal-require': 'error',
 	'security/detect-non-literal-fs-filename': 'error',
+	'security/detect-eval-with-expression': 'error',
+	'security/detect-pseudoRandomBytes': 'error',
+	'security/detect-possible-timing-attacks': 'error',
+	'security/detect-no-csrf-before-method-override': 'error',
+	'security/detect-buffer-noassert': 'error',
+	'security/detect-child-process': 'error',
+	'security/detect-disable-mustache-escape': 'error',
+	'security/detect-object-injection': 'error',
+	'security/detect-new-buffer': 'error',
+	'security/detect-bidi-characters': 'error',
 };
 const sonarjsRules = {
-	...sonarjs.configs.recommended.rules,
+	// TODO: Check
+	'sonarjs/class-name': 'error',
+	'sonarjs/no-fallthrough': 'error',
+	'sonarjs/no-equals-in-for-termination': 'error',
+	'sonarjs/no-extra-arguments': 'error',
+	'sonarjs/no-labels': 'error',
+	'sonarjs/no-nested-assignment': 'error',
+	'sonarjs/no-redundant-boolean': 'error',
+	'sonarjs/prefer-single-boolean-return': 'error',
+	'sonarjs/unused-import': 'error',
+	'sonarjs/fixme-tag': 'error',
+	'sonarjs/no-case-label-in-switch': 'error',
+	'sonarjs/no-parameter-reassignment': 'error',
+	'sonarjs/prefer-while': 'error',
+	'sonarjs/no-small-switch': 'error',
+	'sonarjs/no-hardcoded-ip': 'error',
+	'sonarjs/label-position': 'error',
+	'sonarjs/public-static-readonly': 'error',
+	'sonarjs/call-argument-line': 'error',
+	'sonarjs/max-switch-cases': 'error',
+	'sonarjs/no-unused-vars': 'error',
+	'sonarjs/function-inside-loop': 'error',
+	'sonarjs/code-eval': 'error',
+	'sonarjs/future-reserved-words': 'error',
+	'sonarjs/bitwise-operators': 'error',
+	'sonarjs/no-primitive-wrappers': 'error',
+	'sonarjs/no-skipped-tests': 'error',
+	'sonarjs/no-one-iteration-loop': 'error',
+	'sonarjs/no-identical-expressions': 'error',
+	'sonarjs/constructor-for-side-effects': 'error',
+	'sonarjs/no-dead-store': 'error',
+	'sonarjs/no-identical-conditions': 'error',
+	'sonarjs/no-duplicated-branches': 'error',
+	'sonarjs/no-inverted-boolean-check': 'error',
+	'sonarjs/misplaced-loop-counter': 'error',
+	'sonarjs/no-nested-functions': 'error',
+	'sonarjs/no-hardcoded-passwords': 'error',
+	'sonarjs/sql-queries': 'error',
+	'sonarjs/insecure-cookie': 'error',
+	'sonarjs/no-useless-increment': 'error',
+	'sonarjs/no-globals-shadowing': 'error',
+	'sonarjs/no-ignored-return': 'error',
+	'sonarjs/arguments-order': 'error',
+	'sonarjs/pseudo-random': 'error',
+	'sonarjs/for-loop-increment-sign': 'error',
+	'sonarjs/null-dereference': 'error',
+	'sonarjs/no-selector-parameter': 'error',
+	'sonarjs/updated-loop-counter': 'error',
+	'sonarjs/block-scoped-var': 'error',
+	'sonarjs/no-ignored-exceptions': 'error',
+	'sonarjs/no-gratuitous-expressions': 'error',
+	'sonarjs/file-uploads': 'error',
+	'sonarjs/file-permissions': 'error',
+	'sonarjs/no-empty-character-class': 'error',
+	'sonarjs/no-unenclosed-multiline-block': 'error',
+	'sonarjs/index-of-compare-to-positive-number': 'error',
+	'sonarjs/assertions-in-tests': 'error',
+	'sonarjs/no-implicit-global': 'error',
+	'sonarjs/no-useless-catch': 'error',
+	'sonarjs/xml-parser-xxe': 'error',
+	'sonarjs/non-existent-operator': 'error',
+	'sonarjs/post-message': 'error',
+	'sonarjs/no-array-delete': 'error',
+	'sonarjs/no-alphabetical-sort': 'error',
+	'sonarjs/no-incomplete-assertions': 'error',
+	'sonarjs/no-global-this': 'error',
+	'sonarjs/new-operator-misuse': 'error',
+	'sonarjs/no-delete-var': 'error',
+	'sonarjs/cookie-no-httponly': 'error',
+	'sonarjs/no-nested-conditional': 'error',
+	'sonarjs/different-types-comparison': 'error',
+	'sonarjs/inverted-assertion-arguments': 'error',
+	'sonarjs/updated-const-var': 'error',
+	'sonarjs/no-invariant-returns': 'error',
+	'sonarjs/generator-without-yield': 'error',
+	'sonarjs/no-associative-arrays': 'error',
+	'sonarjs/comma-or-logical-or-case': 'error',
+	'sonarjs/no-redundant-jump': 'error',
+	'sonarjs/inconsistent-function-call': 'error',
+	'sonarjs/no-use-of-empty-return-value': 'error',
+	'sonarjs/void-use': 'error',
+	'sonarjs/cognitive-complexity': 'error',
+	'sonarjs/argument-type': 'error',
+	'sonarjs/in-operator-type-error': 'error',
+	'sonarjs/array-callback-without-return': 'error',
+	'sonarjs/function-return-type': 'error',
+	'sonarjs/super-invocation': 'error',
+	'sonarjs/no-all-duplicated-branches': 'error',
+	'sonarjs/no-same-line-conditional': 'error',
+	'sonarjs/no-collection-size-mischeck': 'error',
+	'sonarjs/no-unthrown-error': 'error',
+	'sonarjs/no-unused-collection': 'error',
+	'sonarjs/no-os-command-from-path': 'error',
+	'sonarjs/no-misleading-array-reverse': 'error',
+	'sonarjs/no-invalid-await': 'error',
+	'sonarjs/no-element-overwrite': 'error',
+	'sonarjs/no-identical-functions': 'error',
+	'sonarjs/no-empty-collection': 'error',
+	'sonarjs/no-redundant-assignments': 'error',
+	'sonarjs/prefer-type-guard': 'error',
+	'sonarjs/use-type-alias': 'error',
+	'sonarjs/no-useless-intersection': 'error',
+	'sonarjs/weak-ssl': 'error',
+	'sonarjs/no-weak-keys': 'error',
+	'sonarjs/csrf': 'error',
+	'sonarjs/production-debug': 'error',
+	'sonarjs/prefer-default-last': 'error',
+	'sonarjs/no-in-misuse': 'error',
+	'sonarjs/no-duplicate-in-composite': 'error',
+	'sonarjs/no-undefined-argument': 'error',
+	'sonarjs/no-nested-template-literals': 'error',
+	'sonarjs/prefer-promise-shorthand': 'error',
+	'sonarjs/os-command': 'error',
+	'sonarjs/no-redundant-optional': 'error',
+	'sonarjs/hashing': 'error',
+	'sonarjs/no-try-promise': 'error',
+	'sonarjs/unverified-certificate': 'error',
+	'sonarjs/no-unsafe-unzip': 'error',
+	'sonarjs/cors': 'error',
+	'sonarjs/link-with-target-blank': 'error',
+	'sonarjs/disabled-auto-escaping': 'error',
+	'sonarjs/table-header': 'error',
+	'sonarjs/no-table-as-layout': 'error',
+	'sonarjs/table-header-reference': 'error',
+	'sonarjs/object-alt-content': 'error',
+	'sonarjs/no-clear-text-protocols': 'error',
+	'sonarjs/publicly-writable-directories': 'error',
+	'sonarjs/unverified-hostname': 'error',
+	'sonarjs/encryption-secure-mode': 'error',
+	'sonarjs/no-weak-cipher': 'error',
+	'sonarjs/no-intrusive-permissions': 'error',
+	'sonarjs/insecure-jwt-token': 'error',
+	'sonarjs/x-powered-by': 'error',
+	'sonarjs/hidden-files': 'error',
+	'sonarjs/content-length': 'error',
+	'sonarjs/disabled-resource-integrity': 'error',
+	'sonarjs/content-security-policy': 'error',
+	'sonarjs/no-mixed-content': 'error',
+	'sonarjs/frame-ancestors': 'error',
+	'sonarjs/no-mime-sniff': 'error',
+	'sonarjs/no-referrer-policy': 'error',
+	'sonarjs/strict-transport-security': 'error',
+	'sonarjs/confidential-information-logging': 'error',
+	'sonarjs/no-ip-forward': 'error',
+	'sonarjs/empty-string-repetition': 'error',
+	'sonarjs/regex-complexity': 'error',
+	'sonarjs/anchor-precedence': 'error',
+	'sonarjs/slow-regex': 'error',
+	'sonarjs/no-invalid-regexp': 'error',
+	'sonarjs/unused-named-groups': 'error',
+	'sonarjs/no-same-argument-assert': 'error',
+	'sonarjs/no-misleading-character-class': 'error',
+	'sonarjs/duplicates-in-character-class': 'error',
+	'sonarjs/session-regeneration': 'error',
+	'sonarjs/test-check-exception': 'error',
+	'sonarjs/stable-tests': 'error',
+	'sonarjs/no-empty-after-reluctant': 'error',
+	'sonarjs/single-character-alternation': 'error',
+	'sonarjs/no-code-after-done': 'error',
+	'sonarjs/disabled-timeout': 'error',
+	'sonarjs/chai-determinate-assertion': 'error',
+	'sonarjs/aws-s3-bucket-insecure-http': 'error',
+	'sonarjs/aws-s3-bucket-versioning': 'error',
+	'sonarjs/aws-s3-bucket-granted-access': 'error',
+	'sonarjs/no-angular-bypass-sanitization': 'error',
+	'sonarjs/aws-iam-public-access': 'error',
+	'sonarjs/aws-ec2-unencrypted-ebs-volume': 'error',
+	'sonarjs/aws-s3-bucket-public-access': 'error',
+	'sonarjs/aws-iam-all-privileges': 'error',
+	'sonarjs/aws-rds-unencrypted-databases': 'error',
+	'sonarjs/aws-opensearchservice-domain': 'error',
+	'sonarjs/aws-iam-privilege-escalation': 'error',
+	'sonarjs/aws-sagemaker-unencrypted-notebook': 'error',
+	'sonarjs/aws-restricted-ip-admin-access': 'error',
+	'sonarjs/no-empty-alternatives': 'error',
+	'sonarjs/no-control-regex': 'error',
+	'sonarjs/no-regex-spaces': 'error',
+	'sonarjs/aws-sns-unencrypted-topics': 'error',
+	'sonarjs/existing-groups': 'error',
+	'sonarjs/aws-ec2-rds-dms-public': 'error',
+	'sonarjs/aws-sqs-unencrypted-queue': 'error',
+	'sonarjs/no-empty-group': 'error',
+	'sonarjs/aws-efs-unencrypted': 'error',
+	'sonarjs/aws-apigateway-public-api': 'error',
+	'sonarjs/stateful-regex': 'error',
+	'sonarjs/concise-regex': 'error',
+	'sonarjs/single-char-in-character-classes': 'error',
+	'sonarjs/no-hardcoded-secrets': 'error',
+	'sonarjs/no-exclusive-tests': 'error',
+	'sonarjs/jsx-no-leaked-render': 'error',
+	'sonarjs/no-hook-setter-in-body': 'error',
+	'sonarjs/no-useless-react-setstate': 'error',
+	'sonarjs/redundant-type-aliases': 'error',
+	'sonarjs/prefer-regexp-exec': 'error',
+	'sonarjs/no-internal-api-use': 'error',
+	'sonarjs/prefer-read-only-props': 'error',
+	'sonarjs/no-literal-call': 'error',
+	'sonarjs/reduce-initial-value': 'error',
+	'sonarjs/no-async-constructor': 'error',
+	'sonarjs/no-uniq-key': 'error',
+
+	// ...sonarjs.configs.recommended.rules,
+
 	'sonarjs/no-empty-test-file': 'off', // TODO TEMP
 	'sonarjs/todo-tag': 'off', // TODO TEMP
 	'sonarjs/no-commented-code': 'off', // TODO TEMP
@@ -551,7 +1069,10 @@ const sonarjsRules = {
 	'sonarjs/shorthand-property-grouping': 'error',
 };
 const stylisticRules = {
-	...stylistic.configs.recommended.rules,
+	'@stylistic/lines-between-class-members': 'error',
+	'@stylistic/spaced-comment': 'error',
+	'@stylistic/jsx-function-call-newline': 'error',
+	'@stylistic/jsx-curly-brace-presence': 'error',
 	'@stylistic/curly-newline': 'error',
 	'@stylistic/max-statements-per-line': ['warn', { max: 1 }],
 	'@stylistic/member-delimiter-style': 'error',
@@ -634,6 +1155,26 @@ const stylisticRules = {
 	'@stylistic/nonblock-statement-body-position': 'off',
 };
 const svelteRules = {
+	// To check TODO
+	'svelte/comment-directive': 'error',
+	'svelte/consistent-selector-style': 'error',
+	'svelte/no-at-debug-tags': 'error',
+	'svelte/no-at-html-tags': 'error',
+	'svelte/no-dupe-else-if-blocks': 'error',
+	'svelte/no-dupe-style-properties': 'error',
+	'svelte/no-inner-declarations': 'error',
+	'svelte/no-navigation-without-base': 'error',
+	'svelte/no-not-function-handler': 'error',
+	'svelte/no-object-in-text-mustaches': 'error',
+	'svelte/no-raw-special-elements': 'error',
+	'svelte/no-shorthand-style-property-overrides': 'error',
+	'svelte/no-unknown-style-directive-property': 'error',
+	'svelte/no-unused-svelte-ignore': 'error',
+	'svelte/no-useless-children-snippet': 'error',
+	'svelte/prefer-const': 'error',
+	'svelte/system': 'error',
+	'svelte/valid-compile': 'error',
+	'svelte/valid-style-parse': 'error',
 	// Possible Errors
 	'svelte/infinite-reactive-loop': 'error',
 	'svelte/no-dom-manipulating': 'error',
@@ -645,7 +1186,6 @@ const svelteRules = {
 	'svelte/require-store-callbacks-use-set-param': 'error',
 	'svelte/require-store-reactive-access': 'error',
 	'svelte/valid-prop-names-in-kit-pages': 'error',
-	'svelte/no-goto-without-base': 'error',
 
 	// Security
 	'svelte/no-target-blank': 'error',
@@ -694,14 +1234,29 @@ const svelteRules = {
 	// 'svelte/experimental-require-slot-types': 'error',
 	// 'svelte/experimental-require-strict-events': 'off',
 };
-const tailwindRules = {};
+const tailwindRules = {
+	'tailwind/classnames-order': 'error',
+	'tailwind/enforces-negative-arbitrary-values': 'error',
+	'tailwind/enforces-shorthand': 'error',
+	'tailwind/migration-from-tailwind-2': 'error',
+	'tailwind/no-arbitrary-value': 'error',
+	'tailwind/no-contradicting-classname': 'error',
+	'tailwind/no-custom-classname': 'error',
+	'tailwind/no-unnecessary-arbitrary-value': 'error',
+};
 const tsDocRules = { 'tsDoc/syntax': 'warn' };
 const typescriptRules = {
 	/* TypeScript rules */
-	// ...ts.configs.recommended.rules,
-	...ts.configs.strict.rules,
 
-	/* Not configurable */
+	/* Non configurable */
+	'@typescript-eslint/no-dynamic-delete': 'error',
+	'@typescript-eslint/no-empty-object-type': 'error',
+	'@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
+	'@typescript-eslint/no-unnecessary-type-constraint': 'error',
+	'@typescript-eslint/no-unsafe-declaration-merging': 'error',
+	'@typescript-eslint/no-unsafe-function-type': 'error',
+	'@typescript-eslint/no-wrapper-object-types': 'error',
+	'@typescript-eslint/prefer-namespace-keyword': 'error',
 	'@typescript-eslint/prefer-optional-chain': 'error',
 	'@typescript-eslint/ban-tslint-comment': 'error',
 	'default-param-last': 'off',
@@ -978,6 +1533,7 @@ const unicornRules = {
 			ignore: ['README.md'],
 		},
 	],
+
 	'unicorn/no-array-for-each': 'error',
 	'unicorn/prevent-abbreviations': [
 		'error',
@@ -987,14 +1543,129 @@ const unicornRules = {
 	'unicorn/error-message': 'error',
 	// Disabled: `null` is standard in databases, APIs, and explicit absence of value is clearer than `undefined`.
 	'unicorn/no-null': 'off',
+
+	// TODO: Check
+	'unicorn/better-regex': 'error',
+	'unicorn/catch-error-name': 'error',
+	'unicorn/consistent-assert': 'error',
+	'unicorn/consistent-date-clone': 'error',
+	'unicorn/consistent-destructuring': 'error',
+	'unicorn/consistent-empty-array-spread': 'error',
+	'unicorn/consistent-existence-index-check': 'error',
+	'unicorn/consistent-function-scoping': 'error',
+	'unicorn/custom-error-definition': 'error',
+	'unicorn/escape-case': 'error',
+	'unicorn/expiring-todo-comments': 'error',
+	'unicorn/explicit-length-check': 'error',
+	'unicorn/import-style': 'error',
+	'unicorn/new-for-builtins': 'error',
+	'unicorn/no-abusive-eslint-disable': 'error',
+	'unicorn/no-accessor-recursion': 'error',
+	'unicorn/no-anonymous-default-export': 'error',
+	'unicorn/no-array-callback-reference': 'error',
+	'unicorn/no-array-method-this-argument': 'error',
+	'unicorn/no-array-push-push': 'error',
+	'unicorn/no-array-reduce': 'error',
+	'unicorn/no-await-expression-member': 'error',
+	'unicorn/no-await-in-promise-methods': 'error',
+	'unicorn/no-console-spaces': 'error',
+	'unicorn/no-document-cookie': 'error',
+	'unicorn/no-for-loop': 'error',
+	'unicorn/no-hex-escape': 'error',
+	'unicorn/no-instanceof-builtins': 'error',
+	'unicorn/no-invalid-fetch-options': 'error',
+	'unicorn/no-invalid-remove-event-listener': 'error',
+	'unicorn/no-keyword-prefix': 'error',
+	'unicorn/no-length-as-slice-end': 'error',
+	'unicorn/no-lonely-if': 'error',
+	'unicorn/no-magic-array-flat-depth': 'error',
+	'unicorn/no-named-default': 'error',
+	'unicorn/no-negated-condition': 'error',
+	'unicorn/no-negation-in-equality-check': 'error',
+	'unicorn/no-new-array': 'error',
+	'unicorn/no-new-buffer': 'error',
+	'unicorn/no-object-as-default-parameter': 'error',
+	'unicorn/no-process-exit': 'error',
+	'unicorn/no-single-promise-in-promise-methods': 'error',
+	'unicorn/no-static-only-class': 'error',
+	'unicorn/no-thenable': 'error',
+	'unicorn/no-this-assignment': 'error',
+	'unicorn/no-typeof-undefined': 'error',
+	'unicorn/no-unnecessary-await': 'error',
+	'unicorn/no-unnecessary-polyfills': 'error',
+	'unicorn/no-unreadable-array-destructuring': 'error',
+	'unicorn/no-unreadable-iife': 'error',
+	'unicorn/no-unused-properties': 'error',
+	'unicorn/no-useless-fallback-in-spread': 'error',
+	'unicorn/no-useless-length-check': 'error',
+	'unicorn/no-useless-promise-resolve-reject': 'error',
+	'unicorn/no-useless-spread': 'error',
+	'unicorn/no-useless-switch-case': 'error',
+	'unicorn/no-useless-undefined': 'error',
+	'unicorn/no-zero-fractions': 'error',
+	'unicorn/numeric-separators-style': 'error',
+	'unicorn/prefer-add-event-listener': 'error',
+	'unicorn/prefer-array-find': 'error',
+	'unicorn/prefer-array-flat-map': 'error',
+	'unicorn/prefer-array-flat': 'error',
+	'unicorn/prefer-array-index-of': 'error',
+	'unicorn/prefer-array-some': 'error',
+	'unicorn/prefer-at': 'error',
+	'unicorn/prefer-blob-reading-methods': 'error',
+	'unicorn/prefer-code-point': 'error',
+	'unicorn/prefer-date-now': 'error',
+	'unicorn/prefer-default-parameters': 'error',
+	'unicorn/prefer-dom-node-append': 'error',
+	'unicorn/prefer-dom-node-dataset': 'error',
+	'unicorn/prefer-dom-node-remove': 'error',
+	'unicorn/prefer-dom-node-text-content': 'error',
+	'unicorn/prefer-event-target': 'error',
+	'unicorn/prefer-export-from': 'error',
+	'unicorn/prefer-global-this': 'error',
+	'unicorn/prefer-includes': 'error',
+	'unicorn/prefer-json-parse-buffer': 'error',
+	'unicorn/prefer-keyboard-event-key': 'error',
+	'unicorn/prefer-logical-operator-over-ternary': 'error',
+	'unicorn/prefer-math-min-max': 'error',
+	'unicorn/prefer-math-trunc': 'error',
+	'unicorn/prefer-modern-dom-apis': 'error',
+	'unicorn/prefer-modern-math-apis': 'error',
+	'unicorn/prefer-module': 'error',
+	'unicorn/prefer-native-coercion-functions': 'error',
+	'unicorn/prefer-negative-index': 'error',
+	'unicorn/prefer-node-protocol': 'error',
+	'unicorn/prefer-number-properties': 'error',
+	'unicorn/prefer-object-from-entries': 'error',
+	'unicorn/prefer-optional-catch-binding': 'error',
+	'unicorn/prefer-prototype-methods': 'error',
+	'unicorn/prefer-query-selector': 'error',
+	'unicorn/prefer-reflect-apply': 'error',
+	'unicorn/prefer-regexp-test': 'error',
+	'unicorn/prefer-set-has': 'error',
+	'unicorn/prefer-set-size': 'error',
+	'unicorn/prefer-spread': 'error',
+	'unicorn/prefer-string-raw': 'error',
+	'unicorn/prefer-string-replace-all': 'error',
+	'unicorn/prefer-string-slice': 'error',
+	'unicorn/prefer-string-starts-ends-with': 'error',
+	'unicorn/prefer-string-trim-start-end': 'error',
+	'unicorn/prefer-structured-clone': 'error',
+	'unicorn/prefer-switch': 'error',
+	'unicorn/prefer-ternary': 'error',
+	'unicorn/prefer-top-level-await': 'error',
+	'unicorn/prefer-type-error': 'error',
+	'unicorn/relative-url-style': 'error',
+	'unicorn/require-array-join-separator': 'error',
+	'unicorn/require-number-to-fixed-digits-argument': 'error',
+	'unicorn/require-post-message-target-origin': 'error',
+	'unicorn/string-content': 'error',
+	'unicorn/switch-case-braces': 'error',
+	'unicorn/text-encoding-identifier-case': 'error',
+	'unicorn/throw-new-error': 'error',
 };
 const vitestRules = {
-	...vitest.configs.recommended.rules,
-	'vitest/prefer-strict-boolean-matchers': 'error',
-	'vitest/no-conditional-in-test': 'error',
-	'vitest/no-done-callback': 'off', //deprecated
-	'vitest/consistent-test-filename': ['error', { pattern: '.*\\.(spec|test)\\.[jt]s$' }],
-	'vitest/consistent-test-it': 'error',
+	// Recommended
+	'vitest/no-identical-title': 'error',
 	'vitest/expect-expect': [
 		'error',
 		{
@@ -1018,10 +1689,28 @@ const vitestRules = {
 			],
 		},
 	],
+	'vitest/no-commented-out-tests': 'off',
+	'vitest/no-import-node-test': 'error',
+	'vitest/valid-title': [
+		'error',
+		{
+			ignoreTypeOfDescribeName: true,
+		},
+	],
+	'vitest/valid-expect': ['error', { maxArgs: 1 }],
+	'vitest/require-local-test-context-for-concurrent-snapshots': 'error',
+	'vitest/valid-describe-callback': 'error',
+
+	'vitest/prefer-strict-boolean-matchers': 'error',
+	'vitest/no-conditional-in-test': 'error',
+	'vitest/no-done-callback': 'off', //deprecated
+	'vitest/consistent-test-filename': ['error', { pattern: '.*\\.(spec|test)\\.[jt]s$' }],
+	'vitest/consistent-test-it': 'error',
+
 	'vitest/max-expects': ['error', { max: 5 }],
 	'vitest/max-nested-describe': ['error', { max: 3 }],
 	'vitest/no-alias-methods': 'error',
-	'vitest/no-commented-out-tests': 'off',
+
 	'vitest/no-conditional-expect': 'error',
 	'vitest/no-conditional-tests': 'error',
 	'vitest/no-disabled-tests': 'error',
@@ -1033,8 +1722,6 @@ const vitestRules = {
 		},
 	],
 	'vitest/no-hooks': 'error',
-	'vitest/no-identical-title': 'error',
-	'vitest/no-import-node-test': 'error',
 	'vitest/no-interpolation-in-snapshots': 'error',
 	'vitest/no-large-snapshots': ['error', { maxSize: 50 }],
 	'vitest/no-mocks-import': 'error',
@@ -1065,19 +1752,51 @@ const vitestRules = {
 	'vitest/prefer-todo': 'error',
 	'vitest/prefer-vi-mocked': 'error',
 	'vitest/require-hook': 'error',
-	'vitest/require-local-test-context-for-concurrent-snapshots': 'error',
 	'vitest/require-to-throw-message': 'error',
 	'vitest/require-top-level-describe': 'error',
-	'vitest/valid-describe-callback': 'error',
-	'vitest/valid-expect': ['error', { maxArgs: 1 }],
-	'vitest/valid-title': [
-		'error',
-		{
-			ignoreTypeOfDescribeName: true,
-		},
-	],
 	'vitest/valid-expect-in-promise': 'error',
+
+	// TODO Check
+	'vitest/padding-around-after-all-blocks': 'error',
+	'vitest/padding-around-after-each-blocks': 'error',
+	'vitest/padding-around-all': 'error',
+	'vitest/padding-around-before-all-blocks': 'error',
+	'vitest/padding-around-before-each-blocks': 'error',
+	'vitest/padding-around-describe-blocks': 'error',
+	'vitest/padding-around-expect-groups': 'error',
+	'vitest/padding-around-test-blocks': 'error',
+	'vitest/require-mock-type-parameters': 'error',
 };
+const yamlRules = {
+	'yml/block-mapping-colon-indicator-newline': 'error',
+	'yml/block-mapping-question-indicator-newline': 'error',
+	'yml/block-mapping': 'error',
+	'yml/block-sequence-hyphen-indicator-newline': 'error',
+	'yml/block-sequence': 'error',
+	'yml/file-extension': 'off',
+	'yml/flow-mapping-curly-newline': 'error',
+	'yml/flow-mapping-curly-spacing': 'error',
+	'yml/flow-sequence-bracket-newline': 'error',
+	'yml/flow-sequence-bracket-spacing': 'error',
+	'yml/indent': 'error',
+	'yml/key-name-casing': 'off',
+	'yml/key-spacing': 'error',
+	'yml/no-empty-document': 'error',
+	'yml/no-empty-key': 'error',
+	'yml/no-empty-mapping-value': 'error',
+	'yml/no-empty-sequence-entry': 'error',
+	'yml/no-irregular-whitespace': 'error',
+	'yml/no-multiple-empty-lines': 'error',
+	'yml/no-tab-indent': 'error',
+	'yml/no-trailing-zeros': 'error',
+	'yml/plain-scalar': 'error',
+	'yml/quotes': 'error', //1 quote
+	'yml/require-string-key': 'error',
+	'yml/sort-keys': 'off',
+	'yml/sort-sequence-values': 'off',
+	'yml/spaced-comment': 'error',
+	'yml/vue-custom-block/no-parsing-error': 'error',
+}
 
 export default [
 	prettier,
@@ -1129,6 +1848,7 @@ export default [
 			node: node,
 			cspell: cspell,
 			vitest: vitest,
+			regex: regex,
 		},
 		settings: {
 			'import/resolver': {
@@ -1144,81 +1864,59 @@ export default [
 			...(nodeFlag && {
 				...nodeRules,
 			}),
-			/* Svelte rules */
 			...(svelteFlag && {
 				...svelteRules,
 			}),
-
-			/* promise rules */
 			...(promiseFlag && {
 				...promiseRules,
 			}),
-
 			...(drizzleFlag && {
 				...drizzleRules,
 			}),
-			/* alias rules */
 			...(aliasFlag && {
 				...aliasRules,
 			}),
-			/* sonarjs rules */
 			...(sonarjsFlag && {
 				...sonarjsRules,
 			}),
-			/* security rules */
 			...(securityFlag && {
 				...securityRules,
 			}),
-
-			/* import rules */
 			...(esImportFlag && {
 				...esImportRules,
 			}),
-			/* functional rules */
 			...(functionalFlag && {
 				...functionalRules,
 			}),
-
-			/* Tsdoc */
 			...(tsDocFlag && {
 				...tsDocRules,
 			}),
-
-			/* Prettier rules */
 			...(prettierFlag && {
 				...prettierRules,
 			}),
-
-			/* js rules */
 			...(jsFlag && {
 				...jsRules,
 			}),
-
-			/* Perfectionist rules */
 			...(perfectionistFlag && {
 				...perfectionistRules,
 			}),
-
-			/* Unicorn rules */
 			...(unicornFlag && {
 				...unicornRules,
 			}),
-
 			...(stylisticFlag && {
 				...stylisticRules,
 			}),
-
 			...(typescriptFlag && {
 				...typescriptRules,
 			}),
-			/* tailwind rules */
 			...(tailwindFlag && {
 				...tailwindRules,
 			}),
-
-			/* pandacss rules */
 			...(pandacssFlag && {
 				...pandacssRules,
+			}),
+			...(regexFlag && {
+				...regexRules,
 			}),
 		},
 	},
@@ -1293,6 +1991,21 @@ export default [
 		rules: {
 			...(markdownFlag && {
 				...markdownRules,
+			}),
+		},
+	},
+	{
+		name: 'Yaml',
+		files: ['**/*.yml', '**/*.yaml'],
+		languageOptions:{
+			parser: parseYAML
+		},
+		plugins: {
+			yml,
+		},
+		rules: {
+			...(yamlFlag && {
+				...yamlRules,
 			}),
 		},
 	},
