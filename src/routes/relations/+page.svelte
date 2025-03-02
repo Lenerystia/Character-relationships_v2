@@ -1,8 +1,10 @@
 <script lang="ts">
 	import '$lib/scripts/app.css';
-	import type { IRelation } from '$lib/interfaces/interfaces';
 
-	export let data: { relations: IRelation[] };
+	import type { PageData } from './$types';
+
+	// Svelte 5
+	const { data }: { data: PageData } = $props();
 	const { relations } = data;
 </script>
 

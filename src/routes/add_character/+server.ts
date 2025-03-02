@@ -1,6 +1,8 @@
+import type { RequestHandler } from '@sveltejs/kit';
+
 import { db } from '$lib/server/db';
 import { characters } from '$lib/server/db/schema/schema';
-import { error, type RequestHandler } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { StatusCodes } from 'http-status-codes';
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types

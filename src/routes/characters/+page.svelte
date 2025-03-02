@@ -28,7 +28,6 @@
 				}
 
 				// TODO: Add better error handling
-
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 				const errorData = (await response.json()) as ErrorResponse;
 				alert(`Failed to delete character: ${errorData.message}`);

@@ -2,16 +2,14 @@
 	import '$lib/scripts/app.css';
 	// export let data: { characters: ICharacter[] };
 	// const characters = data.characters;
+	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	import type { PageData } from './$types';
 
 	// Svelte 5
-	// let { data }: { data: PageData } = $props();
 	const { data }: { data: PageData } = $props();
 	const { characters } = data;
-
-	import { goto } from '$app/navigation';
-	import { base } from '$app/paths';
 
 	// DEBUG
 	console.log('Received characters in Svelte:', characters);

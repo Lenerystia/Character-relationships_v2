@@ -1,5 +1,7 @@
+import type { RequestHandler } from '@sveltejs/kit';
+
 import CharacterRepository from '$lib/server/repositories/CharacterRepository';
-import { error, type RequestHandler } from '@sveltejs/kit';
+import { error  } from '@sveltejs/kit';
 import { StatusCodes } from 'http-status-codes';
 
 export const DELETE: RequestHandler = async ({ request }): Promise<Response> => {
