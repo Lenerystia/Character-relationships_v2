@@ -26,23 +26,25 @@ import tailwind from 'eslint-plugin-tailwindcss';
 import tsDoc from 'eslint-plugin-tsdoc';
 import unicorn from 'eslint-plugin-unicorn';
 import yml from 'eslint-plugin-yml';
-import parseYAML from "yaml-eslint-parser";
 import svelteParser from 'svelte-eslint-parser'; // Just on version 0.43.0 - above doesn't work
+import parseYAML from 'yaml-eslint-parser';
 
 // IMPORTANT! If you want see what rules is in use, just run in terminal: npx @eslint/config-inspector
 // For most plugins you can check their docs via this tool
+
+// TODO TEMP - if you want, just change this rules
 
 // Toggles for enabling/disabling rule groups
 const aliasFlag = true; // Checked
 const cspellFlag = true; // Checked
 const drizzleFlag = true; // Checked
 const esEsFlag = true; // Checked
-const esImportFlag = false; // Checked
+const esImportFlag = true; // Checked
 // Recommend when you only use functional programming, or you have separate space for functional code in project
 const functionalFlag = false;
 const htmlFlag = true; // Checked
 const jsFlag = true; // Checked
-const jsonFlag = false; // Checked
+const jsonFlag = true; // Checked
 const markdownFlag = true; // Checked
 const nodeFlag = true; // Checked
 const pandacssFlag = false;
@@ -50,7 +52,7 @@ const perfectionistFlag = true; // Checked
 // "Turns off all rules that are unnecessary or might conflict with Prettier." (most from stylistic)
 const prettierFlag = true; // Checked
 const promiseFlag = true; // Checked
-const regexFlag = true;
+const regexFlag = true; // Checked
 const securityFlag = true; // Checked
 const sonarjsFlag = true; // Checked
 const stylisticFlag = true; // Checked
@@ -58,9 +60,9 @@ const svelteFlag = true; // Checked
 const tailwindFlag = false;
 const tsDocFlag = true; // Checked
 const typescriptFlag = true; // Checked
-const unicornFlag = true; // TODO
+const unicornFlag = true; // Checked
 const vitestFlag = false; // Checked (almost, I check it when I write tests, I promise)
-const yamlFlag = true; // TODO
+const yamlFlag = true; // Checked
 
 const aliasRules = {
 	'alias/import-alias': [
@@ -118,12 +120,7 @@ const esEsRules = {
 	'esEs/test-case-shorthand-strings': 'error',
 };
 const esImportRules = {
-	// To check
-	'import/no-namespace': 'error',
-	'import/no-internal-modules': 'error',
-	'import/group-exports': 'error',
 	'import/no-relative-packages': 'error',
-	'import/no-relative-parent-imports': 'error',
 	'import/consistent-type-specifier-style': 'error',
 	'import/no-self-import': 'error',
 	'import/no-cycle': 'error',
@@ -134,21 +131,15 @@ const esImportRules = {
 	'import/first': 'error',
 	'import/max-dependencies': 'error',
 	'import/no-nodejs-modules': 'error',
-	'import/no-webpack-loader-syntax': 'error',
 	'import/newline-after-import': 'error',
-	'import/prefer-default-export': 'error',
-	'import/no-default-export': 'error',
-	'import/no-named-export': 'error',
 	'import/no-dynamic-require': 'error',
-	'import/unambiguous': 'error',
-	'import/no-unassigned-import': 'error',
 	'import/dynamic-import-chunkname': 'error',
 	'import/no-import-module-exports': 'error',
 	'import/no-empty-named-blocks': 'error',
 	'import/exports-last': 'error',
 	'import/no-deprecated': 'error',
 
-	// Recomended
+	// Recommended
 	'import/named': 'error',
 	'import/default': 'error',
 	'import/namespace': 'error',
@@ -159,12 +150,21 @@ const esImportRules = {
 	//"If you're using a module bundler other than Node or Webpack, you may end up with a lot of false positive reports of missing dependencies."
 	//https://github.com/import-js/eslint-plugin-import/blob/v2.31.0/docs/rules/no-unresolved.md
 	'import/no-unresolved': 'off',
-
 	'import/no-anonymous-default-export': 'error',
 	'import/no-absolute-path': 'error',
 	'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
 
 	// Useless
+	'import/no-namespace': 'off',
+	'import/group-exports': 'off',
+	'import/no-relative-parent-imports': 'off',
+	'import/no-webpack-loader-syntax': 'off',
+	'import/prefer-default-export': 'off',
+	'import/no-default-export': 'off',
+	'import/unambiguous': 'off',
+	'import/no-unassigned-import': 'off',
+	'import/no-named-export': 'off',
+	'import/no-internal-modules': 'off',
 	'import/extensions': 'off',
 	'import/no-restricted-paths': 'off',
 	'import/order': 'off',
@@ -226,7 +226,6 @@ const htmlRules = {
 	'@html-eslint/no-heading-inside-button': 'error',
 	'@html-eslint/require-form-method': 'error',
 	'@html-eslint/sort-attrs': 'error',
-	'@html-eslint/no-inline-styles': 'error',
 	'@html-eslint/no-skip-heading-levels': 'error',
 	'@html-eslint/id-naming-convention': 'error',
 	'@html-eslint/require-attrs': 'error',
@@ -241,9 +240,12 @@ const htmlRules = {
 	'@html-eslint/no-script-style-type': 'error',
 	'@html-eslint/no-invalid-role': 'error',
 	'@html-eslint/no-nested-interactive': 'error',
-	'@html-eslint/require-open-graph-protocol': 'error',
 	'@html-eslint/prefer-https': 'error',
 	'@html-eslint/max-element-depth': 'error',
+
+	// Off
+	'@html-eslint/require-open-graph-protocol': 'off',
+	'@html-eslint/no-inline-styles': 'off',
 };
 const jsRules = {
 	'constructor-super': 'error',
@@ -492,7 +494,7 @@ const jsonRules = {
 	'json/no-unsafe-values': 'error',
 	'json/no-unnormalized-keys': 'error',
 	// Other
-	'json/sort-keys': 'error',
+	'json/sort-keys': 'off',
 	'json/top-level-interop': 'error',
 };
 const markdownRules = {
@@ -537,7 +539,7 @@ const nodeRules = {
 	'node/prefer-promises/fs': 'error',
 	'node/process-exit-as-throw': 'error',
 
-	// Possible useless
+	// Possibly useless
 	'node/no-unsupported-features/node-builtins': 'off',
 	'node/no-restricted-import': 'off',
 	'node/no-restricted-require': 'off',
@@ -780,7 +782,8 @@ const regexRules = {
 	'regex/no-useless-quantifier': 'error',
 	'regex/no-useless-range': 'error',
 	'regex/require-unicode-regexp': 'error',
-	'regex/require-unicode-sets-regexp': 'error',
+	//ESLint: 'regexp-v-flag' is not supported until Node.js >=20.0.0. The configured version range is '>=16.0.0'. (node/no-unsupported-features/es-syntax):
+	'regex/require-unicode-sets-regexp': 'off',
 	'regex/simplify-set-operations': 'error',
 	'regex/sort-alternatives': 'error',
 	'regex/sort-character-class-elements': 'error',
@@ -808,7 +811,6 @@ const securityRules = {
 	'security/detect-bidi-characters': 'error',
 };
 const sonarjsRules = {
-	// TODO: Check
 	'sonarjs/class-name': 'error',
 	'sonarjs/no-fallthrough': 'error',
 	'sonarjs/no-equals-in-for-termination': 'error',
@@ -1059,11 +1061,11 @@ const sonarjsRules = {
 	'sonarjs/array-constructor': 'off', // Is similar rule for one for TS
 	'sonarjs/declarations-in-global-scope': 'off', // Useless for typescript, because typescript have scopes instead of javascript
 
-	// possible problems
+	// possibly problems
 	'sonarjs/no-function-declaration-in-block': 'off', // In Svelte we often define functions in onMount or inside effects ($: ...).
 	'sonarjs/no-undefined-assignment': 'off', // In TypeScript let x: string | undefined is correct and useful.
 	'sonarjs/arguments-usage': 'off', // In TypeScript, you use rest parameters (...args), but arguments are sometimes needed.
-	'sonarjs/arrow-function-convention': 'off', // TypeScript formatuje to automatycznie (Prettier/ESLint ma lepszą kontrolę nad tym).
+	'sonarjs/arrow-function-convention': 'off', // TypeScript formats this automatically (Prettier/ESLint has better control over this).
 	'sonarjs/class-prototype': 'off', // In TypeScript and Svelte prototype is rarely used – if someone uses it, it is done consciously
 	'sonarjs/no-reference-error': 'off', // Possible problem when use 'console' od 'process'
 	'sonarjs/shorthand-property-grouping': 'error',
@@ -1155,7 +1157,6 @@ const stylisticRules = {
 	'@stylistic/nonblock-statement-body-position': 'off',
 };
 const svelteRules = {
-	// To check TODO
 	'svelte/comment-directive': 'error',
 	'svelte/consistent-selector-style': 'error',
 	'svelte/no-at-debug-tags': 'error',
@@ -1175,7 +1176,7 @@ const svelteRules = {
 	'svelte/system': 'error',
 	'svelte/valid-compile': 'error',
 	'svelte/valid-style-parse': 'error',
-	// Possible Errors
+	// Possibly Errors
 	'svelte/infinite-reactive-loop': 'error',
 	'svelte/no-dom-manipulating': 'error',
 	'svelte/no-dupe-on-directives': 'error',
@@ -1246,8 +1247,6 @@ const tailwindRules = {
 };
 const tsDocRules = { 'tsDoc/syntax': 'warn' };
 const typescriptRules = {
-	/* TypeScript rules */
-
 	/* Non configurable */
 	'@typescript-eslint/no-dynamic-delete': 'error',
 	'@typescript-eslint/no-empty-object-type': 'error',
@@ -1543,8 +1542,6 @@ const unicornRules = {
 	'unicorn/error-message': 'error',
 	// Disabled: `null` is standard in databases, APIs, and explicit absence of value is clearer than `undefined`.
 	'unicorn/no-null': 'off',
-
-	// TODO: Check
 	'unicorn/better-regex': 'error',
 	'unicorn/catch-error-name': 'error',
 	'unicorn/consistent-assert': 'error',
@@ -1796,7 +1793,7 @@ const yamlRules = {
 	'yml/sort-sequence-values': 'off',
 	'yml/spaced-comment': 'error',
 	'yml/vue-custom-block/no-parsing-error': 'error',
-}
+};
 
 export default [
 	prettier,
@@ -1804,6 +1801,7 @@ export default [
 		name: 'Main ruleset',
 		files: ['**/*.{ts,tsx,js,jsx,cjs,mjs,svelte}'],
 		ignores: [
+			'tests/**', // TODO TEMP
 			'node_modules',
 			'node_modules/**',
 			'build',
@@ -1997,8 +1995,8 @@ export default [
 	{
 		name: 'Yaml',
 		files: ['**/*.yml', '**/*.yaml'],
-		languageOptions:{
-			parser: parseYAML
+		languageOptions: {
+			parser: parseYAML,
 		},
 		plugins: {
 			yml,
