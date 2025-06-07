@@ -25,6 +25,7 @@ import tsDoc from 'eslint-plugin-tsdoc';
 import unicorn from 'eslint-plugin-unicorn';
 import svelteParser from 'svelte-eslint-parser';
 import markdown from "@eslint/markdown";
+import { fileURLToPath } from 'node:url';
 
 // IMPORTANT! If you want see what rules is in use, just run in terminal: npx @eslint/config-inspector
 // For most plugins you can check their docs via this tool
@@ -57,6 +58,8 @@ const typescriptFlag = true; // Checked
 const unicornFlag = true; // Checked
 const vitestFlag = true; // Checked (almost, I check it when I write tests, I promise)
 
+const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
+
 export default [
 	prettier,
 	{
@@ -72,7 +75,6 @@ export default [
 			'eslint.config.js',
 			'drizzle.config.ts',
 			'commitlint.config.js',
-			'vitest.config.js',
 			'src/routes/sandbox/**',
 			'src/routes/debug/**',
 			'tsconfig.json',

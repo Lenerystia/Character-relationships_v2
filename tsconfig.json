@@ -9,8 +9,8 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"noImplicitReturns": true,
 		"moduleResolution": "bundler",
+		"noImplicitReturns": true,
 		"baseUrl": ".",
 		"paths": {
 			"$lib/*": ["src/lib/*"],
