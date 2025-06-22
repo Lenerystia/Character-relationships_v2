@@ -1,7 +1,9 @@
+import type { CharacterNames } from '$lib/class/CharacterNames';
+
 export class Character {
 	public constructor(
 		public readonly id: number,
-		public readonly firstName: string,
+		public readonly names: CharacterNames,
 		public readonly lastName: string,
 	) {}
 }
